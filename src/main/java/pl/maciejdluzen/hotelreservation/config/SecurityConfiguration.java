@@ -28,6 +28,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/hello").authenticated();
+                .antMatchers("/").permitAll()
+                .antMatchers("/hello").permitAll()
+                .antMatchers("/register/**").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/auth/guest", "/auth/guest/**").hasRole("GUEST")
+                .antMatchers("/auth/admin", "/auth/admin/**").hasRole("ADMIN")
+                .antMatchers("/auth/reception", "/auth/reception/**").hasRole("RECEPTIONIST")
+                .anyRequest().authenticated()
+                .and()
+        .formLogin()
+                .loginPage("/login")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/")
+                .and()
+        .logout()
+                .logoutSuccessUrl("/")
+                .and()
+        .csrf();
     }
 }

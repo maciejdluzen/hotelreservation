@@ -1,3 +1,4 @@
+/*
 package pl.maciejdluzen.hotelreservation.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
@@ -9,4 +10,4 @@ public class SecurityWebApplicationInitializer
         Class initializes the Spring Security
      */
 
-}
+//}
