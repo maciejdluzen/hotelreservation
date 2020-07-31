@@ -18,7 +18,8 @@ public class WebConfig implements WebMvcConfigurer {
         Internationalization settings (Polish and english language)
      */
 
-    @Override
+
+@Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
     }
