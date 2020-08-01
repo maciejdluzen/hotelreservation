@@ -31,4 +31,16 @@ public class Reservation {
     @Column(name = "third_guest_name")
     private String thirdGuestName;
 
+    @ManyToOne
+    private Guest guest; // Bi-directional relationship
+
+    @OneToOne
+    private CardDetails cardDetails; // Uni-directional relationship
+
+    @ManyToOne
+    private Hotel hotel; // Bi-directional relationship
+
+    @ManyToOne
+    private Room room; // Bi-directional relationship
+
 }

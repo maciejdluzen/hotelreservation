@@ -29,6 +29,7 @@ public abstract class User {
     @Column(nullable = false)
     private Boolean active;
 
-
+    @ManyToOne
+    private Role role; // Uni-directional relationship
 
 }

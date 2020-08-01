@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter @Setter
 @EqualsAndHashCode(of = "id")
@@ -30,5 +32,14 @@ public class Hotel {
     private String phoneNumber;
     @Column(name = "email_address", nullable = false)
     private String emailAddress;
+
+    @OneToMany(mappedBy = "hotel")
+    private Set<Reservation> reservations = new HashSet<>(); // Bi-directional relationship
+
+    @OneToMany(mappedBy = "hotel")
+    private Set<Room> rooms = new HashSet<>(); // Uni-directional relationship
+
+    @OneToMany(mappedBy = "receptionist")
+    private Set<Receptionist> receptionists = new HashSet<>(); // Bi-directional relationship
 
 }

@@ -4,10 +4,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -28,5 +27,8 @@ public class Guest extends User {
     private String postCode;
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "guest")
+    private Set<Reservation> reservations = new HashSet<>(); // Bi-directional relationship
 
 }
