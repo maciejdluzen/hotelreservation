@@ -39,7 +39,7 @@ public class Hotel {
     private Set<Reservation> reservations = new HashSet<>(); // Bi-directional relationship
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE)
-    private Set<Room> rooms = new HashSet<>(); // Uni-directional relationship
+    private Set<Room> rooms = new HashSet<>(); // Bi-directional relationship
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE)
     private Set<Receptionist> receptionists = new HashSet<>(); // Bi-directional relationship

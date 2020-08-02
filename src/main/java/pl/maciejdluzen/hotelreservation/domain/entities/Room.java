@@ -31,4 +31,7 @@ public class Room {
     @OneToOne
     private RoomType roomType; // Uni-directional relationship
 
+    @ManyToOne
+    private Hotel hotel;
+
 }
