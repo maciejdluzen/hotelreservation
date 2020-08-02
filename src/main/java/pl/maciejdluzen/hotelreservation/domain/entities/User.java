@@ -3,14 +3,16 @@ package pl.maciejdluzen.hotelreservation.domain.entities;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Getter @Setter
 @EqualsAndHashCode(of = "id")
+@ToString
 
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "user_type")
 public abstract class User {

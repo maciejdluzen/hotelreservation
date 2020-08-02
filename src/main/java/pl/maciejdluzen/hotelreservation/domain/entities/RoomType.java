@@ -3,14 +3,16 @@ package pl.maciejdluzen.hotelreservation.domain.entities;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Getter @Setter
 @EqualsAndHashCode(of = "id")
+@ToString
 
 @Entity
-@Table(name = "room_type")
+@Table(name = "ROOM_TYPES")
 public class RoomType {
 
     @Id
@@ -36,8 +38,9 @@ public class RoomType {
     private String feature3;
     @Column(name = "feature_4")
     private String feature4;
-    @Column
-    private Byte[] image;
+    @Lob
+    @Column(columnDefinition = "BLOB")
+    private byte[] image;
 
 
 

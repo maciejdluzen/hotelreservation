@@ -3,18 +3,19 @@ package pl.maciejdluzen.hotelreservation.domain.entities;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
-@EqualsAndHashCode
+@Getter @Setter
+@EqualsAndHashCode(callSuper = true)
+@ToString(exclude = "reservations")
 
 @Entity
 @DiscriminatorValue("G")
-@Table(name = "guests")
+@Table(name = "GUESTS")
 public class Guest extends User {
 
     @Column(nullable = false)
@@ -28,7 +29,7 @@ public class Guest extends User {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "guest")
+    @OneToMany(mappedBy = "guest", cascade = CascadeType.REMOVE)
     private Set<Reservation> reservations = new HashSet<>(); // Bi-directional relationship
 
 }

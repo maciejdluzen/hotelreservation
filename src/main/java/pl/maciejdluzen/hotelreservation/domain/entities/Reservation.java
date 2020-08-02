@@ -3,6 +3,7 @@ package pl.maciejdluzen.hotelreservation.domain.entities;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,9 +11,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
+@ToString
 
 @Entity
-@Table(name = "reservations")
+@Table(name = "RESERVATIONS")
 public class Reservation {
 
     @Id
@@ -25,7 +27,7 @@ public class Reservation {
     @Column(name = "check_out_date", nullable = false)
     private LocalDateTime checkOutDate;
     @Column(nullable = false)
-    private Boolean status;
+    private Boolean status = Boolean.FALSE;
     @Column(name = "second_guest_name")
     private String secondGuestName;
     @Column(name = "third_guest_name")

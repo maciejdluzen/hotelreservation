@@ -3,6 +3,7 @@ package pl.maciejdluzen.hotelreservation.domain.entities;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -10,9 +11,10 @@ import java.util.Set;
 
 @Getter @Setter
 @EqualsAndHashCode(of = "id")
+@ToString(exclude = {"reservations", "rooms", "receptionists"})
 
 @Entity
-@Table(name = "hotels")
+@Table(name = "HOTELS")
 public class Hotel {
 
     @Id
@@ -33,13 +35,13 @@ public class Hotel {
     @Column(name = "email_address", nullable = false)
     private String emailAddress;
 
-    @OneToMany(mappedBy = "hotel")
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE)
     private Set<Reservation> reservations = new HashSet<>(); // Bi-directional relationship
 
-    @OneToMany(mappedBy = "hotel")
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE)
     private Set<Room> rooms = new HashSet<>(); // Uni-directional relationship
 
-    @OneToMany(mappedBy = "receptionist")
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE)
     private Set<Receptionist> receptionists = new HashSet<>(); // Bi-directional relationship
 
 }

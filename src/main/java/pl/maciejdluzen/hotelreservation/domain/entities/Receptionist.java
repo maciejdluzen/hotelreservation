@@ -3,6 +3,7 @@ package pl.maciejdluzen.hotelreservation.domain.entities;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -11,11 +12,12 @@ import javax.persistence.Table;
 
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
+@ToString
 
 @Entity
 @DiscriminatorValue("R")
-@Table(name = "receptionists")
+@Table(name = "RECEPTIONISTS")
 public class Receptionist extends User {
 
     @ManyToOne
