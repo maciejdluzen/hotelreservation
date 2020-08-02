@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
@@ -39,17 +38,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/reception", "/auth/reception/**").hasRole("RECEPTIONIST")
                 .anyRequest().authenticated()
                 .and()
-        .formLogin()
+                .formLogin()
                 .loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/")
                 .and()
-        .logout()
+                .logout()
                 .logoutSuccessUrl("/")
                 .and()
-        .csrf();
+                .csrf();
     }
+
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -57,4 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/public_html/**")
                 .antMatchers("/h2-console", "/h2-console/**");
     }
+
 }
+
+
