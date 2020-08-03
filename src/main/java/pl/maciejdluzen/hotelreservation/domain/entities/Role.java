@@ -12,7 +12,7 @@ import javax.persistence.*;
 @ToString
 
 @Entity
-@Table(name = "ROLES")
+@Table(name = "roles")
 public class Role {
 
     @Id

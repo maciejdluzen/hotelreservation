@@ -1,0 +1,43 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head"></head>
+
+<body>
+
+<div class="container">
+
+    <div class="row align-middle" style="margin-top: 150px;">
+        <div class="col-md-4 offset-md-4">
+
+            <h4>Logowanie do konta</h4>
+
+            <form class="input-group" method="post" th:action="@{/login}">
+
+                <div class="input-group pb-4">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-envelope"></i></span>
+                    </div>
+                    <input type="email" class="form-control" id="emailAddress" placeholder="Adres e-mail">
+                </div>
+
+                <div class="input-group pb-4">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    </div>
+                    <input type="password" class="form-control" id="password" placeholder="Hasło">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Zaloguj</button>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+
+<footer th:replace="fragments/footer"></footer>
+
+</body>
+</html>

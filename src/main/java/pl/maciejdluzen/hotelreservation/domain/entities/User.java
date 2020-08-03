@@ -12,7 +12,7 @@ import javax.persistence.*;
 @ToString
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "user_type")
 public abstract class User {
