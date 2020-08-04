@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @DiscriminatorValue("R")
-@Table(name = "RECEPTIONISTS")
+@Table(name = "receptionists")
 public class Receptionist extends User {
 
     @ManyToOne

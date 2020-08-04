@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @ToString
 
 @Entity
-@Table(name = "RESERVATIONS")
+@Table(name = "reservations")
 public class Reservation {
 
     @Id

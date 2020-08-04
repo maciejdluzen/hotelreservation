@@ -14,7 +14,7 @@ import java.util.Set;
 @ToString(exclude = "reservations")
 
 @Entity
-@Table(name = "ROOMS")
+@Table(name = "rooms")
 public class Room {
 
     @Id

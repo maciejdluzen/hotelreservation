@@ -14,7 +14,7 @@ import java.util.Set;
 @ToString(exclude = {"reservations", "rooms", "receptionists"})
 
 @Entity
-@Table(name = "HOTELS")
+@Table(name = "hotels")
 public class Hotel {
 
     @Id

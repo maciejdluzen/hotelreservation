@@ -12,7 +12,7 @@ import javax.persistence.*;
 @ToString
 
 @Entity
-@Table(name = "ROOM_TYPES")
+@Table(name = "room_types")
 public class RoomType {
 
     @Id

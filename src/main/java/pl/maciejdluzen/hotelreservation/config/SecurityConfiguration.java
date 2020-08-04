@@ -34,7 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery("SELECT email_address, password, active FROM users WHERE email_address = ?")
-                .authoritiesByUsernameQuery("SELECT u.email_address, r.name FROM users u JOIN roles r ON u.id = r.user_id JOIN roles r ON r.roles_id = r.id WHERE u.email_address = ?");
+                .authoritiesByUsernameQuery("SELECT u.email_address, r.name FROM users u JOIN roles r ON r.id = u.role_id WHERE u.email_address = ?");
     }
 
     @Override
@@ -51,7 +51,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .usernameParameter("username")
+                .usernameParameter("email_address")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/")
                 .and()

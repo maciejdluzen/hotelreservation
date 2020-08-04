@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Entity
 @DiscriminatorValue("G")
-@Table(name = "GUESTS")
+@Table(name = "guests")
 public class Guest extends User {
 
     @Column(nullable = false)
