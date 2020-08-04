@@ -1,8 +1,12 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/head"></head>
+<head th:replace="fragments/head">
 
+</head>
+<script type="text/javascript">
+
+</script>
 <body>
 
 <div class="container">
@@ -11,7 +15,8 @@
         <div class="col-md-4 offset-md-4">
 
             <h4>Logowanie do konta</h4>
-
+            <p id="errorUser"></p>
+            <p id="errorPass"></p>
             <form class="input-group" method="post" th:action="@{/login}">
 
                 <div class="input-group pb-4">
@@ -28,7 +33,7 @@
                     <input type="password" class="form-control" id="password" name="password" placeholder="Hasło">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Zaloguj</button>
+                <button type="submit" class="btn btn-primary" id="submitLogin">Zaloguj</button>
             </form>
 
         </div>
@@ -36,8 +41,30 @@
 
 </div>
 
+<script>
+    let btn = document.getElementById('submitLogin');
+    let username = document.getElementById('username');
+    let password = document.getElementById('password');
+    let errorUser = document.getElementById('errorUser');
+    let errorPass = document.getElementById('errorPass');
 
+    btn.addEventListener('click', function (e) {
+        if(username.value === "" && password.value === "") {
+            errorUser.innerText = "Adres email jest wymagany"
+            errorPass.innerText = "Hasło jest wymagane"
+            e.preventDefault()
+        }
+
+        if(username.value === "") {
+            errorUser.innerText = "Adres email jest wymagany"
+            e.preventDefault()
+        }
+        if(password.value === "") {
+            errorPass.innerText = "Hasło jest wymagane"
+            e.preventDefault();
+        }
+    });
+</script>
 <footer th:replace="fragments/footer"></footer>
-
 </body>
 </html>
