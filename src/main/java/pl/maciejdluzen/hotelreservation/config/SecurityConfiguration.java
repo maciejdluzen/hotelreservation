@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.maciejdluzen.hotelreservation.services.UserService;
 
 import javax.sql.DataSource;
 
@@ -18,9 +19,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     private final DataSource dataSource;
+    private final UserService userService;
 
-    public SecurityConfiguration(DataSource dataSource) {
+    public SecurityConfiguration(DataSource dataSource, UserService userService) {
         this.dataSource = dataSource;
+        this.userService = userService;
     }
 
     @Bean
@@ -33,8 +36,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
-                .usersByUsernameQuery("SELECT email_address, password, active FROM users WHERE email_address = ?")
-                .authoritiesByUsernameQuery("SELECT u.email_address, r.name FROM users u JOIN roles r ON r.id = u.role_id WHERE u.email_address = ?");
+                .usersByUsernameQuery("SELECT username, password, active FROM users WHERE username = ?")
+                .authoritiesByUsernameQuery("SELECT u.username, r.name FROM users u JOIN roles r ON r.id = u.role_id WHERE u.username = ?");
     }
 
     @Override
@@ -49,16 +52,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/reception", "/auth/reception/**").hasRole("RECEPTIONIST")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
+            .formLogin()
                 .loginPage("/login")
-                .usernameParameter("email_address")
+                .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/")
                 .and()
-                .logout()
+            .logout()
                 .logoutSuccessUrl("/")
                 .and()
-                .csrf();
+            .csrf();
     }
 
 

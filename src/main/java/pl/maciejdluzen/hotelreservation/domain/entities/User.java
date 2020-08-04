@@ -20,7 +20,9 @@ public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "email_address", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
+    private String username;
+    @Column(name = "email_address", unique = true)
     private String emailAddress;
     @Column(nullable = false)
     private String password;
@@ -34,4 +36,7 @@ public abstract class User {
     @ManyToOne
     private Role role; // Uni-directional relationship
 
+//    public void setEmailAddress() {
+//        this.emailAddress = getUsername();
+//    }
 }
