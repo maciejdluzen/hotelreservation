@@ -4,24 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.maciejdluzen.hotelreservation.domain.entities.User;
 import pl.maciejdluzen.hotelreservation.domain.repositories.UserRepository;
+import pl.maciejdluzen.hotelreservation.dtos.GuestDto;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.Optional;
 
-@Service
-public class UserService {
 
-    private final UserRepository userRepository;
+public interface UserService {
 
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    Optional<User> findUserByEmailAddress(String emailAddress);
 
-    @Transactional
-    public Optional<User> findUserByEmailAddress(String emailAddress) {
-        return userRepository.findUserByEmailAddress(emailAddress);
-    }
-
+    void registerNewGuestAccount(@Valid GuestDto guestDto);
 
 }
