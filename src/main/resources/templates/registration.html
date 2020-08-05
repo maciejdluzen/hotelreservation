@@ -1,0 +1,91 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head"></head>
+
+<body>
+<div class="container">
+    <div class="row align-middle" style="margin-top: 30px;">
+        <div class="col-md-4 offset-md-4">
+
+            <form action="/" th:object="${guest}" method="post">
+                <h4>Rejestracja</h4>
+                <div id="registrationErrors">
+                    <p id="emptyFieldErr"></p>
+                    <p id="passNoMatchErr"></p>
+                </div>
+
+                <div class="input-group pb-4">
+                    <input th:field="*{emailAddress}" type="email" class="form-control" id="email" placeholder="Adres e-mail">
+                </div>
+
+                <div class="input-group pb-4">
+                    <input th:field="*{firstName}" type="text" class="form-control" id="firstName" placeholder="Imię">
+                </div>
+
+                <div class="input-group pb-4">
+                    <input th:field="*{lastName}" type="text" class="form-control" id="lastName" placeholder="Nazwisko">
+                </div>
+
+                <div class="input-group pb-4">
+                    <input th:field="*{street}" type="text" class="form-control" id="street" placeholder="Ulica">
+                </div>
+
+                <div class="input-group pb-4">
+                    <input th:field="*{homeNumber}" type="text" class="form-control" id="homeNumber" placeholder="Numer domu">
+                </div>
+
+                <div class="input-group pb-4">
+                    <input th:field="*{city}" type="text" class="form-control" id="city" placeholder="Miejscowość">
+                </div>
+
+                <div class="input-group pb-4">
+                    <input th:field="*{postCode}" type="text" class="form-control" id="postCode" placeholder="Kod pocztowy">
+                </div>
+
+                <div class="input-group pb-4">
+                    <input th:field="*{phoneNumber}" type="text" class="form-control" id="phoneNumber" placeholder="Telefon">
+                </div>
+
+                <div class="input-group pb-4">
+                    <input th:field="*{password}" type="password" class="form-control" id="password" placeholder="Hasło">
+                </div>
+
+                <div class="input-group pb-4">
+                    <input type="password" class="form-control" id="passConf" placeholder="Powtórz hasło">
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="submitRegistration">Zarejestruj</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    let inputFields = document.querySelectorAll("input");
+    let btn = document.getElementById('submitRegistration');
+    let emptyFieldErr = document.getElementById('emptyFieldErr');
+    let passNoMatchErr = document.getElementById('passNoMatchErr');
+    let password = document.getElementById('password');
+    let passConf = document.getElementById('passConf');
+
+
+    btn.addEventListener('click', function (e) {
+        if(password.value !== "" && passConf.value !== "" && password.value !== passConf.value) {
+            console.log("Powtórzone:" + passConf.value);
+            passNoMatchErr.innerText = "Hasła muszą być takie same";
+            e.preventDefault();
+        }
+        inputFields.forEach(function (item) {
+            if(item.value === "") {
+                emptyFieldErr.innerText = "Uzupełnij wymagane pola";
+                e.preventDefault();
+            }
+            }
+        )
+    });
+</script>
+<footer th:replace="fragments/footer"></footer>
+</body>
+</html>
