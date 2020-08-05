@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import pl.maciejdluzen.hotelreservation.services.ValidationService;
 import pl.maciejdluzen.hotelreservation.validation.constraints.UniqueEmail;
 
 import javax.validation.ConstraintValidator;
@@ -21,7 +22,7 @@ public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, St
 
     public boolean isValid(String value, ConstraintValidatorContext context) {
         log.debug("Validating unique email: {}", value);
-        boolean unique = validationService.isUniqueEmail(value);
+        boolean unique = validationService.isUniqueEmailAddress(value);
         log.debug("Is email '{}' unique? {}", value, unique);
         return unique;
     }

@@ -2,6 +2,7 @@ package pl.maciejdluzen.hotelreservation.dtos;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
+import pl.maciejdluzen.hotelreservation.validation.constraints.UniqueEmail;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -20,6 +21,7 @@ public class GuestDto {
     @NotNull
     @NotEmpty
     @Email
+    @UniqueEmail
     private String emailAddress;
 
     @NotNull
