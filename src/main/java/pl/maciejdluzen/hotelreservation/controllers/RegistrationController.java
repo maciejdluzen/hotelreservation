@@ -8,12 +8,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.maciejdluzen.hotelreservation.dtos.GuestDto;
+import pl.maciejdluzen.hotelreservation.exceptions.UserAlreadyExistException;
+import pl.maciejdluzen.hotelreservation.services.UserService;
 
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/register")
 public class RegistrationController {
+
+    private final UserService userService;
+
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
+    }
 
 
     @GetMapping("/guest")
@@ -28,19 +36,12 @@ public class RegistrationController {
         if(results.hasErrors()) {
             return "registration";
         }
-
-
-        /*
-        TO-DO
-        Complete try-catch block with new guest registration
-        https://www.baeldung.com/registration-with-spring-mvc-and-spring-security
-         */
-
-        return "";
+        try {
+            userService.registerNewGuestAccount(guestDto);
+        } catch (UserAlreadyExistException exc) {
+            exc.printStackTrace();
+        }
+        return "redirect:/login";
     }
-
-
-
-
 
 }
