@@ -70,21 +70,35 @@
     let passNoMatchErr = document.getElementById('passNoMatchErr');
     let password = document.getElementById('password');
     let passConf = document.getElementById('passConf');
+    let regErr = document.getElementById('registrationErrors');
 
+    if(regErr.children.length > 2) {
+            console.log(regErr.children.length);
+            regErr.classList.add('alert');
+            regErr.className += ' alert-danger';
+        }
 
     btn.addEventListener('click', function (e) {
+
         if(password.value !== "" && passConf.value !== "" && password.value !== passConf.value) {
             console.log("Powtórzone:" + passConf.value);
             passNoMatchErr.innerText = "Hasła muszą być takie same";
             e.preventDefault();
         }
+
         inputFields.forEach(function (item) {
             if(item.value === "") {
                 emptyFieldErr.innerText = "Uzupełnij wymagane pola";
                 e.preventDefault();
             }
-            }
-        )
+        })
+
+        if(regErr.children.length > 0) {
+            console.log(regErr.children.length);
+            regErr.classList.add('alert');
+            regErr.className += ' alert-danger';
+        }
+
     });
 </script>
 <footer th:replace="fragments/footer"></footer>
