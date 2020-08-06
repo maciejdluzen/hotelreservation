@@ -1,5 +1,7 @@
 package pl.maciejdluzen.hotelreservation.setup;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -9,6 +11,8 @@ import pl.maciejdluzen.hotelreservation.domain.repositories.RoleRepository;
 
 @Component
 public class StarterClass implements ApplicationRunner {
+
+    private Logger LOG = LoggerFactory.getLogger(getClass());
 
     private final RoleRepository roleRepository;
 

@@ -1,5 +1,8 @@
 package pl.maciejdluzen.hotelreservation.controllers;
 
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +20,8 @@ import javax.validation.Valid;
 @RequestMapping("/register")
 public class RegistrationController {
 
+    private Logger LOG = LoggerFactory.getLogger(getClass());
+
     private final UserService userService;
 
     public RegistrationController(UserService userService) {
@@ -27,20 +32,28 @@ public class RegistrationController {
     @GetMapping("/guest")
     public String showGuestRegistrationForm(Model model) {
         model.addAttribute("guest", new GuestDto());
+        LOG.info("RegistrationController.class: showing the registration form");
         return "registration";
     }
 
     @PostMapping("/guest")
     public String registerNewGuestAccount(@ModelAttribute("guest")
                     @Valid GuestDto guestDto, BindingResult results) {
+
+        LOG.info("RegistrationController.class: Guest from the form submission: {}", guestDto.getEmailAddress());
+
         if(results.hasErrors()) {
             return "registration";
         }
+        userService.registerNewGuestAccount(guestDto);
+        /*
         try {
             userService.registerNewGuestAccount(guestDto);
         } catch (UserAlreadyExistException exc) {
             exc.printStackTrace();
         }
+
+         */
         return "redirect:/login";
     }
 

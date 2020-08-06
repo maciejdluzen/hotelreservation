@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.maciejdluzen.hotelreservation.services.UserService;
@@ -19,16 +20,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     private final DataSource dataSource;
-    private final UserService userService;
 
-    public SecurityConfiguration(DataSource dataSource, UserService userService) {
+    public SecurityConfiguration(DataSource dataSource) {
         this.dataSource = dataSource;
-        this.userService = userService;
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
     @Override
@@ -56,7 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/hello")
                 .and()
             .logout()
                 .logoutSuccessUrl("/")

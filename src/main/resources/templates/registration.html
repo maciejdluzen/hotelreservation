@@ -8,7 +8,7 @@
     <div class="row align-middle" style="margin-top: 30px;">
         <div class="col-md-4 offset-md-4">
 
-            <form action="/" th:object="${guest}" method="post">
+            <form th:action="@{/register/guest}" th:object="${guest}" method="post">
                 <h4>Rejestracja</h4>
                 <div id="registrationErrors">
                     <p id="emptyFieldErr"></p>

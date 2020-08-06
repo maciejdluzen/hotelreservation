@@ -1,6 +1,8 @@
 package pl.maciejdluzen.hotelreservation.services.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.maciejdluzen.hotelreservation.domain.entities.Guest;
 import pl.maciejdluzen.hotelreservation.domain.entities.Role;
@@ -17,17 +19,20 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class DefaultUserService implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final GuestRepository guestRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public DefaultUserService(UserRepository userRepository, RoleRepository roleRepository, GuestRepository guestRepository) {
+    public DefaultUserService(UserRepository userRepository, RoleRepository roleRepository, GuestRepository guestRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.guestRepository = guestRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -45,10 +50,13 @@ public class DefaultUserService implements UserService {
             throw new UserAlreadyExistException(guestDto.getEmailAddress());
         }
 
+        String encodedPassword = passwordEncoder.encode(guestDto.getPassword());
+
         Guest guest = new Guest();
+        log.info("DefaultUserService.class: Saved guest: {}", guestDto.getEmailAddress());
         guest.setUsername(guestDto.getEmailAddress());
         guest.setEmailAddress(guestDto.getEmailAddress());
-        guest.setPassword(guestDto.getPassword());
+        guest.setPassword(encodedPassword);
         guest.setFirstName(guestDto.getFirstName());
         guest.setLastName(guestDto.getLastName());
         guest.setActive(true);
