@@ -40,20 +40,16 @@ public class RegistrationController {
     public String registerNewGuestAccount(@ModelAttribute("guest")
                     @Valid GuestDto guestDto, BindingResult results) {
 
-        LOG.info("RegistrationController.class: Guest from the form submission: {}", guestDto.getEmailAddress());
-
         if(results.hasErrors()) {
             return "registration";
         }
-        userService.registerNewGuestAccount(guestDto);
-        /*
+
         try {
             userService.registerNewGuestAccount(guestDto);
+            LOG.info("RegistrationController.class: Guest from the form submission: {}", guestDto.getEmailAddress());
         } catch (UserAlreadyExistException exc) {
             exc.printStackTrace();
         }
-
-         */
         return "redirect:/login";
     }
 

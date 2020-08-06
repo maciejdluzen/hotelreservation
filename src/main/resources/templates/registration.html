@@ -13,6 +13,7 @@
                 <div id="registrationErrors">
                     <p id="emptyFieldErr"></p>
                     <p id="passNoMatchErr"></p>
+                    <p th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}"></p>
                 </div>
 
                 <div class="input-group pb-4">
