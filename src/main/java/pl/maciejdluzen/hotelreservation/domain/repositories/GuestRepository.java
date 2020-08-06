@@ -6,4 +6,7 @@ import pl.maciejdluzen.hotelreservation.domain.entities.Guest;
 
 @Repository
 public interface GuestRepository extends JpaRepository<Guest, Long> {
+
+    Guest findByEmailAddressIgnoreCase(String emailAddress);
+
 }

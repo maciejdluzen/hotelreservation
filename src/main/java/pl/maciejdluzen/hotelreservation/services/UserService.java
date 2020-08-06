@@ -2,6 +2,7 @@ package pl.maciejdluzen.hotelreservation.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.maciejdluzen.hotelreservation.domain.entities.Guest;
 import pl.maciejdluzen.hotelreservation.domain.entities.User;
 import pl.maciejdluzen.hotelreservation.domain.repositories.UserRepository;
 import pl.maciejdluzen.hotelreservation.dtos.GuestDto;
@@ -17,4 +18,5 @@ public interface UserService {
 
     void registerNewGuestAccount(@Valid GuestDto guestDto);
 
+    void confirmGuestAccount(String verificationToken);
 }

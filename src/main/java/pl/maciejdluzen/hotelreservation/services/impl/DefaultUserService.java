@@ -2,16 +2,20 @@ package pl.maciejdluzen.hotelreservation.services.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.maciejdluzen.hotelreservation.domain.entities.Guest;
 import pl.maciejdluzen.hotelreservation.domain.entities.Role;
 import pl.maciejdluzen.hotelreservation.domain.entities.User;
+import pl.maciejdluzen.hotelreservation.domain.entities.VerificationToken;
 import pl.maciejdluzen.hotelreservation.domain.repositories.GuestRepository;
 import pl.maciejdluzen.hotelreservation.domain.repositories.RoleRepository;
 import pl.maciejdluzen.hotelreservation.domain.repositories.UserRepository;
+import pl.maciejdluzen.hotelreservation.domain.repositories.VerificationTokenRepository;
 import pl.maciejdluzen.hotelreservation.dtos.GuestDto;
 import pl.maciejdluzen.hotelreservation.exceptions.UserAlreadyExistException;
+import pl.maciejdluzen.hotelreservation.services.EmailSenderService;
 import pl.maciejdluzen.hotelreservation.services.UserService;
 
 import javax.transaction.Transactional;
@@ -26,13 +30,17 @@ public class DefaultUserService implements UserService {
     private final RoleRepository roleRepository;
     private final GuestRepository guestRepository;
     private final PasswordEncoder passwordEncoder;
+    private final VerificationTokenRepository verificationTokenRepository;
+    private final EmailSenderService emailSenderService;
 
     @Autowired
-    public DefaultUserService(UserRepository userRepository, RoleRepository roleRepository, GuestRepository guestRepository, PasswordEncoder passwordEncoder) {
+    public DefaultUserService(UserRepository userRepository, RoleRepository roleRepository, GuestRepository guestRepository, PasswordEncoder passwordEncoder, VerificationTokenRepository verificationTokenRepository, EmailSenderService emailSenderService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.guestRepository = guestRepository;
         this.passwordEncoder = passwordEncoder;
+        this.verificationTokenRepository = verificationTokenRepository;
+        this.emailSenderService = emailSenderService;
     }
 
     @Transactional
@@ -59,7 +67,6 @@ public class DefaultUserService implements UserService {
         guest.setPassword(encodedPassword);
         guest.setFirstName(guestDto.getFirstName());
         guest.setLastName(guestDto.getLastName());
-        guest.setActive(true);
         Role roleGuest = roleRepository.getByName("ROLE_GUEST");
         guest.setRole(roleGuest);
 
@@ -71,12 +78,32 @@ public class DefaultUserService implements UserService {
 
         guestRepository.save(guest);
 
+        VerificationToken token = new VerificationToken(guest);
+        verificationTokenRepository.save(token);
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(guest.getEmailAddress());
+        mailMessage.setSubject("Potwierdz adres email");
+        mailMessage.setFrom("");
+        mailMessage.setText("Potwierdz swoje konto, klikajac w link: " +
+                "http://localhost:8081/register/confirm?token="+token.getToken());
+
+        emailSenderService.sendEmail(mailMessage);
+
         /*
         TO-DO
         Complete this method***
 
          */
+    }
 
+    @Override
+    public void confirmGuestAccount(String verificationToken) {
 
+        VerificationToken token = verificationTokenRepository.findByToken(verificationToken);
+
+        Guest guest = guestRepository.findByEmailAddressIgnoreCase(token.getGuest().getEmailAddress());
+        guest.setActive(true);
+        guestRepository.save(guest);
     }
 }

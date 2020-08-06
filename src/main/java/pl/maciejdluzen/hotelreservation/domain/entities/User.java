@@ -31,12 +31,8 @@ public abstract class User {
     @Column(name = "last_name")
     private String lastName;
     @Column
-    private Boolean active;
+    private Boolean active = Boolean.FALSE;
 
     @ManyToOne
     private Role role; // Uni-directional relationship
-
-//    public void setEmailAddress() {
-//        this.emailAddress = getUsername();
-//    }
 }
