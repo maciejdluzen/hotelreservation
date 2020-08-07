@@ -79,31 +79,32 @@ public class DefaultUserService implements UserService {
         guestRepository.save(guest);
 
         VerificationToken token = new VerificationToken(guest);
+
+        log.info("DefaultUserService: Creating a new verification token: {}: ", token.getToken());
+
         verificationTokenRepository.save(token);
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(guest.getEmailAddress());
         mailMessage.setSubject("Potwierdz adres email");
-        mailMessage.setFrom("");
+        mailMessage.setFrom("HOTEL RESERVATION");
         mailMessage.setText("Potwierdz swoje konto, klikajac w link: " +
-                "http://localhost:8081/register/confirm?token="+token.getToken());
+                "http://localhost:8081/register/confirm?token=" + token.getToken());
+
+        log.info("DefaultUserService: Sending a confirmation email to the following email address {}: ; " +
+                "Guests profile active is set to : {}: ", guest.getEmailAddress(), guest.getActive());
 
         emailSenderService.sendEmail(mailMessage);
-
-        /*
-        TO-DO
-        Complete this method***
-
-         */
     }
 
     @Override
     public void confirmGuestAccount(String verificationToken) {
 
         VerificationToken token = verificationTokenRepository.findByToken(verificationToken);
-
         Guest guest = guestRepository.findByEmailAddressIgnoreCase(token.getGuest().getEmailAddress());
         guest.setActive(true);
+
+        log.info("DefaultUserService: Setting user's profile active to: {}: ", guest.getActive());
         guestRepository.save(guest);
     }
 }

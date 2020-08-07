@@ -54,6 +54,9 @@ public class RegistrationController {
     @RequestMapping(value = "/confirm", method = {RequestMethod.GET, RequestMethod.POST})
     public String confirmGuestAccount(@RequestParam("token") String verificationToken) {
 
+        LOG.info("RegistrationController.class: confirmGuestAccount.method: Verification Token from the " +
+                " URL parameter: {}", verificationToken);
+
         if(verificationToken != null) {
             userService.confirmGuestAccount(verificationToken);
             return "redirect:/login";

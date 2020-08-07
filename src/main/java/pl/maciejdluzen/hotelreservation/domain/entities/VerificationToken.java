@@ -2,6 +2,7 @@ package pl.maciejdluzen.hotelreservation.domain.entities;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Getter @Setter
+@NoArgsConstructor
 
 @Entity
 public class VerificationToken {
@@ -34,7 +36,4 @@ public class VerificationToken {
         createdDate = new Date();
         token = UUID.randomUUID().toString();
     }
-
-
-
 }
