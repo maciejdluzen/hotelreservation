@@ -85,9 +85,10 @@ public class DefaultUserService implements UserService {
         verificationTokenRepository.save(token);
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
+
         mailMessage.setTo(guest.getEmailAddress());
         mailMessage.setSubject("Potwierdz adres email");
-        mailMessage.setFrom("HOTEL RESERVATION");
+        mailMessage.setFrom("${mailusername}");
         mailMessage.setText("Potwierdz swoje konto, klikajac w link: " +
                 "http://localhost:8081/register/confirm?token=" + token.getToken());
 
@@ -95,6 +96,7 @@ public class DefaultUserService implements UserService {
                 "Guests profile active is set to : {}: ", guest.getEmailAddress(), guest.getActive());
 
         emailSenderService.sendEmail(mailMessage);
+
     }
 
     @Override

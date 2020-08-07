@@ -6,10 +6,11 @@
 <body>
 <div class="container">
     <div class="row align-middle" style="margin-top: 30px;">
-        <div class="col-md-4 offset-md-4">
+        <div class="col-md-4 offset-md-4" id="">
 
             <form th:action="@{/register/guest}" th:object="${guest}" method="post">
                 <h4>Rejestracja</h4>
+                <div id="successMessage"></div>
                 <div id="registrationErrors">
                     <p id="emptyFieldErr"></p>
                     <p id="passNoMatchErr"></p>
@@ -71,6 +72,17 @@
     let password = document.getElementById('password');
     let passConf = document.getElementById('passConf');
     let regErr = document.getElementById('registrationErrors');
+    let successMsg = document.getElementById('successMessage');
+    let successMsgChild = document.createElement("p");
+
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    if(urlParams.has('active')) {
+            successMsg.classList.add('alert');
+            successMsg.classList += ' alert-success';
+            successMsg.innerHTML += '<p>Link aktywacyjny został wysłany na maila</p>'
+    }
 
     if(regErr.children.length > 2) {
             console.log(regErr.children.length);

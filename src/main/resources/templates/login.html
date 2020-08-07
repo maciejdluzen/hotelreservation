@@ -15,6 +15,7 @@
         <div class="col-md-4 offset-md-4">
 
             <h4>Logowanie</h4>
+            <div id="successMessage"></div>
             <p id="errorUser"></p>
             <p id="errorPass"></p>
             <form class="input-group" method="post" th:action="@{/login}">
@@ -47,6 +48,17 @@
     let password = document.getElementById('password');
     let errorUser = document.getElementById('errorUser');
     let errorPass = document.getElementById('errorPass');
+    let successMsg = document.getElementById('successMessage');
+    let successMsgChild = document.createElement("p");
+
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    if(urlParams.has('active')) {
+            successMsg.classList.add('alert');
+            successMsg.classList += ' alert-success';
+            successMsg.innerHTML += '<p>Konto zostało pomyślnie aktywowane</p>'
+    }
 
     btn.addEventListener('click', function (e) {
         if(username.value === "" && password.value === "") {
