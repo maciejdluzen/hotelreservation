@@ -16,11 +16,13 @@
 
             <h4>Logowanie</h4>
 
-            <p th:if="${param.error}" class="alert alert-danger">Błędne dane logowania</p>
-
             <div id="successMessage"></div>
-            <p id="errorUser"></p>
-            <p id="errorPass"></p>
+            <p th:if="${param.error}" class="alert alert-danger">Błędne dane logowania</p>
+            <div id="loginErrors">
+                <p id="errorUser"></p>
+                <p id="errorPass"></p>
+            </div>
+
             <form class="input-group" method="post" th:action="@{/login}">
 
                 <div class="input-group pb-4">
@@ -53,6 +55,7 @@
     let errorPass = document.getElementById('errorPass');
     let successMsg = document.getElementById('successMessage');
     let successMsgChild = document.createElement("p");
+    let loginErr = document.getElementById("loginErrors");
 
 
     const queryString = window.location.search;
@@ -77,6 +80,10 @@
         if(password.value === "") {
             errorPass.innerText = "Hasło jest wymagane"
             e.preventDefault();
+        }
+        if(loginErr.children.length > 0) {
+            loginErr.classList.add('alert');
+            loginErr.className += ' alert-danger';
         }
     });
 </script>
