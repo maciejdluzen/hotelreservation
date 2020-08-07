@@ -15,6 +15,9 @@
         <div class="col-md-4 offset-md-4">
 
             <h4>Logowanie</h4>
+
+            <p th:if="${param.error}" class="alert alert-danger">Błędne dane logowania</p>
+
             <div id="successMessage"></div>
             <p id="errorUser"></p>
             <p id="errorPass"></p>
