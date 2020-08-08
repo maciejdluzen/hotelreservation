@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import pl.maciejdluzen.hotelreservation.services.UserService;
 
 import javax.sql.DataSource;
@@ -55,7 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/hello")
+                .defaultSuccessUrl("/")
                 .and()
             .logout()
                 .logoutSuccessUrl("/")
@@ -67,9 +68,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/public_html/**")
+                .antMatchers("/static/**")
                 .antMatchers("/h2-console", "/h2-console/**");
     }
+
 
 }
 
