@@ -38,9 +38,4 @@ public class NewHotelDto {
     @Email
     private String emailAddress;
 
-
-
-
-
-
 }
