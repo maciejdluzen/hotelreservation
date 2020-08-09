@@ -3,13 +3,10 @@
 
 <head th:replace="fragments/head"></head>
 <style>
-    body {
-        background: url(/static/images/hotel-room.jpg) no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        background-size: cover;
-        -o-background-size: cover;
-    }
+
+
+
+
 </style>
 <body>
 <!-- Navigation -->
@@ -32,28 +29,88 @@
 <!-- Navigation - End -->
 <!-- HotelSearch Section -->
 <section id="hotelSearch">
-    <div class="container">
-
-        <div class="row align-items-center">
-            <div class="col-sm-auto">
-                <form method="post" class="d-flex flex-row">
-                    <input type="date" class="form-control form-control-lg ml-4 mr-4">
-
-                    <input type="date" class="form-control form-control-lg ml-4 mr-4">
-
-                    <select class="form-control form-control-lg ml-4 mr-4">
-                        <option>Wroclaw</option>
-                    </select>
-                    <button class="btn btn-primary ml-4 mr-4">Sprawdź dostępność</button>
-                </form>
+    <div class="jumbotron align-items-center">
+        <div class="row mb-4">
+            <div class="col-md-6 offset-md-4">
+                <h3>Zarazerwuj swój pobyt już dzisiaj!</h3>
             </div>
         </div>
         <div class="row">
-
+            <div class="col-md-6 offset-md-4">
+                <form method="post"> <!--class="d-flex flex-row" -->
+                    <div class="form-row">
+                        <div class="form-group mr-4">
+                            <label for="checkin">Przyjazd</label>
+                            <input type="date" id="checkin" name="checkin" class="form-control">
+                        </div>
+                        <div class="form-group mr-4">
+                            <label for="checkout">Wyjazd</label>
+                            <input type="date" id="checkout" name="checkout" class="form-control">
+                        </div>
+                        <div class="form-group mr-4">
+                            <label for="location">Lokalizacja</label>
+                            <select id="location" name="location" class="form-control">
+                                <option>Wroclaw</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm">Rezerwuj</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </section>
 <!-- HotelSearch Section -->
+<!-- HotelInfo Section -->
+<section id="hotelInfo">
+    <div class="container">
+       <div class="row">
+           <div class="col-md-4">
+               <div class="card mb-4 box-shadow">
+                   <img class="card-img-top" th:src="@{/static/images/hotel-room2.jpg}" alt="Card image cap">
+                   <div class="card-body">
+                       <h6>Odkryj nasze wygodne pokoje</h6>
+                       <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                       <div class="d-flex justify-content-between align-items-center">
+                           <div class="btn-group">
+                               <button type="button" class="btn btn-sm btn-outline-secondary">Sprawdź</button>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <div class="col-md-4">
+               <div class="card mb-4 box-shadow">
+                   <img class="card-img-top" th:src="@{/static/images/hotel-breakfast.jpg}" alt="Card image cap">
+                   <div class="card-body">
+                       <h6>Sprawdź nasze wyśmienite śniadania</h6>
+                       <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                       <div class="d-flex justify-content-between align-items-center">
+                           <div class="btn-group">
+                               <button type="button" class="btn btn-sm btn-outline-secondary">Sprawdź</button>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <div class="col-md-4">
+               <div class="card mb-4 box-shadow">
+                   <img class="card-img-top" th:src="@{/static/images/hotel-amenities.jpg}" alt="Card image cap">
+                   <div class="card-body">
+                       <h6>Zobacz nasze przepiękne baseny</h6>
+                       <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                       <div class="d-flex justify-content-between align-items-center">
+                           <div class="btn-group">
+                               <button type="button" class="btn btn-sm btn-outline-secondary">Sprawdź</button>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+    </div>
+</section>
+<!-- HotelInfo Section -->
 <footer th:replace="fragments/footer"></footer>
 
 </body>
