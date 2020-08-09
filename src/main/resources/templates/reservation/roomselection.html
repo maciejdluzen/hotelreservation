@@ -1,0 +1,72 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"></head>
+<body>
+<nav th:replace="fragments/navbar"></nav>
+
+<section id="roomSelection">
+        <div class="container">
+            <div class="row mt-5 mb-5">
+                <div class="col-sm-12">
+                    <div class="alert alert-dark">
+                        <h3 class="text-center">Czas wybrać Twój pokój...</h3>
+                        <h5 class="font-weight-lighter text-center">Przyjazd: 13.03.2020 Wyjazd: 15.03.2020 Lokalizacja: Wrocław</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <img class="card-img-top" th:src="@{/static/images/hotel-room2.jpg}" alt="Card image cap">
+                        <div class="card-body">
+                            <h6>Pokój dwuosobowy z podwójnym łóżkiem</h6>
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Sprawdź</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <img class="card-img-top" th:src="@{/static/images/hotel-breakfast.jpg}" alt="Card image cap">
+                        <div class="card-body">
+                            <h6>Pokój dwuosobowy z pojedynczymi łóżkami </h6>
+                            <p class="card-text">
+                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Sprawdź</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <img class="card-img-top" th:src="@{/static/images/hotel-amenities.jpg}" alt="Card image cap">
+                        <div class="card-body">
+                            <h6>Pokój dwuosobowy LUX</h6>
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Sprawdź</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<footer th:replace="fragments/footer"></footer>
+</body>
+</html>
