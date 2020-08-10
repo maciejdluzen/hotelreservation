@@ -1,7 +1,5 @@
 package pl.maciejdluzen.hotelreservation.controllers;
 
-import lombok.extern.slf4j.Slf4j;
-import org.hibernate.loader.plan.build.internal.LoadGraphLoadPlanBuildingStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.maciejdluzen.hotelreservation.dtos.NewHotelDto;
+import pl.maciejdluzen.hotelreservation.services.HotelService;
 
 
 @Controller
@@ -19,6 +18,13 @@ import pl.maciejdluzen.hotelreservation.dtos.NewHotelDto;
 public class AdminController {
 
     private Logger LOG = LoggerFactory.getLogger(getClass());
+
+    private final HotelService hotelService;
+
+    public AdminController(HotelService hotelService) {
+        this.hotelService = hotelService;
+    }
+
 
     @GetMapping("/hotels")
     public String getHotelsDashboard(@ModelAttribute("hotel") NewHotelDto hotelDto) {
@@ -31,11 +37,8 @@ public class AdminController {
         if(result.hasErrors()) {
             LOG.info("Binding error: {}", result.toString());
         }
-
-
-
-
-        return "redirect:/hotels";
+        hotelService.createHotel(hotelDto);
+        return "redirect:/auth/admin/hotels";
     }
 
 
