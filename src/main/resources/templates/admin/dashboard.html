@@ -59,51 +59,58 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Dashboard</h1>
+                <h1 class="h2">Zarządzanie hotelami</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
 
                 </div>
-                <button type="submit" class="btn btn-primary">Nowy hotel</button>
+                <button type="submit" id="showFormBtn" class="btn btn-primary">Nowy hotel</button>
             </div>
 
             <div class="row justify-content-around">
                 <div class="col-sm-4">
 
-                    <form th:action="@{/auth/admin/hotel}" th:object="${hotel}" method="post">
-
-                        <label for="hotelName">Nazwa nowego hotelu</label>
-                        <div class="input-group pb-4">
-                            <input th:field="*{name}" type="text" class="form-control" id="hotelName">
+                    <form id="newHotelForm" th:action="@{/auth/admin/hotels}"
+                          th:object="${hotel}" method="post" style="visibility: hidden;">
+                        <h3>Dodawanie nowego hotelu</h3>
+                        <div class="form-group">
+                            <label for="hotelName">Nazwa nowego hotelu</label>
+                            <input th:field="*{name}" type="text" class="form-control" id="hotelName" aria-describedby="nameError">
+                            <small th:errors="*{name}" id="nameError" class="form-text form-muted text-danger"></small>
                         </div>
-                        <label for="hotelStreet">Adres: ulica</label>
-                        <div class="input-group pb-4">
+                        <div class="form-group">
+                            <label for="hotelStreet">Adres: ulica</label>
                             <input th:field="*{street}" type="text" class="form-control" id="hotelStreet">
+                            <small th:if="*{street}" th:errors="*{street}" class="form-text form-muted text-danger"></small>
                         </div>
-                        <label for="hotelNumber">Adres: numer</label>
-                        <div class="input-group pb-4">
+                        <div class="form-group">
+                            <label for="hotelNumber">Adres: numer</label>
                             <input th:field="*{number}" type="text" class="form-control" id="hotelNumber">
+                            <small th:if="*{number}" th:errors="*{number}" class="form-text form-muted text-danger"></small>
                         </div>
-                        <label for="hotelCity">Adres: miejscowość</label>
-                        <div class="input-group pb-4">
+                        <div class="form-group">
+                            <label for="hotelCity">Adres: miejscowość</label>
                             <input th:field="*{city}" type="text" class="form-control" id="hotelCity">
+                            <small th:if="*{city}" th:errors="*{city}" class="form-text form-muted text-danger"></small>
                         </div>
-                        <label for="hotelPostCode">Adres: kod pocztowy</label>
-                        <div class="input-group pb-4">
+                        <div class="form-group">
+                            <label for="hotelPostCode">Adres: kod pocztowy</label>
                             <input th:field="*{postCode}" type="text" class="form-control" id="hotelPostCode">
+                            <small th:if="*{postCode}" th:errors="*{postCode}" class="form-text form-muted text-danger"></small>
                         </div>
-                        <label for="hotelPhoneNumber">Numer telefonu</label>
-                        <div class="input-group pb-4">
+                        <div class="form-group">
+                            <label for="hotelPhoneNumber">Numer telefonu</label>
                             <input th:field="*{phoneNumber}" type="text" class="form-control" id="hotelPhoneNumber">
+                            <small th:if="*{phoneNumber}" th:errors="*{phoneNumber}" class="form-text form-muted text-danger"></small>
                         </div>
-                        <label for="hotelEmailAddress">Adres email</label>
-                        <div class="input-group pb-4">
+                        <div class="form-group">
+                            <label for="hotelEmailAddress">Adres email</label>
                             <input th:field="*{emailAddress}" type="text" class="form-control" id="hotelEmailAddress">
+                            <small th:if="*{emailAddress}" th:errors="*{emailAddress}" class="form-text form-muted text-danger"></small>
                         </div>
                         <div class="btn-group">
                             <button type="submit" class="btn btn-primary">Dodaj</button>
-                            <button type="submit" class="btn btn-outline-primary">Wyczyść</button>
+                            <button type="reset" class="btn btn-outline-primary">Wyczyść</button>
                         </div>
-
                     </form>
 
                 </div>
@@ -146,6 +153,14 @@
 
     </div>
 </div>
+<script>
+    let showFormBtn = document.getElementById("showFormBtn");
+    let newHotelForm = document.getElementById('newHotelForm');
+
+    showFormBtn.addEventListener("click", function() {
+        newHotelForm.style.visibility = "visible";
+    });
+</script>
 <footer th:replace="fragments/footer"></footer>
 </body>
 </html>

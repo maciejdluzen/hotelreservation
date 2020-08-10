@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.maciejdluzen.hotelreservation.dtos.NewHotelDto;
 import pl.maciejdluzen.hotelreservation.services.HotelService;
 
+import javax.validation.Valid;
+
 
 @Controller
 @RequestMapping("/auth/admin")
@@ -32,10 +34,11 @@ public class AdminController {
     }
 
     @PostMapping("/hotels")
-    public String createHotel(@ModelAttribute("hotel") NewHotelDto hotelDto,
+    public String createHotel(@ModelAttribute("hotel") @Valid NewHotelDto hotelDto,
                               BindingResult result, Model model) {
         if(result.hasErrors()) {
             LOG.info("Binding error: {}", result.toString());
+            return "admin/dashboard";
         }
         hotelService.createHotel(hotelDto);
         return "redirect:/auth/admin/hotels";
