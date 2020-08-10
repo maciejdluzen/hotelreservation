@@ -1,15 +1,15 @@
 package pl.maciejdluzen.hotelreservation.dtos;
 
 import com.sun.istack.NotNull;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import pl.maciejdluzen.hotelreservation.validation.constraints.UniqueEmail;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-@Data
+@Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class GuestDto {
 
 

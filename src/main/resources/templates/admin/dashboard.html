@@ -63,6 +63,56 @@
                 <div class="btn-toolbar mb-2 mb-md-0">
 
                 </div>
+                <button type="submit" class="btn btn-primary">Nowy hotel</button>
+            </div>
+
+            <div class="row justify-content-around">
+                <div class="col-sm-4">
+
+                    <form th:action="@{/auth/admin/hotel}" th:object="${hotel}" method="post">
+
+                        <label for="hotelName">Nazwa nowego hotelu</label>
+                        <div class="input-group pb-4">
+                            <input th:field="*{name}" type="text" class="form-control" id="hotelName">
+                        </div>
+                        <label for="hotelStreet">Adres: ulica</label>
+                        <div class="input-group pb-4">
+                            <input th:field="*{street}" type="text" class="form-control" id="hotelStreet">
+                        </div>
+                        <label for="hotelNumber">Adres: numer</label>
+                        <div class="input-group pb-4">
+                            <input th:field="*{number}" type="text" class="form-control" id="hotelNumber">
+                        </div>
+                        <label for="hotelCity">Adres: miejscowość</label>
+                        <div class="input-group pb-4">
+                            <input th:field="*{city}" type="text" class="form-control" id="hotelCity">
+                        </div>
+                        <label for="hotelPostCode">Adres: kod pocztowy</label>
+                        <div class="input-group pb-4">
+                            <input th:field="*{postCode}" type="text" class="form-control" id="hotelPostCode">
+                        </div>
+                        <label for="hotelPhoneNumber">Numer telefonu</label>
+                        <div class="input-group pb-4">
+                            <input th:field="*{phoneNumber}" type="text" class="form-control" id="hotelPhoneNumber">
+                        </div>
+                        <label for="hotelEmailAddress">Adres email</label>
+                        <div class="input-group pb-4">
+                            <input th:field="*{emailAddress}" type="text" class="form-control" id="hotelEmailAddress">
+                        </div>
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary">Dodaj</button>
+                            <button type="submit" class="btn btn-outline-primary">Wyczyść</button>
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="col-sm-4">
+
+
+
+
+                </div>
             </div>
 
             <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>

@@ -10,6 +10,6 @@ public class HelloWorldController {
     @GetMapping("/hello")
     public String helloWorld() {
 
-        return "admin/dashboard";
+        return "Hello";
     }
 }
