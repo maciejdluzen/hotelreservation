@@ -38,7 +38,8 @@ public class AdminController {
 
     @PostMapping("/hotels")
     public String createHotel(@ModelAttribute("hotel") @Valid NewHotelDto hotelDto,
-                              BindingResult result, RedirectAttributes redirectAttributes) {
+                              BindingResult result, RedirectAttributes redirectAttributes, Model model) {
+        model.addAttribute("hotels", hotelService.getAllHotels());
         if(result.hasErrors()) {
             LOG.info("Binding error: {}", result.toString());
             return "admin/dashboard";
