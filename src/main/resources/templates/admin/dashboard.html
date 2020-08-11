@@ -113,7 +113,7 @@
                 <div class="col-sm-4">
 
                     <form id="newHotelForm" th:action="@{/auth/admin/hotels}"
-                          th:object="${hotel}" method="post" style="display: none;"> <!--  style="visibility: hidden;" -->
+                          th:object="${hotel}" method="post" style="display: none;">
                         <h4>Dodawanie nowego hotelu</h4>
                         <div class="form-group">
                             <label for="hotelName">Nazwa nowego hotelu</label>
@@ -158,44 +158,39 @@
 
                 </div>
                 <div class="col-sm-4">
-
-
-
-
+                    <div class="row d-flex justify-content-between mb-2">
+                        <h4>Zestawienie pokoi dla hotelu {}</h4>
+                        <button type="submit" id="showRoomFormBtn" class="btn btn-primary btn-sm">Nowy pokój</button>
+                    </div>
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Numer</th>
+                                    <th>Piętro</th>
+                                    <th>Rodzaj</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="room: ${rooms}">
+                                    <td th:text="*{room.id}"></td>
+                                    <td th:text="*{room.roomNumber}"></td>
+                                    <td th:text="*{room.floorNumber}"></td>
+                                    <td th:text="*{room.roomType.Name}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-
-
             <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
         </main>
     </div>
 </div>
-<script>
-    let showFormBtn = document.getElementById("showFormBtn");
-    let newHotelForm = document.getElementById('newHotelForm');
-    let messageField = document.getElementById('messages');
-
-    /*
-    showFormBtn.addEventListener("click", function() {
-        newHotelForm.style.visibility = "visible";
-    });
-    */
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    if(urlParams.get('msg') === 'addedHotel') {
-            messageField.firstElementChild.classList.add('alert');
-            messageField.firstElementChild.classList += ' alert-success'
-            messageField.firstElementChild.innerHTML += '<p>Dodano nowy hotel</p>'
-            messageField.firstElementChild.classList += ' animate_animated'
-            messageField.firstElementChild.classList += ' animate_fadeOut'
-    }
-</script>
-<script>
-    $("#showFormBtn").click(function(){
-        $("#newHotelForm").toggle();
-    });
-</script>
+<script src="/static/scripts/admin-dashboard.js"></script>
 <footer th:replace="fragments/footer"></footer>
 </body>
 </html>
