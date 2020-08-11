@@ -113,7 +113,7 @@
                 <div class="col-sm-4">
 
                     <form id="newHotelForm" th:action="@{/auth/admin/hotels}"
-                          th:object="${hotel}" method="post" style="visibility: hidden;">
+                          th:object="${hotel}" method="post" style="display: none;"> <!--  style="visibility: hidden;" -->
                         <h4>Dodawanie nowego hotelu</h4>
                         <div class="form-group">
                             <label for="hotelName">Nazwa nowego hotelu</label>
@@ -176,10 +176,11 @@
     let newHotelForm = document.getElementById('newHotelForm');
     let messageField = document.getElementById('messages');
 
+    /*
     showFormBtn.addEventListener("click", function() {
         newHotelForm.style.visibility = "visible";
     });
-
+    */
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     if(urlParams.get('msg') === 'addedHotel') {
@@ -189,9 +190,11 @@
             messageField.firstElementChild.classList += ' animate_animated'
             messageField.firstElementChild.classList += ' animate_fadeOut'
     }
-
-
-
+</script>
+<script>
+    $("#showFormBtn").click(function(){
+        $("#newHotelForm").toggle();
+    });
 </script>
 <footer th:replace="fragments/footer"></footer>
 </body>
