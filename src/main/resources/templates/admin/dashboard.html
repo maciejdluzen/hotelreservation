@@ -65,13 +65,56 @@
                 </div>
                 <button type="submit" id="showFormBtn" class="btn btn-primary">Nowy hotel</button>
             </div>
+            <div id="messages" class="row justify-content-around">
+                <div class="col d-flex align-items-center">
+
+                </div>
+            </div>
+
+            <h4>Zestawienie hoteli</h4>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nazwa</th>
+                        <th>Adres</th>
+                        <th>Adres email</th>
+                        <th>Numer telefonu</th>
+                        <th>Usuń</th>
+                        <th>Edytuj</th>
+                        <th>Pokoje</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="hotel: ${hotels}">
+                        <td th:text="*{hotel.id}"></td>
+                        <td th:text="*{hotel.name}"></td>
+                        <td th:text="*{hotel.address}"></td>
+                        <td th:text="*{hotel.emailAddress}"></td>
+                        <td th:text="*{hotel.phoneNumber}"></td>
+                        <td>
+                            <button type="button" title="Usuń hotel" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-warning btn-sm"
+                                    title="Edytuj hotel"><i class="fas fa-edit"></i></button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-outline-info btn-sm"
+                                    title="Wyświetl pokoje hotel">Pokaż</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <div class="row justify-content-around">
                 <div class="col-sm-4">
 
                     <form id="newHotelForm" th:action="@{/auth/admin/hotels}"
                           th:object="${hotel}" method="post" style="visibility: hidden;">
-                        <h3>Dodawanie nowego hotelu</h3>
+                        <h4>Dodawanie nowego hotelu</h4>
                         <div class="form-group">
                             <label for="hotelName">Nazwa nowego hotelu</label>
                             <input th:field="*{name}" type="text" class="form-control" id="hotelName" aria-describedby="nameError">
@@ -122,44 +165,33 @@
                 </div>
             </div>
 
+
+
             <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-
-            <h2>Section title</h2>
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td>dolor</td>
-                        <td>sit</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
         </main>
-
-
-
     </div>
 </div>
 <script>
     let showFormBtn = document.getElementById("showFormBtn");
     let newHotelForm = document.getElementById('newHotelForm');
+    let messageField = document.getElementById('messages');
 
     showFormBtn.addEventListener("click", function() {
         newHotelForm.style.visibility = "visible";
     });
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    if(urlParams.get('msg') === 'addedHotel') {
+            messageField.firstElementChild.classList.add('alert');
+            messageField.firstElementChild.classList += ' alert-success'
+            messageField.firstElementChild.innerHTML += '<p>Dodano nowy hotel</p>'
+            messageField.firstElementChild.classList += ' animate_animated'
+            messageField.firstElementChild.classList += ' animate_fadeOut'
+    }
+
+
+
 </script>
 <footer th:replace="fragments/footer"></footer>
 </body>

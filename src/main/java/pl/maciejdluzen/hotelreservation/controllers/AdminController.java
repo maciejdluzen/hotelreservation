@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.maciejdluzen.hotelreservation.dtos.NewHotelDto;
 import pl.maciejdluzen.hotelreservation.services.HotelService;
 
@@ -29,17 +30,20 @@ public class AdminController {
 
 
     @GetMapping("/hotels")
-    public String getHotelsDashboard(@ModelAttribute("hotel") NewHotelDto hotelDto) {
+    public String getHotelsDashboard(@ModelAttribute("hotel") NewHotelDto hotelDto,
+                                     Model model) {
+        model.addAttribute("hotels", hotelService.getAllHotels());
         return "admin/dashboard";
     }
 
     @PostMapping("/hotels")
     public String createHotel(@ModelAttribute("hotel") @Valid NewHotelDto hotelDto,
-                              BindingResult result, Model model) {
+                              BindingResult result, RedirectAttributes redirectAttributes) {
         if(result.hasErrors()) {
             LOG.info("Binding error: {}", result.toString());
             return "admin/dashboard";
         }
+        redirectAttributes.addAttribute("msg", "addedHotel");
         hotelService.createHotel(hotelDto);
         return "redirect:/auth/admin/hotels";
     }
