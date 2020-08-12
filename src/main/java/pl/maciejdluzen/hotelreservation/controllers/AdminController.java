@@ -5,15 +5,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.maciejdluzen.hotelreservation.dtos.GetRoomDto;
 import pl.maciejdluzen.hotelreservation.dtos.NewHotelDto;
 import pl.maciejdluzen.hotelreservation.services.HotelService;
+import pl.maciejdluzen.hotelreservation.services.RoomService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Controller
@@ -23,9 +23,11 @@ public class AdminController {
     private Logger LOG = LoggerFactory.getLogger(getClass());
 
     private final HotelService hotelService;
+    private final RoomService roomService;
 
-    public AdminController(HotelService hotelService) {
+    public AdminController(HotelService hotelService, RoomService roomService) {
         this.hotelService = hotelService;
+        this.roomService = roomService;
     }
 
 
@@ -47,6 +49,18 @@ public class AdminController {
         redirectAttributes.addAttribute("msg", "addedHotel");
         hotelService.createHotel(hotelDto);
         return "redirect:/auth/admin/hotels";
+    }
+
+    @GetMapping("/hotels/{id}/rooms")
+    public String getRoomsByHotelId(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("hotels", hotelService.getAllHotels());
+        List<GetRoomDto> roomsDto = roomService.getAllRoomsByHotelId(id);
+        if(roomsDto.size() != 0) {
+            model.addAttribute("rooms", roomsDto);
+        } else {
+            model.addAttribute("msg", "Brak pokoi przypisanych do hotelu");
+        }
+        return "admin/dashboard";
     }
 
 

@@ -102,7 +102,7 @@
                         </td>
                         <td>
                             <button type="button" class="btn btn-outline-info btn-sm"
-                                    title="Wyświetl pokoje hotel">Pokaż</button>
+                                    title="Wyświetl pokoje" onclick="redirectToShowRooms('@{/${hotel.id}/rooms}')">Pokaż</button>
                         </td>
                     </tr>
                     </tbody>
@@ -157,7 +157,8 @@
                     </form>
 
                 </div>
-                <div class="col-sm-4">
+                <div th:unless="${#lists.isEmpty(rooms)}" class="col-sm-4">
+
                     <div class="row d-flex justify-content-between mb-2">
                         <h4>Zestawienie pokoi dla hotelu {}</h4>
                         <button type="submit" id="showRoomFormBtn" class="btn btn-primary btn-sm">Nowy pokój</button>
@@ -178,7 +179,7 @@
                                     <td th:text="*{room.id}"></td>
                                     <td th:text="*{room.roomNumber}"></td>
                                     <td th:text="*{room.floorNumber}"></td>
-                                    <td th:text="*{room.roomType.Name}"></td>
+                                    <td th:text="*{room.roomTypeName}"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -190,6 +191,11 @@
         </main>
     </div>
 </div>
+<script>
+    function redirectToShowRooms(link) {
+        window.location = link;
+    }
+</script>
 <script src="/static/scripts/admin-dashboard.js"></script>
 <footer th:replace="fragments/footer"></footer>
 </body>
