@@ -172,19 +172,28 @@
                                     <th>Numer</th>
                                     <th>Piętro</th>
                                     <th>Rodzaj</th>
+                                    <th>Akcje</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <tr th:if="${#lists.isEmpty(rooms)}">
+                                    <td colspan="5">Brak pokoi</td>
+                                </tr>
                                 <tr th:each="room: ${rooms}">
                                     <td th:text="*{room.id}"></td>
                                     <td th:text="*{room.roomNumber}"></td>
                                     <td th:text="*{room.floorNumber}"></td>
                                     <td th:text="*{room.roomTypeName}"></td>
+                                    <td>
+                                        <button type="button" title="Usuń pokój" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
+                                        <button type="button" class="btn btn-warning btn-sm" title="Edytuj pokój"><i class="fas fa-edit"></i></button>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
+
                     <div class="row justify-content-end">
                         <form>
                             <div class="form-row">
@@ -205,6 +214,34 @@
                             </div>
                         </form>
                     </div>
+
+                    <!--
+                    <div class="row justify-content-end">
+                        <form th:action="@{/auth/admin/hotels/${hotel.id}/rooms}"
+                                th:object="${room}" method="post">
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <input placeholder="Numer" class="form-control form-control-sm">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <input placeholder="Piętro" class="form-control form-control-sm">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <select th:field="*{room.roomTypeId}" class="form-control form-control-sm">
+                                        <option th:each="rmType : ${roomTypes}"
+                                                th:value="${rmType.id}"
+                                                th:text="${rmType.name}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <button type="submit" class="btn btn-primary btn-sm">Dodaj</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    -->
+
                 </div>
             </div>
             <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>

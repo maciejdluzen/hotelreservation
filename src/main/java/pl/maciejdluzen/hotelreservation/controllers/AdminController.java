@@ -12,6 +12,7 @@ import pl.maciejdluzen.hotelreservation.dtos.NewHotelDto;
 import pl.maciejdluzen.hotelreservation.dtos.NewRoomDto;
 import pl.maciejdluzen.hotelreservation.services.HotelService;
 import pl.maciejdluzen.hotelreservation.services.RoomService;
+import pl.maciejdluzen.hotelreservation.services.RoomTypeService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -25,10 +26,12 @@ public class AdminController {
 
     private final HotelService hotelService;
     private final RoomService roomService;
+    private final RoomTypeService roomTypeService;
 
-    public AdminController(HotelService hotelService, RoomService roomService) {
+    public AdminController(HotelService hotelService, RoomService roomService, RoomTypeService roomTypeService) {
         this.hotelService = hotelService;
         this.roomService = roomService;
+        this.roomTypeService = roomTypeService;
     }
 
     @GetMapping("/hotels")
@@ -64,6 +67,7 @@ public class AdminController {
         List<GetRoomDto> roomsDto = roomService.getAllRoomsByHotelId(id);
         LOG.info("AdminController.class: Hotel rooms: {}", roomsDto);
         model.addAttribute("rooms", roomsDto);
+        model.addAttribute("roomTypes", roomTypeService.findAllRoomTypeNames());
         /*
         if(roomsDto.size() != 0) {
 
@@ -77,9 +81,17 @@ public class AdminController {
         return "admin/dashboard";
     }
 
+    @PostMapping("/hotels/{id}/rooms")
+    public String createRoomForHotelById(@ModelAttribute("room") @Valid NewRoomDto roomDto,
+                                         @PathVariable("id") Long id,
+                                         BindingResult result,
+                                         Model model) {
 
-
-
-
-
+        model.addAttribute("hotels", hotelService.getAllHotels());
+        List<GetRoomDto> roomsDto = roomService.getAllRoomsByHotelId(id);
+        model.addAttribute("rooms", roomsDto);
+        model.addAttribute("roomTypes", roomTypeService.findAllRoomTypeNames());
+        roomService.createNewRoom(roomDto, id);
+        return "redirect:/auth/admin/hotels/{id}/rooms";
+    }
 }

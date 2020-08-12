@@ -17,4 +17,6 @@ public class GetRoomDto {
 
     private String roomTypeName;
 
+    private Long hotelId;
+
 }
