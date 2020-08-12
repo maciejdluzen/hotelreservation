@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/auth/guest", "/auth/guest/**").permitAll()
                 .antMatchers("/auth/admin", "/auth/admin/**").permitAll()
-                .antMatchers("/auth/reception", "/auth/reception/**").hasRole("RECEPTIONIST")
+                .antMatchers("/auth/reception", "/auth/reception/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()

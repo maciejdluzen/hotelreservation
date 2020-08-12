@@ -74,8 +74,5 @@ public class StarterClass implements ApplicationRunner {
         room1.setRoomType(roomType1);
         room1.setHotel(hotel1);
         roomRepository.save(room1);
-
-
-
     }
 }

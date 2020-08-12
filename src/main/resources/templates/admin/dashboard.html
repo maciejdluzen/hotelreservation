@@ -102,7 +102,7 @@
                         </td>
                         <td>
                             <button type="button" class="btn btn-outline-info btn-sm"
-                                    title="Wyświetl pokoje" onclick="redirectToShowRooms('@{/${hotel.id}/rooms}')">Pokaż</button>
+                                    title="Wyświetl pokoje"><a th:href="@{'/auth/admin/hotels/' + ${hotel.id} + '/rooms'}">Pokaż</a></button>
                         </td>
                     </tr>
                     </tbody>
@@ -157,10 +157,10 @@
                     </form>
 
                 </div>
-                <div th:unless="${#lists.isEmpty(rooms)}" class="col-sm-4">
+                <div class="col-sm-4"> <!-- th:unless="${#lists.isEmpty(rooms)}" -->
 
                     <div class="row d-flex justify-content-between mb-2">
-                        <h4>Zestawienie pokoi dla hotelu {}</h4>
+                        <h4>Zestawienie pokoi dla hotelu</h4>
                         <button type="submit" id="showRoomFormBtn" class="btn btn-primary btn-sm">Nowy pokój</button>
                     </div>
                     <div class="row">

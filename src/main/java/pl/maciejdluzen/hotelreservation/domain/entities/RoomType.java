@@ -28,7 +28,7 @@ public class RoomType {
     private Double tax;
     @Column(name = "room_rate_gross", nullable = false)
     private Double rateGross;
-    @Column(nullable = false)
+    @Column
     private String description;
     @Column(name = "feature_1")
     private String feature1;

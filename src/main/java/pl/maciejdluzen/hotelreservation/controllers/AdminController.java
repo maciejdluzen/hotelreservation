@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.maciejdluzen.hotelreservation.dtos.GetRoomDto;
 import pl.maciejdluzen.hotelreservation.dtos.NewHotelDto;
+import pl.maciejdluzen.hotelreservation.dtos.NewRoomDto;
 import pl.maciejdluzen.hotelreservation.services.HotelService;
 import pl.maciejdluzen.hotelreservation.services.RoomService;
 
@@ -30,7 +31,6 @@ public class AdminController {
         this.roomService = roomService;
     }
 
-
     @GetMapping("/hotels")
     public String getHotelsDashboard(@ModelAttribute("hotel") NewHotelDto hotelDto,
                                      Model model) {
@@ -40,7 +40,10 @@ public class AdminController {
 
     @PostMapping("/hotels")
     public String createHotel(@ModelAttribute("hotel") @Valid NewHotelDto hotelDto,
-                              BindingResult result, RedirectAttributes redirectAttributes, Model model) {
+                              BindingResult result,
+                              RedirectAttributes redirectAttributes,
+                              Model model) {
+
         model.addAttribute("hotels", hotelService.getAllHotels());
         if(result.hasErrors()) {
             LOG.info("Binding error: {}", result.toString());
@@ -52,14 +55,25 @@ public class AdminController {
     }
 
     @GetMapping("/hotels/{id}/rooms")
-    public String getRoomsByHotelId(@PathVariable("id") Long id, Model model) {
+    public String getRoomsByHotelId(@ModelAttribute("hotel") NewHotelDto hotelDto,
+                                    @ModelAttribute("room") NewRoomDto roomDto,
+                                    @PathVariable("id") Long id,
+                                    Model model) {
+
         model.addAttribute("hotels", hotelService.getAllHotels());
         List<GetRoomDto> roomsDto = roomService.getAllRoomsByHotelId(id);
+        LOG.info("AdminController.class: Hotel rooms: {}", roomsDto);
+        model.addAttribute("rooms", roomsDto);
+        /*
         if(roomsDto.size() != 0) {
-            model.addAttribute("rooms", roomsDto);
+
+            LOG.info("AdminController.class: Inside if-statement: Hotel rooms: {}", roomsDto);
         } else {
             model.addAttribute("msg", "Brak pokoi przypisanych do hotelu");
+            LOG.info("AdminController.class: Inside else part of if-statement");
         }
+        */
+
         return "admin/dashboard";
     }
 

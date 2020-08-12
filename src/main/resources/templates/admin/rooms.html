@@ -1,0 +1,47 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head"></head>
+
+<body>
+<div class="container">
+    <div class="col-sm-4"> <!-- th:unless="${#lists.isEmpty(rooms)}" -->
+
+        <div class="row d-flex justify-content-between mb-2">
+            <h4>Zestawienie pokoi dla hotelu {}</h4>
+            <button type="submit" id="showRoomFormBtn" class="btn btn-primary btn-sm">Nowy pokój</button>
+        </div>
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Numer</th>
+                        <th>Piętro</th>
+                        <th>Rodzaj</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="room: ${rooms}">
+                        <td th:text="*{room.id}"></td>
+                        <td th:text="*{room.roomNumber}"></td>
+                        <td th:text="*{room.floorNumber}"></td>
+                        <td th:text="*{room.roomTypeName}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+<footer th:replace="fragments/footer"></footer>
+
+</body>
+</html>
