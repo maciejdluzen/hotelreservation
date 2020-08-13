@@ -1,5 +1,5 @@
 let messageField = document.getElementById('messages');
-
+console.log("hello");
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
@@ -14,3 +14,4 @@ if(urlParams.get('msg') === 'addedHotel') {
 $("#showFormBtn").click(function(){
     $("#newHotelForm").toggle();
 });
+

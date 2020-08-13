@@ -157,11 +157,11 @@
                     </form>
 
                 </div>
-                <div class="col-sm-4"> <!-- th:unless="${#lists.isEmpty(rooms)}" -->
+                <div class="col-sm-4">
 
                     <div class="row d-flex justify-content-between mb-2">
                         <h4>Zestawienie pokoi dla hotelu</h4>
-                        <button type="submit" id="showRoomFormBtn" class="btn btn-primary btn-sm">Nowy pokój</button>
+                        <button th:unless=${#lists.isEmpty(roomTypes)} type="submit" id="showRoomFormBtn" class="btn btn-primary btn-sm">Nowy pokój</button>
                     </div>
                     <div class="row">
                         <div class="table-responsive">
@@ -195,10 +195,10 @@
                     </div>
 
                     <div class="row justify-content-end">
-                        <form id="newRoomForm" th:action="@{'/auth/admin/hotels/' + ${hotelId} + '/rooms'}" th:object="${room}" method="post">
+                        <form id="newRoomForm" th:action="@{'/auth/admin/hotels/' + ${hotelId} + '/rooms'}" th:object="${room}" method="post" style="display: none;">
                             <div class="form-row">
                                 <div class="form-group col-md-3">
-                                    <input th:field="*{roomNumber}" type="text" placeholder="Numer" class="form-control form-control-sm">
+                                    <input th:field="*{roomNumber}" type="number" placeholder="Numer" class="form-control form-control-sm">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <input th:field="*{floorNumber}" type="number" placeholder="Piętro" class="form-control form-control-sm">
@@ -224,6 +224,10 @@
     </div>
 </div>
 <script>
+    $("#showRoomFormBtn").click(function(){
+        $("#newRoomForm").toggle();
+    });
+
     function redirectToShowRooms(link) {
         window.location = link;
     }
