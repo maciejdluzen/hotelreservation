@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import pl.maciejdluzen.hotelreservation.domain.entities.Room;
 import pl.maciejdluzen.hotelreservation.domain.repositories.HotelRepository;
 import pl.maciejdluzen.hotelreservation.domain.repositories.RoomRepository;
+import pl.maciejdluzen.hotelreservation.domain.repositories.RoomTypeRepository;
 import pl.maciejdluzen.hotelreservation.dtos.GetRoomDto;
 import pl.maciejdluzen.hotelreservation.dtos.NewRoomDto;
 import pl.maciejdluzen.hotelreservation.services.RoomService;
@@ -22,11 +23,13 @@ public class DefaultRoomService implements RoomService {
     private final RoomRepository roomRepository;
     private final ModelMapper mapper;
     private final HotelRepository hotelRepository;
+    private final RoomTypeRepository roomTypeRepository;
 
-    public DefaultRoomService(RoomRepository roomRepository, ModelMapper mapper, HotelRepository hotelRepository) {
+    public DefaultRoomService(RoomRepository roomRepository, ModelMapper mapper, HotelRepository hotelRepository, RoomTypeRepository roomTypeRepository) {
         this.roomRepository = roomRepository;
         this.mapper = mapper;
         this.hotelRepository = hotelRepository;
+        this.roomTypeRepository = roomTypeRepository;
     }
 
     @Override
@@ -43,9 +46,9 @@ public class DefaultRoomService implements RoomService {
     }
 
     @Override
-    public Room createNewRoom(NewRoomDto roomDto, Long id) {
+    public Room createNewRoom(NewRoomDto roomDto) {
         Room room = mapper.map(roomDto, Room.class);
-        room.setHotel(hotelRepository.getOne(id));
+        room.setRoomType(roomTypeRepository.findRoomTypeByName(roomDto.getRoomTypeName()));
         return roomRepository.save(room);
     }
 

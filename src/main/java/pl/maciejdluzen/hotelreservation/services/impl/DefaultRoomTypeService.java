@@ -8,7 +8,9 @@ import pl.maciejdluzen.hotelreservation.domain.repositories.RoomTypeRepository;
 import pl.maciejdluzen.hotelreservation.dtos.GetRoomTypeNameDto;
 import pl.maciejdluzen.hotelreservation.services.RoomTypeService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DefaultRoomTypeService implements RoomTypeService {
@@ -22,8 +24,18 @@ public class DefaultRoomTypeService implements RoomTypeService {
     }
 
     @Override
-    public List<RoomType> findAllRoomTypeNames() {
-        List<RoomType> roomTypeNames = roomTypeRepository.findAll();
+    public List<String> findAllRoomTypeNames() {
+        List<RoomType> roomTypes = roomTypeRepository.findAll();
+        List<String> roomTypeNames = new ArrayList<>();
+
+//        return roomTypes.stream()
+//                        .map(RoomType::getName)
+//                        .collect(Collectors.toList());
+
+        // Create a List<String> containing all room names!
+        for(RoomType rm : roomTypes) {
+            roomTypeNames.add(rm.getName());
+        }
         LOG.info("DefaultRoomTypeService: Found room types: {}", roomTypeNames);
         return roomTypeNames;
     }

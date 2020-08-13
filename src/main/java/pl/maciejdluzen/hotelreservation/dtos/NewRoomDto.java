@@ -13,6 +13,8 @@ public class NewRoomDto {
 
     private Integer floorNumber;
 
-    private Long roomTypeId;
+    private String roomTypeName;
+
+    private Long hotelId;
 
 }

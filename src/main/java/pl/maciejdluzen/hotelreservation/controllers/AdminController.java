@@ -35,9 +35,15 @@ public class AdminController {
     }
 
     @GetMapping("/hotels")
-    public String getHotelsDashboard(@ModelAttribute("hotel") NewHotelDto hotelDto,
-                                     Model model) {
+    public String getHotelsDashboard(Model model) {
+
+        // Passing form beans to the view - there are two forms on one view, hence need to pass two objects
+        model.addAttribute("hotel", new NewHotelDto());
+        model.addAttribute("room", new NewRoomDto());
+
+        // Passing the list of hotels to display in the view
         model.addAttribute("hotels", hotelService.getAllHotels());
+
         return "admin/dashboard";
     }
 
@@ -52,46 +58,37 @@ public class AdminController {
             LOG.info("Binding error: {}", result.toString());
             return "admin/dashboard";
         }
-        redirectAttributes.addAttribute("msg", "addedHotel");
         hotelService.createHotel(hotelDto);
         return "redirect:/auth/admin/hotels";
     }
 
-    @GetMapping("/hotels/{id}/rooms")
-    public String getRoomsByHotelId(@ModelAttribute("hotel") NewHotelDto hotelDto,
-                                    @ModelAttribute("room") NewRoomDto roomDto,
-                                    @PathVariable("id") Long id,
+    @GetMapping("/hotels/{hotelId}/rooms")
+    public String getRoomsByHotelId(@PathVariable("hotelId") Long hotelId,
                                     Model model) {
 
+        // Passing form beans to the view - there are two forms on one view, hence need to pass two objects
+        model.addAttribute("hotel", new NewHotelDto());
+        model.addAttribute("room", new NewRoomDto());
+
         model.addAttribute("hotels", hotelService.getAllHotels());
-        List<GetRoomDto> roomsDto = roomService.getAllRoomsByHotelId(id);
+        List<GetRoomDto> roomsDto = roomService.getAllRoomsByHotelId(hotelId);
         LOG.info("AdminController.class: Hotel rooms: {}", roomsDto);
         model.addAttribute("rooms", roomsDto);
         model.addAttribute("roomTypes", roomTypeService.findAllRoomTypeNames());
-        /*
-        if(roomsDto.size() != 0) {
-
-            LOG.info("AdminController.class: Inside if-statement: Hotel rooms: {}", roomsDto);
-        } else {
-            model.addAttribute("msg", "Brak pokoi przypisanych do hotelu");
-            LOG.info("AdminController.class: Inside else part of if-statement");
-        }
-        */
-
+        model.addAttribute("hotelId", hotelId);
         return "admin/dashboard";
     }
 
-    @PostMapping("/hotels/{id}/rooms")
-    public String createRoomForHotelById(@ModelAttribute("room") @Valid NewRoomDto roomDto,
-                                         @PathVariable("id") Long id,
-                                         BindingResult result,
+    @PostMapping("/hotels/{hotelId}/rooms")
+    public String createRoomForHotelById(@ModelAttribute("room") NewRoomDto roomDto,
+                                         @PathVariable("hotelId") Long hotelId,
                                          Model model) {
 
         model.addAttribute("hotels", hotelService.getAllHotels());
-        List<GetRoomDto> roomsDto = roomService.getAllRoomsByHotelId(id);
+        List<GetRoomDto> roomsDto = roomService.getAllRoomsByHotelId(hotelId);
         model.addAttribute("rooms", roomsDto);
         model.addAttribute("roomTypes", roomTypeService.findAllRoomTypeNames());
-        roomService.createNewRoom(roomDto, id);
-        return "redirect:/auth/admin/hotels/{id}/rooms";
+        roomService.createNewRoom(roomDto);
+        return "redirect:/auth/admin/hotels/{hotelId}/rooms";
     }
 }

@@ -194,53 +194,42 @@
                         </div>
                     </div>
 
-                    <div class="row justify-content-end">
-                        <form>
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <input placeholder="Numer" class="form-control form-control-sm">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <input placeholder="Piętro" class="form-control form-control-sm">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <select class="form-control form-control-sm">
-                                        <option selected>Rodzaj</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <button type="submit" class="btn btn-primary btn-sm">Dodaj</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
 
-                    <!--
                     <div class="row justify-content-end">
-                        <form th:action="@{/auth/admin/hotels/${hotel.id}/rooms}"
-                                th:object="${room}" method="post">
+
+                        <form id="newRoomForm" th:action="@{'/auth/admin/hotels/' + ${hotelId} + '/rooms'}" th:object="${room}" method="post">
+
                             <div class="form-row">
+
                                 <div class="form-group col-md-3">
-                                    <input placeholder="Numer" class="form-control form-control-sm">
+                                    <input th:field="*{roomNumber}" type="text" placeholder="Numer" class="form-control form-control-sm">
                                 </div>
+
+
                                 <div class="form-group col-md-3">
-                                    <input placeholder="Piętro" class="form-control form-control-sm">
+                                    <input th:field="*{floorNumber}" type="number" placeholder="Piętro" class="form-control form-control-sm">
                                 </div>
+
                                 <div class="form-group col-md-3">
-                                    <select th:field="*{room.roomTypeId}" class="form-control form-control-sm">
-                                        <option th:each="rmType : ${roomTypes}"
-                                                th:value="${rmType.id}"
-                                                th:text="${rmType.name}">
+                                    <select th:field="*{roomTypeName}" class="form-control form-control-sm">
+                                        <option th:each="roomTypeName : ${roomTypes}"
+                                                th:value="${roomTypeName}"
+                                                th:text="${roomTypeName}">
                                         </option>
                                     </select>
                                 </div>
+
+                                <input type="hidden" th:field="*{hotelId}">
+
                                 <div class="form-group col-md-3">
                                     <button type="submit" class="btn btn-primary btn-sm">Dodaj</button>
                                 </div>
+
                             </div>
+
                         </form>
+
                     </div>
-                    -->
 
                 </div>
             </div>

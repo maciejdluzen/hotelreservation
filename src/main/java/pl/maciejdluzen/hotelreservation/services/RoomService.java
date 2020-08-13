@@ -11,6 +11,6 @@ public interface RoomService {
 
     List<GetRoomDto> getAllRoomsByHotelId(Long id);
 
-    Room createNewRoom(NewRoomDto roomDto, Long id);
+    Room createNewRoom(NewRoomDto roomDto);
 
 }

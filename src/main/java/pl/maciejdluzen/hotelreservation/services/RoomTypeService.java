@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface RoomTypeService {
 
-    List<RoomType> findAllRoomTypeNames();
+    List<String> findAllRoomTypeNames();
 
 }
