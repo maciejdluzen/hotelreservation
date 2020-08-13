@@ -47,7 +47,11 @@ public class DefaultRoomService implements RoomService {
 
     @Override
     public Room createNewRoom(NewRoomDto roomDto) {
-        Room room = mapper.map(roomDto, Room.class);
+        //Room room = mapper.map(roomDto, Room.class);
+        Room room = new Room();
+        room.setRoomNumber(roomDto.getRoomNumber());
+        room.setFloorNumber(roomDto.getFloorNumber());
+        room.setHotel(hotelRepository.getOne(roomDto.getHotelId()));
         room.setRoomType(roomTypeRepository.findRoomTypeByName(roomDto.getRoomTypeName()));
         return roomRepository.save(room);
     }

@@ -10,9 +10,6 @@ import java.util.List;
 @Repository
 public interface RoomTypeRepository extends JpaRepository<RoomType, Long> {
 
-    //@Query("SELECT r.id, r.name FROM RoomType r")
-    //List<RoomType> findAllRoomTypes();
-
     RoomType findRoomTypeByName(String name);
 
 }

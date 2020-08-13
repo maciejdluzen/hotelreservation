@@ -194,22 +194,15 @@
                         </div>
                     </div>
 
-
                     <div class="row justify-content-end">
-
                         <form id="newRoomForm" th:action="@{'/auth/admin/hotels/' + ${hotelId} + '/rooms'}" th:object="${room}" method="post">
-
                             <div class="form-row">
-
                                 <div class="form-group col-md-3">
                                     <input th:field="*{roomNumber}" type="text" placeholder="Numer" class="form-control form-control-sm">
                                 </div>
-
-
                                 <div class="form-group col-md-3">
                                     <input th:field="*{floorNumber}" type="number" placeholder="Piętro" class="form-control form-control-sm">
                                 </div>
-
                                 <div class="form-group col-md-3">
                                     <select th:field="*{roomTypeName}" class="form-control form-control-sm">
                                         <option th:each="roomTypeName : ${roomTypes}"
@@ -218,19 +211,12 @@
                                         </option>
                                     </select>
                                 </div>
-
-                                <input type="hidden" th:field="*{hotelId}">
-
                                 <div class="form-group col-md-3">
                                     <button type="submit" class="btn btn-primary btn-sm">Dodaj</button>
                                 </div>
-
                             </div>
-
                         </form>
-
                     </div>
-
                 </div>
             </div>
             <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>

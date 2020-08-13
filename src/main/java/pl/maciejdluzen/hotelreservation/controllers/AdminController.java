@@ -75,7 +75,6 @@ public class AdminController {
         LOG.info("AdminController.class: Hotel rooms: {}", roomsDto);
         model.addAttribute("rooms", roomsDto);
         model.addAttribute("roomTypes", roomTypeService.findAllRoomTypeNames());
-        model.addAttribute("hotelId", hotelId);
         return "admin/dashboard";
     }
 
@@ -88,6 +87,8 @@ public class AdminController {
         List<GetRoomDto> roomsDto = roomService.getAllRoomsByHotelId(hotelId);
         model.addAttribute("rooms", roomsDto);
         model.addAttribute("roomTypes", roomTypeService.findAllRoomTypeNames());
+        LOG.info("AdminController: CreateRoomForHotelById: Created room: {}", roomDto.toString());
+        roomDto.setHotelId(hotelId);
         roomService.createNewRoom(roomDto);
         return "redirect:/auth/admin/hotels/{hotelId}/rooms";
     }
