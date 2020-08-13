@@ -26,17 +26,17 @@ public class DefaultRoomTypeService implements RoomTypeService {
     @Override
     public List<String> findAllRoomTypeNames() {
         List<RoomType> roomTypes = roomTypeRepository.findAll();
-        List<String> roomTypeNames = new ArrayList<>();
+        //List<String> roomTypeNames = new ArrayList<>();
 
-//        return roomTypes.stream()
-//                        .map(RoomType::getName)
-//                        .collect(Collectors.toList());
+        return roomTypes.stream()
+                        .map(RoomType::getName)
+                        .collect(Collectors.toList());
 
         // Create a List<String> containing all room names!
-        for(RoomType rm : roomTypes) {
-            roomTypeNames.add(rm.getName());
-        }
-        LOG.info("DefaultRoomTypeService: Found room types: {}", roomTypeNames);
-        return roomTypeNames;
+//        for(RoomType rm : roomTypes) {
+//            roomTypeNames.add(rm.getName());
+//        }
+//        LOG.info("DefaultRoomTypeService: Found room types: {}", roomTypeNames);
+//        return roomTypeNames;
     }
 }

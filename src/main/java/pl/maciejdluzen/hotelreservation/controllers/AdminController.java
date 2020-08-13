@@ -50,11 +50,11 @@ public class AdminController {
     @PostMapping("/hotels")
     public String createHotel(@ModelAttribute("hotel") @Valid NewHotelDto hotelDto,
                               BindingResult result,
-                              RedirectAttributes redirectAttributes,
                               Model model) {
 
         model.addAttribute("hotels", hotelService.getAllHotels());
         if(result.hasErrors()) {
+            model.addAttribute("room", new NewRoomDto());
             LOG.info("Binding error: {}", result.toString());
             return "admin/dashboard";
         }
@@ -79,17 +79,35 @@ public class AdminController {
     }
 
     @PostMapping("/hotels/{hotelId}/rooms")
-    public String createRoomForHotelById(@ModelAttribute("room") NewRoomDto roomDto,
+    public String createRoomForHotelById(@ModelAttribute("room") @Valid NewRoomDto roomDto,
+                                         BindingResult result,
                                          @PathVariable("hotelId") Long hotelId,
                                          Model model) {
+        if(result.hasErrors()) {
+
+            model.addAttribute("hotels", hotelService.getAllHotels());
+            List<GetRoomDto> roomsDto = roomService.getAllRoomsByHotelId(hotelId);
+            model.addAttribute("rooms", roomsDto);
+            model.addAttribute("roomTypes", roomTypeService.findAllRoomTypeNames());
+
+
+            model.addAttribute("hotel", new NewHotelDto());
+            LOG.info("Binding error: {}", result.toString());
+            return "admin/dashboard";
+        }
+
 
         model.addAttribute("hotels", hotelService.getAllHotels());
         List<GetRoomDto> roomsDto = roomService.getAllRoomsByHotelId(hotelId);
         model.addAttribute("rooms", roomsDto);
         model.addAttribute("roomTypes", roomTypeService.findAllRoomTypeNames());
+
+
         LOG.info("AdminController: CreateRoomForHotelById: Created room: {}", roomDto.toString());
+
         roomDto.setHotelId(hotelId);
         roomService.createNewRoom(roomDto);
+
         return "redirect:/auth/admin/hotels/{hotelId}/rooms";
     }
 }

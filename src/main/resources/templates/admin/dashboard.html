@@ -199,9 +199,11 @@
                             <div class="form-row">
                                 <div class="form-group col-md-3">
                                     <input th:field="*{roomNumber}" type="number" placeholder="Numer" class="form-control form-control-sm">
+                                    <small th:if="${#fields.hasErrors('roomNumber')}" th:errors="*{roomNumber}" class="form-text form-muted text-danger"></small>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <input th:field="*{floorNumber}" type="number" placeholder="Piętro" class="form-control form-control-sm">
+                                    <small th:if="${#fields.hasErrors('floorNumber')}" th:errors="*{floorNumber}" class="form-text form-muted text-danger"></small>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <select th:field="*{roomTypeName}" class="form-control form-control-sm">
@@ -210,6 +212,7 @@
                                                 th:text="${roomTypeName}">
                                         </option>
                                     </select>
+                                    <small th:if="${#fields.hasErrors('roomTypeName')}" th:errors="*{roomTypeName}" class="form-text form-muted text-danger"></small>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <button type="submit" class="btn btn-primary btn-sm">Dodaj</button>
