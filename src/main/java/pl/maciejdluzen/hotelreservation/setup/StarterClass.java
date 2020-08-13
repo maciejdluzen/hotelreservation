@@ -60,6 +60,16 @@ public class StarterClass implements ApplicationRunner {
         hotel1.setEmailAddress("wroclawbielany@plazainn.pl");
         hotelRepository.save(hotel1);
 
+        Hotel hotel2 = new Hotel();
+        hotel2.setName("Plaza Inn Poznan - Centrum");
+        hotel2.setStreet("Grunwaldzka");
+        hotel2.setNumber("8");
+        hotel2.setCity("Poznań");
+        hotel2.setPostCode("33-000");
+        hotel2.setPhoneNumber("(+48) 50 433-87-39");
+        hotel2.setEmailAddress("poznancentrum@plazainn.pl");
+        hotelRepository.save(hotel2);
+
         RoomType roomType1 = new RoomType();
         roomType1.setName("LUX");
         roomType1.setNoPersons(2);
@@ -68,11 +78,27 @@ public class StarterClass implements ApplicationRunner {
         roomType1.setRateGross(roomType1.getRateNet()*(1+roomType1.getTax()));
         roomTypeRepository.save(roomType1);
 
+        RoomType roomType2 = new RoomType();
+        roomType2.setName("Double");
+        roomType2.setNoPersons(2);
+        roomType2.setRateNet(90.00);
+        roomType2.setTax(0.23);
+        roomType2.setRateGross(roomType2.getRateNet()*(1+roomType2.getTax()));
+        roomTypeRepository.save(roomType2);
+
         Room room1 = new Room();
         room1.setRoomNumber(100);
         room1.setFloorNumber(1);
         room1.setRoomType(roomType1);
         room1.setHotel(hotel1);
         roomRepository.save(room1);
+
+        Room room2 = new Room();
+        room2.setRoomNumber(101);
+        room2.setFloorNumber(1);
+        room2.setRoomType(roomType2);
+        room2.setHotel(hotel1);
+        roomRepository.save(room2);
+
     }
 }
