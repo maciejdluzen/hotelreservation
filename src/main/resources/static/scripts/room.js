@@ -1,9 +1,9 @@
-var HotelUtils = {
+var RoomUtils = {
 
-    deleteHotel: function (id) {
-        if(confirm("Potwierdź usunięcie hotelu o id " + id)) {
+    deleteRoom : function(roomId) {
+        if(confirm("Potwierdź usunięcie pokoju o id "+ roomId)) {
             $.ajax({
-                url : '/auth/admin/hotels/' + id,
+                url : '/auth/admin/hotels/rooms/' + roomId,
                 type : 'DELETE',
                 success : function (result, status) {
                     setTimeout(function() {
@@ -12,7 +12,7 @@ var HotelUtils = {
                     let messageField = document.getElementById('messages');
                     messageField.firstElementChild.classList.add('alert');
                     messageField.firstElementChild.classList += ' alert-success'
-                    messageField.firstElementChild.innerHTML += '<p>Usunięto hotel</p>'
+                    messageField.firstElementChild.innerHTML += '<p>Usunięto pokój</p>'
                 },
                 error : function(result, status) {
 

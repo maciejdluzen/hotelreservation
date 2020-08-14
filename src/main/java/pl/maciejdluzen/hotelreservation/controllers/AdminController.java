@@ -141,6 +141,15 @@ public class AdminController {
         }
     }
 
+    @DeleteMapping("/hotels/rooms/{roomId}")
+    public ResponseEntity<String> deleteRoom(@PathVariable("roomId") Long roomId) {
+        if(roomService.deleteRoom(roomId)) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
     private String toJson(Object object) throws JsonProcessingException
     {
         return new ObjectMapper().writeValueAsString(object);

@@ -185,7 +185,7 @@
                                     <td th:text="*{room.floorNumber}"></td>
                                     <td th:text="*{room.roomTypeName}"></td>
                                     <td>
-                                        <button type="button" title="Usuń pokój" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
+                                        <button th:onclick="'RoomUtils.deleteRoom(\'' + ${room.id} + '\');'" type="button" title="Usuń pokój" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
                                         <button type="button" class="btn btn-warning btn-sm" title="Edytuj pokój"><i class="fas fa-edit"></i></button>
                                     </td>
                                 </tr>
@@ -237,6 +237,7 @@
 </script>
 <script src="/static/scripts/admin-dashboard.js"></script>
 <script src="/static/scripts/hotel.js"></script>
+<script src="/static/scripts/room.js"></script>
 <footer th:replace="fragments/footer"></footer>
 </body>
 </html>

@@ -56,5 +56,15 @@ public class DefaultRoomService implements RoomService {
         return roomRepository.save(room);
     }
 
+    @Override
+    public Boolean deleteRoom(Long id) {
+        try {
+            roomRepository.deleteById(id);
+            return true;
+        } catch (Exception exc) {
+            return false;
+        }
+    }
+
 
 }

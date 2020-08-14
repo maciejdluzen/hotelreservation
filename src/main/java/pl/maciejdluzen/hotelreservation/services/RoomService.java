@@ -13,4 +13,6 @@ public interface RoomService {
 
     Room createNewRoom(NewRoomDto roomDto);
 
+    Boolean deleteRoom(Long id);
+
 }
