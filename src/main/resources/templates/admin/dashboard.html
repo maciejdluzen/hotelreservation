@@ -97,7 +97,7 @@
                             <button th:onclick="'HotelUtils.deleteHotel(\'' + ${hotel.id} + '\');'" type="button" title="Usuń hotel" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-warning btn-sm"
+                            <button th:onclick="'HotelUtils.prepareForEditHotel(\'' + ${hotel.id} + '\');'" type="button" class="btn btn-warning btn-sm"
                                     title="Edytuj hotel"><i class="fas fa-edit"></i></button>
                         </td>
                         <td>
@@ -151,7 +151,8 @@
                             <small th:if="*{emailAddress}" th:errors="*{emailAddress}" class="form-text form-muted text-danger"></small>
                         </div>
                         <div class="btn-group">
-                            <button type="submit" class="btn btn-primary">Dodaj</button>
+                            <button type="submit" class="btn btn-primary" id="addHotelBtn">Dodaj</button>
+                            <button type="submit" class="btn btn-primary" id="editHotelBtn">Edytuj</button>
                             <button type="reset" class="btn btn-outline-primary">Wyczyść</button>
                         </div>
                     </form>

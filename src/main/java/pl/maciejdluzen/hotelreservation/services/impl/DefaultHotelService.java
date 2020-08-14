@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import pl.maciejdluzen.hotelreservation.domain.entities.Hotel;
 import pl.maciejdluzen.hotelreservation.domain.repositories.HotelRepository;
 import pl.maciejdluzen.hotelreservation.dtos.GetHotelDto;
+import pl.maciejdluzen.hotelreservation.dtos.GetHotelDtoJson;
 import pl.maciejdluzen.hotelreservation.dtos.NewHotelDto;
 import pl.maciejdluzen.hotelreservation.services.HotelService;
 
@@ -51,8 +52,10 @@ public class DefaultHotelService implements HotelService {
     }
 
     @Override
-    public Hotel findHotelById(Long id) {
-        return hotelRepository.findById(id).orElse(null);
+    public GetHotelDtoJson findHotelById(Long id) {
+        Hotel hotel = hotelRepository.getOne(id);
+        GetHotelDtoJson hotelDto = mapper.map(hotel, GetHotelDtoJson.class);
+        return hotelDto;
     }
 
     @Override

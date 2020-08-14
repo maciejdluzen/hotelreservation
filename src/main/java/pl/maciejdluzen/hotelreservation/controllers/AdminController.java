@@ -13,9 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.maciejdluzen.hotelreservation.domain.entities.Hotel;
-import pl.maciejdluzen.hotelreservation.dtos.GetRoomDto;
-import pl.maciejdluzen.hotelreservation.dtos.NewHotelDto;
-import pl.maciejdluzen.hotelreservation.dtos.NewRoomDto;
+import pl.maciejdluzen.hotelreservation.dtos.*;
 import pl.maciejdluzen.hotelreservation.services.HotelService;
 import pl.maciejdluzen.hotelreservation.services.RoomService;
 import pl.maciejdluzen.hotelreservation.services.RoomTypeService;
@@ -119,11 +117,10 @@ public class AdminController {
     }
 
     @GetMapping("/hotels/{id}")
-    public ResponseEntity<String> getHotel(@PathVariable("id") Long id) throws JsonProcessingException {
-
-        Hotel hotel = hotelService.findHotelById(id);
-        if(hotel != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(toJson(hotel));
+    public ResponseEntity<String> getHotelJson(@PathVariable("id") Long id) throws JsonProcessingException {
+        GetHotelDtoJson hotelDto = hotelService.findHotelById(id);
+        if(hotelDto != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(toJson(hotelDto));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
         }
