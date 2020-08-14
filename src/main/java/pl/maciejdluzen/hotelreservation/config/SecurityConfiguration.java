@@ -2,6 +2,7 @@ package pl.maciejdluzen.hotelreservation.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -42,7 +43,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.csrf().disable()
+                .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/hello").permitAll()
                 .antMatchers("/register/**").permitAll()
@@ -50,7 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/guest", "/auth/guest/**").permitAll()
                 .antMatchers("/auth/admin", "/auth/admin/**").permitAll()
                 .antMatchers("/auth/reception", "/auth/reception/**").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
             .formLogin()
                 .loginPage("/login")
@@ -59,9 +61,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/")
                 .and()
             .logout()
-                .logoutSuccessUrl("/")
-                .and()
-            .csrf();
+                .logoutSuccessUrl("/");
+
     }
 
 
@@ -71,6 +72,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/static/**")
                 .antMatchers("/h2-console", "/h2-console/**");
     }
+
+
 
 
 }

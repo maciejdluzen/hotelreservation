@@ -94,7 +94,7 @@
                         <td th:text="*{hotel.emailAddress}"></td>
                         <td th:text="*{hotel.phoneNumber}"></td>
                         <td>
-                            <button type="button" title="Usuń hotel" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
+                            <button th:onclick="'HotelUtils.deleteHotel(\'' + ${hotel.id} + '\');'" type="button" title="Usuń hotel" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
                         </td>
                         <td>
                             <button type="button" class="btn btn-warning btn-sm"
@@ -236,6 +236,7 @@
     }
 </script>
 <script src="/static/scripts/admin-dashboard.js"></script>
+<script src="/static/scripts/hotel.js"></script>
 <footer th:replace="fragments/footer"></footer>
 </body>
 </html>

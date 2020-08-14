@@ -12,4 +12,8 @@ public interface HotelService {
 
     List<GetHotelDto> getAllHotels();
 
+    Boolean deleteHotel(Long id);
+
+    Hotel findHotelById(Long id);
+
 }

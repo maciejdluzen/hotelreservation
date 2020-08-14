@@ -1,6 +1,8 @@
 package pl.maciejdluzen.hotelreservation.services.impl;
 
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import pl.maciejdluzen.hotelreservation.domain.entities.Hotel;
 import pl.maciejdluzen.hotelreservation.domain.repositories.HotelRepository;
@@ -13,6 +15,8 @@ import java.util.List;
 
 @Service
 public class DefaultHotelService implements HotelService {
+
+    private Logger LOG = LoggerFactory.getLogger(getClass());
 
     private final HotelRepository hotelRepository;
     private final ModelMapper mapper;
@@ -44,6 +48,22 @@ public class DefaultHotelService implements HotelService {
             hotelsDto.add(hotelDto);
         }
         return hotelsDto;
+    }
+
+    @Override
+    public Hotel findHotelById(Long id) {
+        return hotelRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Boolean deleteHotel(Long id) {
+        try {
+            LOG.info("Deleting hotel");
+            hotelRepository.deleteById(id);
+            return true;
+        } catch (Exception exc) {
+            return false;
+        }
     }
 
 
