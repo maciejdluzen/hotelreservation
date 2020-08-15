@@ -2,6 +2,7 @@ package pl.maciejdluzen.hotelreservation.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.mail.iap.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -126,6 +127,16 @@ public class AdminController {
         }
     }
 
+    @GetMapping("/hotels/rooms/{roomId}")
+    public ResponseEntity<String> getRoomJson(@PathVariable("roomId") Long roomId) throws JsonProcessingException {
+        GetRoomDto roomDto = roomService.findRoomById(roomId);
+        if(roomDto != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(toJson(roomDto));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
+        }
+    }
+
     @DeleteMapping("/hotels/{id}")
     public ResponseEntity<String> deleteHotel(@PathVariable("id") Long id) {
         LOG.info("Deleting hotel");
@@ -144,12 +155,30 @@ public class AdminController {
                                               BindingResult result) {
         LOG.info("Preparing to update the hotel {}", hotelDto.toString());
         if(result.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
         }
         if(hotelService.updateHotel(hotelDto)) {
             LOG.info("Updating hotel: {}", hotelDto.toString());
             return ResponseEntity.status(HttpStatus.OK).build();
         } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+    @PutMapping("/hotels/rooms/{roomId}")
+    public ResponseEntity<String> updateRoom(@PathVariable("roomId") Long roomId,
+                                             @RequestBody @Valid GetRoomDto roomDto,
+                                             BindingResult result) {
+        LOG.info("AdminControler.class: updateRoom.method: roomDto: {}", roomDto.toString());
+        if(result.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+        }
+
+        if(roomService.updateRoom(roomDto)) {
+            LOG.info("AdminControler.class: updateRoom.method: SUCCESSFULLY UPDATED!");
+            return ResponseEntity.status(HttpStatus.OK).header(HttpHeaders.LOCATION, "/auth/admin/hotels/" + roomDto.getHotelId() + "/rooms").build();
+        } else {
+            LOG.info("AdminControler.class: updateRoom.method: ERROR!");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }

@@ -62,7 +62,6 @@ var HotelUtils = {
                             messageField.firstElementChild.classList.add('alert');
                             messageField.firstElementChild.classList += ' alert-danger'
                             messageField.firstElementChild.innerHTML += '<p>Błąd przetwarzania</p>'
-
                         }
                     });
                 }

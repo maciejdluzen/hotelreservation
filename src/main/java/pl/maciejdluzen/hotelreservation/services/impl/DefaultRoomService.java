@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import pl.maciejdluzen.hotelreservation.domain.entities.Room;
+import pl.maciejdluzen.hotelreservation.domain.entities.RoomType;
 import pl.maciejdluzen.hotelreservation.domain.repositories.HotelRepository;
 import pl.maciejdluzen.hotelreservation.domain.repositories.RoomRepository;
 import pl.maciejdluzen.hotelreservation.domain.repositories.RoomTypeRepository;
@@ -57,6 +58,13 @@ public class DefaultRoomService implements RoomService {
     }
 
     @Override
+    public GetRoomDto findRoomById(Long id) {
+        Room room = roomRepository.getOne(id);
+        GetRoomDto roomDto = mapper.map(room, GetRoomDto.class);
+        return roomDto;
+    }
+
+    @Override
     public Boolean deleteRoom(Long id) {
         try {
             roomRepository.deleteById(id);
@@ -64,6 +72,23 @@ public class DefaultRoomService implements RoomService {
         } catch (Exception exc) {
             return false;
         }
+    }
+
+    @Override
+    public Boolean updateRoom(GetRoomDto roomDto) {
+        Room room = mapper.map(roomDto, Room.class);
+        RoomType roomType = roomTypeRepository.findRoomTypeByName(roomDto.getRoomTypeName());
+        room.setRoomType(roomType);
+        room.setHotel(hotelRepository.getOne(roomDto.getHotelId()));
+        LOG.info("DefaultRoomService: updateRoom: room: {}", room.toString());
+        try {
+            LOG.info("DefaultRoomService: updateRoom: SAVING ROOM!");
+            roomRepository.save(room);
+        } catch (Exception exc) {
+            LOG.info(exc.toString());
+            return false;
+        }
+        return true;
     }
 
 

@@ -109,9 +109,10 @@
                 </table>
             </div>
 
-            <div class="row justify-content-around">
+            <div class="row justify-content-around mt-md-5">
                 <div class="col-sm-4">
 
+                    <!-- NEW HOTEL FORM -->
                     <form id="newHotelForm" method="post"
                           th:object="${hotel}" th:action="@{/auth/admin/hotels}" style="display: none;">
                         <h4>Dodawanie nowego hotelu</h4>
@@ -155,7 +156,9 @@
                             <button type="reset" class="btn btn-outline-primary">Wyczyść</button>
                         </div>
                     </form>
+                    <!-- NEW HOTEL FORM - end -->
 
+                    <!-- EDIT HOTEL FORM -->
                     <form id="editHotelForm" th:object="${hotel}" style="display: none;">
                         <h4>Edycja hotelu</h4>
                         <div class="form-group">
@@ -198,7 +201,7 @@
                             <button type="reset" class="btn btn-outline-primary">Wyczyść</button>
                         </div>
                     </form>
-
+                    <!-- EDIT HOTEL FORM - end -->
                 </div>
                 <div class="col-sm-4">
 
@@ -229,7 +232,7 @@
                                     <td th:text="*{room.roomTypeName}"></td>
                                     <td>
                                         <button th:onclick="'RoomUtils.deleteRoom(\'' + ${room.id} + '\');'" type="button" title="Usuń pokój" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
-                                        <button type="button" class="btn btn-warning btn-sm" title="Edytuj pokój"><i class="fas fa-edit"></i></button>
+                                        <button th:onclick="'RoomUtils.prepareForEditRoom(\'' + ${room.id} + '\');'" type="button" class="btn btn-warning btn-sm" title="Edytuj pokój"><i class="fas fa-edit"></i></button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -238,6 +241,8 @@
                     </div>
 
                     <div class="row justify-content-end">
+
+                        <!-- NEW ROOM FORM -->
                         <form id="newRoomForm" th:action="@{'/auth/admin/hotels/' + ${hotelId} + '/rooms'}" th:object="${room}" method="post" style="display: none;">
                             <div class="form-row">
                                 <div class="form-group col-md-3">
@@ -262,6 +267,36 @@
                                 </div>
                             </div>
                         </form>
+                        <!-- NEW ROOM FORM - end -->
+
+                        <!-- EDIT ROOM FORM -->
+                        <form id="editRoomForm" th:object="${room}" style="display: none;">
+                            <div class="form-row">
+                                    <input id="hotelId2" type="hidden">
+                                <div class="form-group col-md-3">
+                                    <input id="roomNumber2" th:field="*{roomNumber}" type="number" placeholder="Numer" class="form-control form-control-sm">
+                                    <small th:if="${#fields.hasErrors('roomNumber')}" th:errors="*{roomNumber}" class="form-text form-muted text-danger"></small>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <input id="floorNumber2" th:field="*{floorNumber}" type="number" placeholder="Piętro" class="form-control form-control-sm">
+                                    <small th:if="${#fields.hasErrors('floorNumber')}" th:errors="*{floorNumber}" class="form-text form-muted text-danger"></small>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <select id="roomTypeName2" th:field="*{roomTypeName}" class="form-control form-control-sm">
+                                        <option th:each="roomTypeName : ${roomTypes}"
+                                                th:value="${roomTypeName}"
+                                                th:text="${roomTypeName}">
+                                        </option>
+                                    </select>
+                                    <small th:if="${#fields.hasErrors('roomTypeName')}" th:errors="*{roomTypeName}" class="form-text form-muted text-danger"></small>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <button id="editRoomBtn" th:onclick="'RoomUtils.editRoom();'" class="btn btn-primary btn-sm">Edytuj</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- EDIT ROOM FORM - end -->
+
                     </div>
                 </div>
             </div>
