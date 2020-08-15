@@ -17,4 +17,6 @@ public interface HotelService {
 
     GetHotelDtoJson findHotelById(Long id);
 
+    Boolean updateHotel(GetHotelDtoJson hotelDto);
+
 }

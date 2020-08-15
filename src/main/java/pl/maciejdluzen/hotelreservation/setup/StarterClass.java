@@ -50,6 +50,7 @@ public class StarterClass implements ApplicationRunner {
         roleGuest.setName("ROLE_GUEST");
         roleRepository.save(roleGuest);
 
+
         Hotel hotel1 = new Hotel();
         hotel1.setName("Plaza Inn Wrocław - Bielany");
         hotel1.setStreet("Karkonoska");

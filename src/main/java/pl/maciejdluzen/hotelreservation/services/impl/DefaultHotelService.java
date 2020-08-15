@@ -36,6 +36,7 @@ public class DefaultHotelService implements HotelService {
     @Override
     public Hotel createHotel(NewHotelDto hotelDto) {
         Hotel hotel = mapper.map(hotelDto, Hotel.class);
+        LOG.info("DefaultHotelService.class: createHotel.method: CreatingHotel: {}", hotelDto.toString());
         return hotelRepository.save(hotel);
     }
 
@@ -63,6 +64,26 @@ public class DefaultHotelService implements HotelService {
         try {
             LOG.info("Deleting hotel");
             hotelRepository.deleteById(id);
+            return true;
+        } catch (Exception exc) {
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean updateHotel(GetHotelDtoJson hotelDto) {
+
+        Long id = hotelDto.getId();
+        String name = hotelDto.getName();
+        String street = hotelDto.getStreet();
+        String number = hotelDto.getNumber();
+        String city = hotelDto.getCity();
+        String postCode = hotelDto.getPostCode();
+        String phoneNumber = hotelDto.getPhoneNumber();
+        String emailAddress = hotelDto.getEmailAddress();
+
+        try {
+            hotelRepository.updateHotelById(id, name, street, number, city, postCode, phoneNumber, emailAddress);
             return true;
         } catch (Exception exc) {
             return false;

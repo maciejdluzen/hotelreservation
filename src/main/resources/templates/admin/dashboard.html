@@ -112,8 +112,8 @@
             <div class="row justify-content-around">
                 <div class="col-sm-4">
 
-                    <form id="newHotelForm" th:action="@{/auth/admin/hotels}"
-                          th:object="${hotel}" method="post" style="display: none;">
+                    <form id="newHotelForm" method="post"
+                          th:object="${hotel}" th:action="@{/auth/admin/hotels}" style="display: none;">
                         <h4>Dodawanie nowego hotelu</h4>
                         <div class="form-group">
                             <label for="hotelName">Nazwa nowego hotelu</label>
@@ -152,7 +152,49 @@
                         </div>
                         <div class="btn-group">
                             <button type="submit" class="btn btn-primary" id="addHotelBtn">Dodaj</button>
-                            <button type="submit" class="btn btn-primary" id="editHotelBtn">Edytuj</button>
+                            <button type="reset" class="btn btn-outline-primary">Wyczyść</button>
+                        </div>
+                    </form>
+
+                    <form id="editHotelForm" th:object="${hotel}" style="display: none;">
+                        <h4>Edycja hotelu</h4>
+                        <div class="form-group">
+                            <label for="hotelName2">Nazwa hotelu</label>
+                            <input th:field="*{name}" type="text" class="form-control" id="hotelName2" aria-describedby="nameError">
+                            <small th:errors="*{name}" id="nameError2" class="form-text form-muted text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="hotelStreet2">Adres: ulica</label>
+                            <input th:field="*{street}" type="text" class="form-control" id="hotelStreet2">
+                            <small th:if="*{street}" th:errors="*{street}" class="form-text form-muted text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="hotelNumber2">Adres: numer</label>
+                            <input th:field="*{number}" type="text" class="form-control" id="hotelNumber2">
+                            <small th:if="*{number}" th:errors="*{number}" class="form-text form-muted text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="hotelCity2">Adres: miejscowość</label>
+                            <input th:field="*{city}" type="text" class="form-control" id="hotelCity2">
+                            <small th:if="*{city}" th:errors="*{city}" class="form-text form-muted text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="hotelPostCode2">Adres: kod pocztowy</label>
+                            <input th:field="*{postCode}" type="text" class="form-control" id="hotelPostCode2">
+                            <small th:if="*{postCode}" th:errors="*{postCode}" class="form-text form-muted text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="hotelPhoneNumber2">Numer telefonu</label>
+                            <input th:field="*{phoneNumber}" type="text" class="form-control" id="hotelPhoneNumber2">
+                            <small th:if="*{phoneNumber}" th:errors="*{phoneNumber}" class="form-text form-muted text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="hotelEmailAddress2">Adres email</label>
+                            <input th:field="*{emailAddress}" type="text" class="form-control" id="hotelEmailAddress2">
+                            <small th:if="*{emailAddress}" th:errors="*{emailAddress}" class="form-text form-muted text-danger"></small>
+                        </div>
+                        <div class="btn-group">
+                            <button th:onclick="'HotelUtils.editHotel();'" class="btn btn-primary" id="editHotelBtn">Edytuj</button>
                             <button type="reset" class="btn btn-outline-primary">Wyczyść</button>
                         </div>
                     </form>

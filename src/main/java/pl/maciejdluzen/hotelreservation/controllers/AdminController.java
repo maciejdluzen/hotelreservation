@@ -56,7 +56,7 @@ public class AdminController {
     public String createHotel(@ModelAttribute("hotel") @Valid NewHotelDto hotelDto,
                               BindingResult result,
                               Model model) {
-
+        LOG.info("Saving hotel");
         model.addAttribute("hotels", hotelService.getAllHotels());
         if(result.hasErrors()) {
             model.addAttribute("room", new NewRoomDto());
@@ -135,6 +135,22 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @PutMapping("/hotels/{id}")
+    public ResponseEntity<String> updateHotel(@PathVariable("id") Long id,
+                                              @RequestBody @Valid GetHotelDtoJson hotelDto,
+                                              BindingResult result) {
+        LOG.info("Preparing to update the hotel {}", hotelDto.toString());
+        if(result.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        if(hotelService.updateHotel(hotelDto)) {
+            LOG.info("Updating hotel: {}", hotelDto.toString());
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
