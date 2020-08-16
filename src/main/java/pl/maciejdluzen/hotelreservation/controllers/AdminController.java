@@ -40,6 +40,11 @@ public class AdminController {
         this.roomTypeService = roomTypeService;
     }
 
+    /*-----------------------------------
+     --------- HOTEL MANAGEMENT ---------
+     ----------------------------------*/
+
+
     @GetMapping("/hotels")
     public String getHotelsDashboard(Model model) {
 
@@ -191,6 +196,13 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    /*-----------------------------------
+     -------- HOTEL MANAGEMENT - end ----
+     ----------------------------------*/
+
+
+
 
     private String toJson(Object object) throws JsonProcessingException
     {

@@ -6,14 +6,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import pl.maciejdluzen.hotelreservation.domain.entities.Hotel;
-import pl.maciejdluzen.hotelreservation.domain.entities.Role;
-import pl.maciejdluzen.hotelreservation.domain.entities.Room;
-import pl.maciejdluzen.hotelreservation.domain.entities.RoomType;
-import pl.maciejdluzen.hotelreservation.domain.repositories.HotelRepository;
-import pl.maciejdluzen.hotelreservation.domain.repositories.RoleRepository;
-import pl.maciejdluzen.hotelreservation.domain.repositories.RoomRepository;
-import pl.maciejdluzen.hotelreservation.domain.repositories.RoomTypeRepository;
+import pl.maciejdluzen.hotelreservation.domain.entities.*;
+import pl.maciejdluzen.hotelreservation.domain.repositories.*;
 
 @Component
 public class StarterClass implements ApplicationRunner {
@@ -24,12 +18,14 @@ public class StarterClass implements ApplicationRunner {
     private final HotelRepository hotelRepository;
     private final RoomTypeRepository roomTypeRepository;
     private final RoomRepository roomRepository;
+    private final GuestRepository guestRepository;
 
-    public StarterClass(RoleRepository roleRepository, HotelRepository hotelRepository, RoomTypeRepository roomTypeRepository, RoomRepository roomRepository) {
+    public StarterClass(RoleRepository roleRepository, HotelRepository hotelRepository, RoomTypeRepository roomTypeRepository, RoomRepository roomRepository, GuestRepository guestRepository) {
         this.roleRepository = roleRepository;
         this.hotelRepository = hotelRepository;
         this.roomTypeRepository = roomTypeRepository;
         this.roomRepository = roomRepository;
+        this.guestRepository = guestRepository;
     }
 
     @Override
@@ -100,6 +96,36 @@ public class StarterClass implements ApplicationRunner {
         room2.setRoomType(roomType2);
         room2.setHotel(hotel1);
         roomRepository.save(room2);
+
+        Guest guest = new Guest();
+        guest.setUsername("andrew.brown@yahoo.com");
+        guest.setEmailAddress("andrew.brown@yahoo.com");
+        guest.setFirstName("Andrew");
+        guest.setLastName("Brown");
+        guest.setPassword("user");
+        guest.setActive(true);
+        guest.setStreet("Legnicka");
+        guest.setHomeNumber("15/6");
+        guest.setCity("Wrocław");
+        guest.setPostCode("55-780");
+        guest.setPhoneNumber("609-445-409");
+        guest.setRole(roleGuest);
+        guestRepository.save(guest);
+
+        Guest guest2 = new Guest();
+        guest2.setUsername("michael.smith@gmail.com");
+        guest2.setEmailAddress("michael.smith@gmail.com");
+        guest2.setFirstName("Michael");
+        guest2.setLastName("Smith");
+        guest2.setPassword("user2");
+        guest2.setActive(true);
+        guest2.setStreet("Kowalska");
+        guest2.setHomeNumber("12");
+        guest2.setCity("Wrocław");
+        guest2.setPostCode("50-350");
+        guest2.setPhoneNumber("701-365-455");
+        guest2.setRole(roleGuest);
+        guestRepository.save(guest2);
 
     }
 }
