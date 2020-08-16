@@ -10,4 +10,6 @@ public interface GuestService {
     List<GetGuestsDto> getAllGuestsWithoutDetails();
 
     boolean deleteGuest(Long id);
+
+    boolean deactivateGuestAccount(Long id);
 }

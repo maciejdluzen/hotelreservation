@@ -73,9 +73,32 @@ let GuestAdminUtils = {
         }
     },
 
-    deactivateGuest : function() {
+    deactivateGuest : function(id) {
 
-
+        if(confirm('Potwierdź zmianę statusu gościa')) {
+            $.ajax({
+                url : 'http://localhost:8081/auth/admin/guests/' + id + '/deactivate',
+                type :'PUT',
+                success : function (result, status) {
+                    setTimeout(function() {
+                        location.reload();
+                    }, 2000);
+                    let messageField = document.getElementById('messages');
+                    messageField.firstElementChild.classList.add('alert');
+                    messageField.firstElementChild.classList += ' alert-success'
+                    messageField.firstElementChild.innerHTML += '<p>Pomyślnie deaktywowano konto</p>'
+                },
+                error : function(result, status) {
+                    setTimeout(function() {
+                        window.history.go(0);
+                    }, 5000);
+                    let messageField = document.getElementById('messages');
+                    messageField.firstElementChild.classList.add('alert');
+                    messageField.firstElementChild.classList += ' alert-danger'
+                    messageField.firstElementChild.innerHTML += '<p>Błąd przetwarzania</p>'
+                }
+            });
+        }
 
     }
 }

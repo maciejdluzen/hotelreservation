@@ -55,6 +55,15 @@ public class AdminGuestController {
         }
     }
 
+    @PutMapping("/{id}/deactivate")
+    public ResponseEntity<?> deactivateGuestAccount(@PathVariable("id") Long id) {
+        if(guestService.deactivateGuestAccount(id)) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+        }
+    }
+
 
 
 //    @GetMapping("/getall")

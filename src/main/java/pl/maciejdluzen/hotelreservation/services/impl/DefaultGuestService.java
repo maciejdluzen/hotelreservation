@@ -47,5 +47,19 @@ public class DefaultGuestService implements GuestService {
         return true;
     }
 
-
+    @Override
+    public boolean deactivateGuestAccount(Long id) {
+        Guest guest = guestRepository.getOne(id);
+        if(guest.getActive()) {
+            guest.setActive(false);
+        } else {
+            guest.setActive(true);
+        }
+        try {
+            guestRepository.save(guest);
+            return true;
+        } catch (Exception exc) {
+            return false;
+        }
+    }
 }
