@@ -86,7 +86,7 @@ let GuestAdminUtils = {
                     let messageField = document.getElementById('messages');
                     messageField.firstElementChild.classList.add('alert');
                     messageField.firstElementChild.classList += ' alert-success'
-                    messageField.firstElementChild.innerHTML += '<p>Pomyślnie deaktywowano konto</p>'
+                    messageField.firstElementChild.innerHTML += '<p>Pomyślnie zmieniono status dla konta</p>'
                 },
                 error : function(result, status) {
                     setTimeout(function() {
