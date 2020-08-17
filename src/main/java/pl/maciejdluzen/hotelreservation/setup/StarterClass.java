@@ -19,13 +19,15 @@ public class StarterClass implements ApplicationRunner {
     private final RoomTypeRepository roomTypeRepository;
     private final RoomRepository roomRepository;
     private final GuestRepository guestRepository;
+    private final ReceptionistRepository receptionistRepository;
 
-    public StarterClass(RoleRepository roleRepository, HotelRepository hotelRepository, RoomTypeRepository roomTypeRepository, RoomRepository roomRepository, GuestRepository guestRepository) {
+    public StarterClass(RoleRepository roleRepository, HotelRepository hotelRepository, RoomTypeRepository roomTypeRepository, RoomRepository roomRepository, GuestRepository guestRepository, ReceptionistRepository receptionistRepository) {
         this.roleRepository = roleRepository;
         this.hotelRepository = hotelRepository;
         this.roomTypeRepository = roomTypeRepository;
         this.roomRepository = roomRepository;
         this.guestRepository = guestRepository;
+        this.receptionistRepository = receptionistRepository;
     }
 
     @Override
@@ -126,6 +128,16 @@ public class StarterClass implements ApplicationRunner {
         guest2.setPhoneNumber("701-365-455");
         guest2.setRole(roleGuest);
         guestRepository.save(guest2);
+
+        Receptionist receptionist = new Receptionist();
+        receptionist.setUsername("wroclawreception@plazainnn.com");
+        receptionist.setLastName("Adamczewska");
+        receptionist.setFirstName("Karolina");
+        receptionist.setPassword("reception");
+        receptionist.setHotel(hotel1);
+        receptionist.setActive(true);
+        receptionist.setRole(roleReceptionist);
+        receptionistRepository.save(receptionist);
 
     }
 }

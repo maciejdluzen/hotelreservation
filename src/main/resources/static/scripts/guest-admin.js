@@ -25,7 +25,7 @@ let GuestAdminUtils = {
                             <td>${guests[i].emailAddress}</td>
                             <td>${active}</td>
                             <td><button onclick="GuestAdminUtils.deleteGuest(${guests[i].id})" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button></td>
-                            <td><button onclick="GuestAdminUtils.deactivateGuest(${guests[i].id})" class="btn btn-warning btn-sm"><i class="fas fa-user-alt-slash"></i></button></td>
+                            <td><button onclick="GuestAdminUtils.deactivateGuest(${guests[i].id})" class="btn btn-warning btn-sm"><i class="fas fa-user-alt"></i></button></td>
                          </tr>`;
                 }
                 document.getElementById('guestTableBody').innerHTML = output
