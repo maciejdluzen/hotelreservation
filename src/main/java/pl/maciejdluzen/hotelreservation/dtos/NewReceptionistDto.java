@@ -7,6 +7,7 @@ import lombok.Setter;
 import pl.maciejdluzen.hotelreservation.validation.constraints.UniqueEmail;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 @Getter
@@ -15,18 +16,17 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 public class NewReceptionistDto {
 
-    @NotEmpty
+    @NotBlank
     private String lastName;
-    @NotEmpty
+    @NotBlank
     private String firstName;
-    @NotEmpty
+    @NotBlank
     @Email
     @UniqueEmail
     private String emailAddress;
-    @NotEmpty
+    @NotBlank
     private String hotelName;
 
-    private Boolean status;
-    @NotEmpty
+    @NotBlank
     private String password;
 }

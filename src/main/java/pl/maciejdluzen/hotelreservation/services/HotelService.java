@@ -19,4 +19,5 @@ public interface HotelService {
 
     Boolean updateHotel(GetHotelDtoJson hotelDto);
 
+    List<String> findAllHotelsNames();
 }

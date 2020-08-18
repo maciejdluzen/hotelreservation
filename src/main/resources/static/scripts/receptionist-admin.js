@@ -1,3 +1,11 @@
+$("#showFormBtn").click(function(){
+        $("#newReceptionistForm").toggle();
+    });
+
+if($('#recepPass').val() !== $('#passConf').val()) {
+    $('#passConfErr').text() = 'Hasła muszą być identyczne';
+}
+
 let ReceptionistAdminUtils = {
 
     getAllReceptionists : function () {

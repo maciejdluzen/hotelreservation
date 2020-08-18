@@ -20,4 +20,5 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
                          @Param("city") String city, @Param("postCode") String postCode,
                          @Param("phoneNumber") String phoneNumber, @Param("emailAddress") String emailAddress);
 
+    Hotel findHotelByName(String name);
 }

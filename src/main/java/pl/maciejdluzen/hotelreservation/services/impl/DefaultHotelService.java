@@ -13,6 +13,7 @@ import pl.maciejdluzen.hotelreservation.services.HotelService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DefaultHotelService implements HotelService {
@@ -90,5 +91,12 @@ public class DefaultHotelService implements HotelService {
         }
     }
 
+    @Override
+    public List<String> findAllHotelsNames() {
+        List<Hotel> hotels = hotelRepository.findAll();
+        return hotels.stream()
+                    .map(Hotel::getName)
+                    .collect(Collectors.toList());
+    }
 
 }

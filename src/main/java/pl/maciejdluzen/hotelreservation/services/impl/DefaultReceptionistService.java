@@ -1,10 +1,14 @@
 package pl.maciejdluzen.hotelreservation.services.impl;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.maciejdluzen.hotelreservation.domain.entities.Receptionist;
+import pl.maciejdluzen.hotelreservation.domain.repositories.HotelRepository;
 import pl.maciejdluzen.hotelreservation.domain.repositories.ReceptionistRepository;
+import pl.maciejdluzen.hotelreservation.domain.repositories.RoleRepository;
 import pl.maciejdluzen.hotelreservation.dtos.GetReceptionistsDto;
+import pl.maciejdluzen.hotelreservation.dtos.NewReceptionistDto;
 import pl.maciejdluzen.hotelreservation.services.ReceptionistService;
 
 import java.util.ArrayList;
@@ -15,10 +19,16 @@ public class DefaultReceptionistService implements ReceptionistService {
 
     private final ReceptionistRepository receptionistRepository;
     private final ModelMapper mapper;
+    private final HotelRepository hotelRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
 
-    public DefaultReceptionistService(ReceptionistRepository receptionistRepository, ModelMapper mapper) {
+    public DefaultReceptionistService(ReceptionistRepository receptionistRepository, ModelMapper mapper, HotelRepository hotelRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
         this.receptionistRepository = receptionistRepository;
         this.mapper = mapper;
+        this.hotelRepository = hotelRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -32,9 +42,14 @@ public class DefaultReceptionistService implements ReceptionistService {
         return receptionistsDto;
     }
 
-
-
-
-
-
+    @Override
+    public Receptionist createReceptionistAccount(NewReceptionistDto receptionistDto) {
+        Receptionist receptionist = mapper.map(receptionistDto, Receptionist.class);
+        String encodedPassword = passwordEncoder.encode(receptionistDto.getPassword());
+        receptionist.setHotel(hotelRepository.findHotelByName(receptionistDto.getHotelName()));
+        receptionist.setUsername(receptionistDto.getEmailAddress());
+        receptionist.setPassword(encodedPassword);
+        receptionist.setRole(roleRepository.getByName("ROLE_RECEPTIONIST"));
+        return receptionistRepository.save(receptionist);
+    }
 }

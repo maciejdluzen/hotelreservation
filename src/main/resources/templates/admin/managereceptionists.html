@@ -23,7 +23,7 @@
                 <div class="btn-toolbar mb-2 mb-md-0">
 
                 </div>
-
+                <button type="submit" id="showFormBtn" class="btn btn-primary">Dodaj konto</button>
             </div>
 
             <div id="messages" class="row justify-content-around">
@@ -56,16 +56,69 @@
             <div class="row justify-content-around mt-md-5">
                 <div class="col-sm-4">
 
+                    <!-- NEW RECEPTIONIST FORM -->
+                    <form id="newReceptionistForm" method="post"
+                          th:object="${receptionist}" th:action="@{/auth/admin/receptionists}" style="display: none;">
+
+                        <h4>Tworzenie nowego konta dla recepcjonisty</h4>
+
+                        <div class="form-group">
+                            <label for="recepFirstName">Imię</label>
+                            <input th:field="*{firstName}" type="text" class="form-control" id="recepFirstName" aria-describedby="nameError">
+                            <small th:errors="*{firstName}" class="form-text form-muted text-danger"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recepLastName">Nazwisko</label>
+                            <input th:field="*{lastName}" type="text" class="form-control" id="recepLastName">
+                            <small th:errors="*{lastName}" class="form-text form-muted text-danger"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recepEmailAddress">Adres e-mail</label>
+                            <input th:field="*{emailAddress}" type="text" class="form-control" id="recepEmailAddress">
+                            <small th:errors="*{emailAddress}" class="form-text form-muted text-danger"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recepHotel">Nazwa hotelu</label>
+                            <select id="recepHotel" th:field="*{hotelName}" class="form-control form-control-sm">
+                                <option th:each="hotelName : ${hotelsNames}"
+                                        th:value="${hotelName}"
+                                        th:text="${hotelName}">
+                                </option>
+                            </select>
+                            <small th:errors="*{hotelName}" class="form-text form-muted text-danger"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recepPass">Hasło</label>
+                            <input th:field="*{password}" type="password" class="form-control" id="recepPass">
+                            <small id="passErr" th:errors="*{password}" class="form-text form-muted text-danger"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="passConf">Powtórz</label>
+                            <input type="password" class="form-control" id="passConf">
+                            <small  id="passConfErr" class="form-text form-muted text-danger"></small>
+                        </div>
+
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary" id="addHotelBtn">Dodaj</button>
+                            <button type="reset" class="btn btn-outline-primary">Wyczyść</button>
+                        </div>
+                    </form>
+                    <!-- NEW RECEPTIONIST FORM - end -->
+
+                    <!-- TO-DO Add password and password confirmation blank fields error validation in JavaScript"
+                    -->
+
 
                 </div>
                 <div class="col-sm-4">
-
                     <div class="row justify-content-end">
 
-
-
                     </div>
-
                 </div>
             </div>
             <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
