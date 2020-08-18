@@ -8,10 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.maciejdluzen.hotelreservation.dtos.GetReceptionistsDto;
 import pl.maciejdluzen.hotelreservation.dtos.NewReceptionistDto;
 import pl.maciejdluzen.hotelreservation.services.HotelService;
@@ -64,4 +61,12 @@ public class AdminReceptionistController {
         return "redirect:/auth/admin/receptionists";
     }
 
+    @PutMapping("/{id}/deactivate")
+    public ResponseEntity<?> deactivateReceptionist(@PathVariable Long id) {
+        if(receptionistService.deactivateReceptionistAccount(id)) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+        }
+    }
 }

@@ -11,4 +11,6 @@ public interface ReceptionistService {
     List<GetReceptionistsDto> getAllReceptionists();
 
     Receptionist createReceptionistAccount(NewReceptionistDto receptionistDto);
+
+    boolean deactivateReceptionistAccount(Long id);
 }

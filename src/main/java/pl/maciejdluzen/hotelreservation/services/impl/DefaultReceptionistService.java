@@ -52,4 +52,21 @@ public class DefaultReceptionistService implements ReceptionistService {
         receptionist.setRole(roleRepository.getByName("ROLE_RECEPTIONIST"));
         return receptionistRepository.save(receptionist);
     }
+
+    @Override
+    public boolean deactivateReceptionistAccount(Long id) {
+        Receptionist receptionist = receptionistRepository.getOne(id);
+
+        if(receptionist.getActive()) {
+            receptionist.setActive(false);
+        } else {
+            receptionist.setActive(true);
+        }
+        try {
+            receptionistRepository.save(receptionist);
+            return true;
+        } catch (Exception exc) {
+            return false;
+        }
+    }
 }
