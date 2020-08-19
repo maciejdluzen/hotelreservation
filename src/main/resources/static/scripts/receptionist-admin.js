@@ -84,6 +84,41 @@ let ReceptionistAdminUtils = {
                 }
             });
         }
+    },
+
+    deleteReceptionist : function(id) {
+        if(confirm("Potwierdź chęć usunięcia recepcjonisty")) {
+            $.ajax({
+               url : '/auth/admin/receptionists/' + id,
+               type : 'DELETE',
+               success : function (result, status, xhr) {
+                    if(xhr.status === 204) {
+                        setTimeout(function() {
+                            window.history.go(0);
+                        }, 2000);
+                        let messageField = document.getElementById('messages');
+                        messageField.firstElementChild.classList.add('alert');
+                        messageField.firstElementChild.classList += ' alert-success'
+                        messageField.firstElementChild.innerHTML += '<p>Usunięto konto recepcjonisty</p>'
+                    } else if (xhr.status === 404) {
+                        let messageField = document.getElementById('messages');
+                        messageField.firstElementChild.classList.add('alert');
+                        messageField.firstElementChild.classList += ' alert-warning'
+                        messageField.firstElementChild.innerHTML += '<p>Operacja usunięcia nie powiodła się</p>'
+                    }
+               },
+
+                error : function () {
+                    setTimeout(function() {
+                        window.history.go(0);
+                    }, 2000);
+                    let messageField = document.getElementById('messages');
+                    messageField.firstElementChild.classList.add('alert');
+                    messageField.firstElementChild.classList += ' alert-danger'
+                    messageField.firstElementChild.innerHTML += '<p>Błąd przetwarzania</p>'
+                }
+            });
+        }
     }
 }
 ReceptionistAdminUtils.getAllReceptionists();

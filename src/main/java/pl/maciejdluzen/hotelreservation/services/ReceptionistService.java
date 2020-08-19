@@ -13,4 +13,6 @@ public interface ReceptionistService {
     Receptionist createReceptionistAccount(NewReceptionistDto receptionistDto);
 
     boolean deactivateReceptionistAccount(Long id);
+
+    boolean deleteReceptionist(Long id);
 }

@@ -69,4 +69,14 @@ public class DefaultReceptionistService implements ReceptionistService {
             return false;
         }
     }
+
+    @Override
+    public boolean deleteReceptionist(Long id) {
+        try {
+            receptionistRepository.deleteById(id);
+        } catch (Exception exc) {
+            return false;
+        }
+        return true;
+    }
 }

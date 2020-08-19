@@ -69,4 +69,16 @@ public class AdminReceptionistController {
             return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteReceptionist(@PathVariable("id") Long id) {
+        if(receptionistService.deleteReceptionist(id)) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+
 }
