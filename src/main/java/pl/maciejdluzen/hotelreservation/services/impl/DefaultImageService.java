@@ -1,5 +1,6 @@
 package pl.maciejdluzen.hotelreservation.services.impl;
 
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import pl.maciejdluzen.hotelreservation.services.ImageService;
 
 import java.io.IOException;
 
-@Transactional
+
 @Service
 public class DefaultImageService implements ImageService {
 
@@ -36,7 +37,21 @@ public class DefaultImageService implements ImageService {
             LOG.info("Exception occured: {}", exc);
             exc.printStackTrace();
             return false;
+        } catch (Exception exc) {
+            return false;
         }
         return true;
     }
+
+    @Override
+    public boolean deleteImage(Long id) {
+        try {
+            imageRepository.deleteById(id);
+        } catch (Exception exc) {
+            return false;
+        }
+        return true;
+    }
+
+
 }

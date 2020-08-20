@@ -26,10 +26,10 @@
 
             </div>
 
-            <div id="messages" class="row justify-content-around">
+            <div id="messages" class="row justify-content-around" th:class="${'alert ' + alertClass}">
                 <div class="col d-flex align-items-center">
                     <div th:if="${message}">
-                        <h2 th:text="${message}"/>
+                        <p th:text="${message}" ></p>
                     </div>
                 </div>
             </div>
@@ -40,19 +40,19 @@
                         <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Nazwa</th>
-                            <th>Rodzaj pliku</th>
                             <th>Opis</th>
-                            <th>Zdjęcie</th>
+                            <th>Rodzaj pliku</th>
+                            <th>Podgląd</th>
+                            <th>Usuń</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="image: ${images}">
                             <td th:text="*{image.id}"></td>
-                            <td th:text="*{image.name}"></td>
-                            <td th:text="*{image.contentType}"></td>
                             <td th:text="*{image.description}"></td>
-                            <td><img th:if="*{image.image != null}" th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(image.image)}}"/></td>
+                            <td th:text="*{image.contentType}"></td>
+                            <td><button th:onclick="'ImagesUtils.toggleImage(\'' + ${image.id} + '\');'" type="button" class="btn btn-outline-dark btn-sm"><i class="fas fa-eye"></i></button></td>
+                            <td><button th:onclick="'ImagesUtils.deleteImage(\'' + ${image.id} + '\');'" type="button" title="Usuń hotel" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button></td>
                         </tr>
                         </tbody>
                     </table>
@@ -60,27 +60,38 @@
 
             <div class="row justify-content-around mt-md-5">
                 <div class="col-sm-4">
+                    <h4>Prześlij zdjęcie na serwer</h4>
                     <form method="post" enctype="multipart/form-data" action="/auth/admin/images">
                         <div class="form-group">
-                            <label for="name">Dodaj zdjęcie</label>
+                            <label for="name">Opis zdjęcia</label>
                             <input type="text" name="name" id="name" class="form-control" aria-describedby="imageError">
                         </div>
                         <div class="form-group">
-                            <label for="image">Dodaj zdjęcie</label>
+                            <label for="image">Wybierz zdjęcie</label>
                             <input type="file" name="file" id="image" class="form-control-file" aria-describedby="imageError">
                         </div>
                         <input type="submit" class="btn btn-primary" id="uploadPhotoBtn" value="Upload"/>
                     </form>
                 </div>
                 <div class="col-sm-4">
-
+                    <h4>Podgląd zdjęcia</h4>
+                    <table>
+                        <tbody>
+                        <tr th:each="image: ${images}">
+                            <td>
+                                <img th:if="*{image.image != null}" th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(image.image)}}"
+                                     alt="Tutaj powinno być zdjęcie" th:id="'roomImage' + ${image.id}" class="rounded" style="width: 80%"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
         </main>
     </div>
 </div>
-
+<script src="/static/scripts/images.js"></script>
 <footer th:replace="fragments/footer"></footer>
 </body>
 </html>

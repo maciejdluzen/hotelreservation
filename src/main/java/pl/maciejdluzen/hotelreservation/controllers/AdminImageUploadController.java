@@ -1,13 +1,12 @@
 package pl.maciejdluzen.hotelreservation.controllers;
 
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.maciejdluzen.hotelreservation.domain.repositories.ImageRepository;
@@ -39,14 +38,21 @@ public class AdminImageUploadController {
                               RedirectAttributes redirectAttributes) {
 
         if(imageService.saveImage(file, name)) {
-            redirectAttributes.addFlashAttribute("message", "File successfully uploaded!");
+            redirectAttributes.addFlashAttribute("message", "Plik został pomyślnie przesłany");
+            redirectAttributes.addFlashAttribute("alertClass", "alert-success");
         } else {
-            redirectAttributes.addFlashAttribute("message", "Error occured!");
+            redirectAttributes.addFlashAttribute("message", "Błąd przetwarzania. Sprawdź rozmiar pliku (max. 10MB)");
+            redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
         }
         return "redirect:/auth/admin/images";
     }
 
-
-
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteImage(@PathVariable("id") Long id) {
+     if(imageService.deleteImage(id)) {
+         return ResponseEntity.noContent().build();
+     } else {
+         return ResponseEntity.notFound().build();
+     }
+    }
 }
