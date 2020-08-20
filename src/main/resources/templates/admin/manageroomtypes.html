@@ -72,6 +72,62 @@
 
                 </div>
             </div>
+            <div class="row justify-content-around mt-md-5">
+                <div class="col-sm-3">
+                    <h4>Dodaj nowy typ pokoju</h4>
+                    <form id="newRoomTypeForm" method="post"
+                          th:object="${roomType}" th:action="@{/auth/admin/roomtypes}" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="name">Nazwa pokoju</label>
+                            <input th:field="*{name}" type="text" id="name" class="form-control" aria-describedby="nameError">
+                        </div>
+                        <div class="form-group">
+                            <label for="noPersons">Liczba gości</label>
+                            <input th:field="*{noPersons}" type="number" id="noPersons" class="form-control" aria-describedby="noPersonsError">
+                        </div>
+                        <div class="form-group">
+                            <label for="rateNet">Cena netto za noc</label>
+                            <input th:field="*{rateNet}" type="number" id="rateNet" class="form-control" aria-describedby="rateNetError">
+                        </div>
+                        <div class="form-group">
+                            <label for="tax">Stawka VAT</label>
+                            <input th:field="*{tax}" type="number" id="tax" class="form-control" aria-describedby="taxError">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Opis</label>
+                            <textarea th:field="*{description}" id="description" class="form-control" aria-describedby="descriptionError">
+                            </textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="feature1">Info-1</label>
+                            <input th:field="*{feature1}" type="text" id="feature1" class="form-control" aria-describedby="feature1Error">
+                        </div>
+                        <div class="form-group">
+                            <label for="feature2">Info-2</label>
+                            <input th:field="*{feature2}" type="text" id="feature2" class="form-control" aria-describedby="feature2Error">
+                        </div>
+                        <div class="form-group">
+                            <label for="feature3">Info-3</label>
+                            <input th:field="*{feature3}" type="text" id="feature3" class="form-control" aria-describedby="feature3Error">
+                        </div>
+                        <div class="form-group">
+                            <label for="feature4">Info-4</label>
+                            <input th:field="*{feature4}" type="text" id="feature4" class="form-control" aria-describedby="feature4Error">
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Zdjęcie</label>
+                            <input th:field="*{image}" type="file" id="image" class="form-control-file" aria-describedby="imageError">
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="uploadPhotoBtn">Dodaj</button>
+                    </form>
+                </div>
+                <div class="col-sm-3">
+                    <h3>Uplod photo</h3>
+                </div>
+                <div class="col-sm-3">
+                    <h3>Upload photo</h3>
+                </div>
+            </div>
             <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
         </main>
     </div>

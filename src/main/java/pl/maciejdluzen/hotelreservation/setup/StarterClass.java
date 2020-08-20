@@ -49,25 +49,25 @@ public class StarterClass implements ApplicationRunner {
         roleRepository.save(roleGuest);
 
 
-        Hotel hotel1 = new Hotel();
-        hotel1.setName("Plaza Inn Wrocław - Bielany");
-        hotel1.setStreet("Karkonoska");
-        hotel1.setNumber("124");
-        hotel1.setCity("Wrocław");
-        hotel1.setPostCode("53-522");
-        hotel1.setPhoneNumber("(+48) 71 342-44-78");
-        hotel1.setEmailAddress("wroclawbielany@plazainn.pl");
-        hotelRepository.save(hotel1);
-
-        Hotel hotel2 = new Hotel();
-        hotel2.setName("Plaza Inn Poznan - Centrum");
-        hotel2.setStreet("Grunwaldzka");
-        hotel2.setNumber("8");
-        hotel2.setCity("Poznań");
-        hotel2.setPostCode("33-000");
-        hotel2.setPhoneNumber("(+48) 50 433-87-39");
-        hotel2.setEmailAddress("poznancentrum@plazainn.pl");
-        hotelRepository.save(hotel2);
+//        Hotel hotel1 = new Hotel();
+//        hotel1.setName("Plaza Inn Wrocław - Bielany");
+//        hotel1.setStreet("Karkonoska");
+//        hotel1.setNumber("124");
+//        hotel1.setCity("Wrocław");
+//        hotel1.setPostCode("53-522");
+//        hotel1.setPhoneNumber("(+48) 71 342-44-78");
+//        hotel1.setEmailAddress("wroclawbielany@plazainn.pl");
+//        hotelRepository.save(hotel1);
+//
+//        Hotel hotel2 = new Hotel();
+//        hotel2.setName("Plaza Inn Poznan - Centrum");
+//        hotel2.setStreet("Grunwaldzka");
+//        hotel2.setNumber("8");
+//        hotel2.setCity("Poznań");
+//        hotel2.setPostCode("33-000");
+//        hotel2.setPhoneNumber("(+48) 50 433-87-39");
+//        hotel2.setEmailAddress("poznancentrum@plazainn.pl");
+//        hotelRepository.save(hotel2);
 
         RoomType roomType1 = new RoomType();
         roomType1.setName("LUX");
@@ -85,59 +85,59 @@ public class StarterClass implements ApplicationRunner {
         roomType2.setRateGross(roomType2.getRateNet()*(1+roomType2.getTax()));
         roomTypeRepository.save(roomType2);
 
-        Room room1 = new Room();
-        room1.setRoomNumber(100);
-        room1.setFloorNumber(1);
-        room1.setRoomType(roomType1);
-        room1.setHotel(hotel1);
-        roomRepository.save(room1);
-
-        Room room2 = new Room();
-        room2.setRoomNumber(101);
-        room2.setFloorNumber(1);
-        room2.setRoomType(roomType2);
-        room2.setHotel(hotel1);
-        roomRepository.save(room2);
-
-        Guest guest = new Guest();
-        guest.setUsername("andrew.brown@yahoo.com");
-        guest.setEmailAddress("andrew.brown@yahoo.com");
-        guest.setFirstName("Andrew");
-        guest.setLastName("Brown");
-        guest.setPassword("user");
-        guest.setActive(true);
-        guest.setStreet("Legnicka");
-        guest.setHomeNumber("15/6");
-        guest.setCity("Wrocław");
-        guest.setPostCode("55-780");
-        guest.setPhoneNumber("609-445-409");
-        guest.setRole(roleGuest);
-        guestRepository.save(guest);
-
-        Guest guest2 = new Guest();
-        guest2.setUsername("michael.smith@gmail.com");
-        guest2.setEmailAddress("michael.smith@gmail.com");
-        guest2.setFirstName("Michael");
-        guest2.setLastName("Smith");
-        guest2.setPassword("user2");
-        guest2.setActive(true);
-        guest2.setStreet("Kowalska");
-        guest2.setHomeNumber("12");
-        guest2.setCity("Wrocław");
-        guest2.setPostCode("50-350");
-        guest2.setPhoneNumber("701-365-455");
-        guest2.setRole(roleGuest);
-        guestRepository.save(guest2);
-
-        Receptionist receptionist = new Receptionist();
-        receptionist.setUsername("wroclawreception@plazainnn.com");
-        receptionist.setLastName("Adamczewska");
-        receptionist.setFirstName("Karolina");
-        receptionist.setPassword("reception");
-        receptionist.setHotel(hotel1);
-        receptionist.setActive(true);
-        receptionist.setRole(roleReceptionist);
-        receptionistRepository.save(receptionist);
+//        Room room1 = new Room();
+//        room1.setRoomNumber(100);
+//        room1.setFloorNumber(1);
+//        room1.setRoomType(roomType1);
+//        room1.setHotel(hotel1);
+//        roomRepository.save(room1);
+//
+//        Room room2 = new Room();
+//        room2.setRoomNumber(101);
+//        room2.setFloorNumber(1);
+//        room2.setRoomType(roomType2);
+//        room2.setHotel(hotel1);
+//        roomRepository.save(room2);
+//
+//        Guest guest = new Guest();
+//        guest.setUsername("andrew.brown@yahoo.com");
+//        guest.setEmailAddress("andrew.brown@yahoo.com");
+//        guest.setFirstName("Andrew");
+//        guest.setLastName("Brown");
+//        guest.setPassword("user");
+//        guest.setActive(true);
+//        guest.setStreet("Legnicka");
+//        guest.setHomeNumber("15/6");
+//        guest.setCity("Wrocław");
+//        guest.setPostCode("55-780");
+//        guest.setPhoneNumber("609-445-409");
+//        guest.setRole(roleGuest);
+//        guestRepository.save(guest);
+//
+//        Guest guest2 = new Guest();
+//        guest2.setUsername("michael.smith@gmail.com");
+//        guest2.setEmailAddress("michael.smith@gmail.com");
+//        guest2.setFirstName("Michael");
+//        guest2.setLastName("Smith");
+//        guest2.setPassword("user2");
+//        guest2.setActive(true);
+//        guest2.setStreet("Kowalska");
+//        guest2.setHomeNumber("12");
+//        guest2.setCity("Wrocław");
+//        guest2.setPostCode("50-350");
+//        guest2.setPhoneNumber("701-365-455");
+//        guest2.setRole(roleGuest);
+//        guestRepository.save(guest2);
+//
+//        Receptionist receptionist = new Receptionist();
+//        receptionist.setUsername("wroclawreception@plazainnn.com");
+//        receptionist.setLastName("Adamczewska");
+//        receptionist.setFirstName("Karolina");
+//        receptionist.setPassword("reception");
+//        receptionist.setHotel(hotel1);
+//        receptionist.setActive(true);
+//        receptionist.setRole(roleReceptionist);
+//        receptionistRepository.save(receptionist);
 
     }
 }

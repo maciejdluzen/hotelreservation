@@ -1,0 +1,86 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/dashboardhead"></head>
+
+<body>
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/">Plaza Inn Hotels</a>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="#">Sign out</a>
+        </li>
+    </ul>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+
+        <nav th:replace="fragments/adminsidebar"></nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Zarządzanie treścią strony (zdjęcia)</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+
+                </div>
+
+            </div>
+
+            <div id="messages" class="row justify-content-around">
+                <div class="col d-flex align-items-center">
+                    <div th:if="${message}">
+                        <h2 th:text="${message}"/>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Zestawienie zdjęć na stronie</h4>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nazwa</th>
+                            <th>Rodzaj pliku</th>
+                            <th>Opis</th>
+                            <th>Zdjęcie</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="image: ${images}">
+                            <td th:text="*{image.id}"></td>
+                            <td th:text="*{image.name}"></td>
+                            <td th:text="*{image.contentType}"></td>
+                            <td th:text="*{image.description}"></td>
+                            <td><img th:if="*{image.image != null}" th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(image.image)}}"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            <div class="row justify-content-around mt-md-5">
+                <div class="col-sm-4">
+                    <form method="post" enctype="multipart/form-data" action="/auth/admin/images">
+                        <div class="form-group">
+                            <label for="name">Dodaj zdjęcie</label>
+                            <input type="text" name="name" id="name" class="form-control" aria-describedby="imageError">
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Dodaj zdjęcie</label>
+                            <input type="file" name="file" id="image" class="form-control-file" aria-describedby="imageError">
+                        </div>
+                        <input type="submit" class="btn btn-primary" id="uploadPhotoBtn" value="Upload"/>
+                    </form>
+                </div>
+                <div class="col-sm-4">
+
+                </div>
+            </div>
+            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+        </main>
+    </div>
+</div>
+
+<footer th:replace="fragments/footer"></footer>
+</body>
+</html>
