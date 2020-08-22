@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Setter
 @EqualsAndHashCode(of = "id")
 @ToString(exclude = {"image"})
-@NoArgsConstructor
 
 @Entity
 @Table(name = "images")

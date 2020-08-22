@@ -38,10 +38,8 @@ public class RoomType {
     private String feature3;
     @Column(name = "feature_4")
     private String feature4;
-    @Lob
-    @Column(columnDefinition = "BLOB")
-    private byte[] image;
 
-
-
+    @ManyToOne
+    //@JoinColumn(name = "image_id")
+    private Image image;  //Uni-directional relathionship
 }

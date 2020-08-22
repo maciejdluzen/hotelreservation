@@ -11,6 +11,8 @@ import pl.maciejdluzen.hotelreservation.domain.repositories.ImageRepository;
 import pl.maciejdluzen.hotelreservation.services.ImageService;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -23,6 +25,9 @@ public class DefaultImageService implements ImageService {
     public DefaultImageService(ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
     }
+
+
+
 
     @Override
     public boolean saveImage(MultipartFile file, String name) {
@@ -53,5 +58,18 @@ public class DefaultImageService implements ImageService {
         return true;
     }
 
+    @Override
+    public List<String> findAllImagesDescription() {
+        List<Image> images = imageRepository.findAll();
+
+        return images.stream()
+                    .map(Image::getDescription)
+                    .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Image> findAllImages() {
+        return imageRepository.findAll();
+    }
 
 }

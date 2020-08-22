@@ -18,21 +18,23 @@
         <nav th:replace="fragments/adminsidebar"></nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Zarządzanie gośćmi</h1>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 border-bottom"> <!-- pb-2 mb-3  -->
+                <h1 class="h2">Zarządzanie pokojami</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
 
                 </div>
 
             </div>
 
-            <div id="messages" class="row justify-content-around">
+            <div id="messages" class="row justify-content-around" th:class="${'alert ' + alertClass}">
                 <div class="col d-flex align-items-center">
-
+                    <div th:if="${message}">
+                        <p th:text="${message}" ></p>
+                    </div>
                 </div>
             </div>
 
-            <h4>Zestawienie gości</h4>
+            <h4>Zestawienie pokoi (3 typy)</h4>
             <div class="table-responsive">
                 <table class="table table-striped table-sm">
                     <thead>
@@ -76,57 +78,76 @@
                 <div class="col-sm-3">
                     <h4>Dodaj nowy typ pokoju</h4>
                     <form id="newRoomTypeForm" method="post"
-                          th:object="${roomType}" th:action="@{/auth/admin/roomtypes}" enctype="multipart/form-data">
+                          th:object="${roomType}" th:action="@{/auth/admin/roomtypes}">
                         <div class="form-group">
                             <label for="name">Nazwa pokoju</label>
                             <input th:field="*{name}" type="text" id="name" class="form-control" aria-describedby="nameError">
+                            <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="form-text form-muted text-danger"></small>
                         </div>
                         <div class="form-group">
                             <label for="noPersons">Liczba gości</label>
                             <input th:field="*{noPersons}" type="number" id="noPersons" class="form-control" aria-describedby="noPersonsError">
+                            <small th:if="${#fields.hasErrors('noPersons')}" th:errors="*{noPersons}" class="form-text form-muted text-danger"></small>
                         </div>
                         <div class="form-group">
                             <label for="rateNet">Cena netto za noc</label>
                             <input th:field="*{rateNet}" type="number" id="rateNet" class="form-control" aria-describedby="rateNetError">
+                            <small th:if="${#fields.hasErrors('rateNet')}" th:errors="*{rateNet}" class="form-text form-muted text-danger"></small>
                         </div>
                         <div class="form-group">
                             <label for="tax">Stawka VAT</label>
-                            <input th:field="*{tax}" type="number" id="tax" class="form-control" aria-describedby="taxError">
+                            <input th:field="*{tax}" type="number" min="0" max="0.23" step="0.01" value="0.23" id="tax" class="form-control" aria-describedby="taxError">
+                            <small th:if="${#fields.hasErrors('tax')}" th:errors="*{tax}" class="form-text form-muted text-danger"></small>
                         </div>
                         <div class="form-group">
                             <label for="description">Opis</label>
                             <textarea th:field="*{description}" id="description" class="form-control" aria-describedby="descriptionError">
                             </textarea>
+                            <small th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="form-text form-muted text-danger"></small>
                         </div>
                         <div class="form-group">
                             <label for="feature1">Info-1</label>
                             <input th:field="*{feature1}" type="text" id="feature1" class="form-control" aria-describedby="feature1Error">
+                            <small th:if="${#fields.hasErrors('feature1')}" th:errors="*{feature1}" class="form-text form-muted text-danger"></small>
                         </div>
                         <div class="form-group">
                             <label for="feature2">Info-2</label>
                             <input th:field="*{feature2}" type="text" id="feature2" class="form-control" aria-describedby="feature2Error">
+                            <small th:if="${#fields.hasErrors('feature2')}" th:errors="*{feature2}" class="form-text form-muted text-danger"></small>
                         </div>
                         <div class="form-group">
                             <label for="feature3">Info-3</label>
                             <input th:field="*{feature3}" type="text" id="feature3" class="form-control" aria-describedby="feature3Error">
+                            <small th:if="${#fields.hasErrors('feature3')}" th:errors="*{feature3}" class="form-text form-muted text-danger"></small>
                         </div>
                         <div class="form-group">
                             <label for="feature4">Info-4</label>
                             <input th:field="*{feature4}" type="text" id="feature4" class="form-control" aria-describedby="feature4Error">
+                            <small th:if="${#fields.hasErrors('feature4')}" th:errors="*{feature4}" class="form-text form-muted text-danger"></small>
                         </div>
                         <div class="form-group">
-                            <label for="image">Zdjęcie</label>
-                            <input th:field="*{image}" type="file" id="image" class="form-control-file" aria-describedby="imageError">
+                            <label for="imageName">Wybierz zdjęcie</label>
+                            <select id="imageName" th:field="*{imageId}" class="form-control">
+                                <option th:each="image : ${images}"
+                                        th:value="${image.id}"
+                                        th:text="${image.id}">
+                                </option>
+                            </select>
+                            <small th:if="${#fields.hasErrors('imageId')}" th:errors="*{imageId}" class="form-text form-muted text-danger"></small>
                         </div>
                         <button type="submit" class="btn btn-primary" id="uploadPhotoBtn">Dodaj</button>
+                        <button type="reset" class="btn btn-outline-primary">Wyczyść</button>
                     </form>
                 </div>
+
                 <div class="col-sm-3">
-                    <h3>Uplod photo</h3>
+
                 </div>
+
                 <div class="col-sm-3">
-                    <h3>Upload photo</h3>
+
                 </div>
+
             </div>
             <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
         </main>

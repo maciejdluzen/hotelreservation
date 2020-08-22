@@ -69,21 +69,21 @@ public class StarterClass implements ApplicationRunner {
 //        hotel2.setEmailAddress("poznancentrum@plazainn.pl");
 //        hotelRepository.save(hotel2);
 
-        RoomType roomType1 = new RoomType();
-        roomType1.setName("LUX");
-        roomType1.setNoPersons(2);
-        roomType1.setRateNet(140.00);
-        roomType1.setTax(0.23);
-        roomType1.setRateGross(roomType1.getRateNet()*(1+roomType1.getTax()));
-        roomTypeRepository.save(roomType1);
-
-        RoomType roomType2 = new RoomType();
-        roomType2.setName("Double");
-        roomType2.setNoPersons(2);
-        roomType2.setRateNet(90.00);
-        roomType2.setTax(0.23);
-        roomType2.setRateGross(roomType2.getRateNet()*(1+roomType2.getTax()));
-        roomTypeRepository.save(roomType2);
+//        RoomType roomType1 = new RoomType();
+//        roomType1.setName("LUX");
+//        roomType1.setNoPersons(2);
+//        roomType1.setRateNet(140.00);
+//        roomType1.setTax(0.23);
+//        roomType1.setRateGross(roomType1.getRateNet()*(1+roomType1.getTax()));
+//        roomTypeRepository.save(roomType1);
+//
+//        RoomType roomType2 = new RoomType();
+//        roomType2.setName("Double");
+//        roomType2.setNoPersons(2);
+//        roomType2.setRateNet(90.00);
+//        roomType2.setTax(0.23);
+//        roomType2.setRateGross(roomType2.getRateNet()*(1+roomType2.getTax()));
+//        roomTypeRepository.save(roomType2);
 
 //        Room room1 = new Room();
 //        room1.setRoomNumber(100);

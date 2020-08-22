@@ -1,6 +1,9 @@
 package pl.maciejdluzen.hotelreservation.dtos;
 
 import lombok.*;
+import pl.maciejdluzen.hotelreservation.domain.entities.Image;
+
+import javax.validation.constraints.*;
 
 @Getter
 @Setter
@@ -9,16 +12,18 @@ import lombok.*;
 @ToString
 public class RoomTypeDto {
 
+    @NotBlank
     private String name;
-
+    @Positive @Max(5)
+    @NotNull
     private Integer noPersons;
-
+    @PositiveOrZero
+    @NotNull
     private Double rateNet;
-
+    @PositiveOrZero @Max(1)
+    @NotNull
     private Double tax;
-
-    private Double rateGross;
-
+    @NotBlank
     private String description;
 
     private String feature1;
@@ -29,6 +34,6 @@ public class RoomTypeDto {
 
     private String feature4;
 
-    private byte[] image;
+    private Long imageId;
 
 }
