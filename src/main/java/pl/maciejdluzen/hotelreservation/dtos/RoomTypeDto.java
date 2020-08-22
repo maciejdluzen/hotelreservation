@@ -23,6 +23,9 @@ public class RoomTypeDto {
     @PositiveOrZero @Max(1)
     @NotNull
     private Double tax;
+
+    private Double rateGross;
+
     @NotBlank
     private String description;
 

@@ -51,9 +51,6 @@ public class AdminRoomTypesController {
         }
     }
 
-
-
-
     @PostMapping
     public String createRoomType(@ModelAttribute("roomType") @Valid RoomTypeDto roomTypeDto,
                                  BindingResult result,

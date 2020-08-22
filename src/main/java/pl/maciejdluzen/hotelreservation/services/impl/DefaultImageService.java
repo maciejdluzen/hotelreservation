@@ -11,6 +11,7 @@ import pl.maciejdluzen.hotelreservation.domain.repositories.ImageRepository;
 import pl.maciejdluzen.hotelreservation.services.ImageService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -70,6 +71,23 @@ public class DefaultImageService implements ImageService {
     @Override
     public List<Image> findAllImages() {
         return imageRepository.findAll();
+    }
+
+    @Override
+    public List<byte[]> findAllImagesUsedForRoomTypes() {
+        List<Image> images = imageRepository.findAllImagesByRoomTypes();
+        LOG.info("Images: {}", images);
+        List<byte[]> imagesByte = new ArrayList<>();
+        for(Image image : images) {
+            LOG.info("Inside the loop");
+            imagesByte.add(image.getImage());
+        }
+        return imagesByte;
+    }
+
+    @Override
+    public Image findImageById(Long id) {
+        return imageRepository.getOne(id);
     }
 
 }

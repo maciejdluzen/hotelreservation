@@ -14,4 +14,8 @@ public interface ImageService {
     List<String> findAllImagesDescription();
 
     List<Image> findAllImages();
+
+    List<byte[]> findAllImagesUsedForRoomTypes();
+
+    Image findImageById(Long id);
 }
