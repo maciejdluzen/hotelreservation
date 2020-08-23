@@ -12,6 +12,7 @@ import javax.validation.constraints.*;
 @ToString
 public class RoomTypeDto {
 
+    private Long id;
     @NotBlank
     private String name;
     @Positive @Max(5)

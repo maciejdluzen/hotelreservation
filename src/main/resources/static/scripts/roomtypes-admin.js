@@ -9,7 +9,13 @@ let RoomTypesUtils = {
             })
             .then(function(responseAsBlob) {
                 document.getElementById(elementId).src = URL.createObjectURL(responseAsBlob);
-            });
+            })
+            .catch(function() {
+                let messageField = document.getElementById('messages');
+                messageField.firstElementChild.classList.add('alert');
+                messageField.firstElementChild.classList += ' alert-danger'
+                messageField.firstElementChild.innerHTML += '<p>Wystąpił błąd podczas pobierania zawartości strony</p>'
+        });
     },
 
     getAllRoomTypesWithoutImage : function() {
@@ -26,6 +32,7 @@ let RoomTypesUtils = {
         let tax = '#tax';
         let rateGross = '#rateGross';
         let imageId = '#imageId'
+        let buttonsDiv = '#buttonsDiv';
 
         fetch(url)
         .then(function(response) {
@@ -47,9 +54,55 @@ let RoomTypesUtils = {
                 $(rateGross + i).html('Cena brutto: ' + responseAsJson[i].rateGross + ' PLN')
                 let imgId = responseAsJson[i].imageId; // image id from the response
                 let elId = 'image' + i; // search for the element id to be passed to the function
+                let rmId = responseAsJson[i].id;
+                console.log("Room id: " + rmId);
+                console.log($(buttonsDiv + i));
+                $(buttonsDiv + i).append(
+                    `<button onclick="console.log('Editing roomType' + ${rmId})" type="button"  class="btn btn-outline-warning btn-sm mr-3">Edytuj</button>`
+                ).append(
+                    `<button onclick="RoomTypesUtils.deleteRoomTypeById(${rmId})" class="btn btn-outline-danger btn-sm">Usuń</button>`
+                );
                 RoomTypesUtils.getAllRoomsImages(imgId, elId);
             }
+        })
+        .catch(function() {
+            let messageField = document.getElementById('messages');
+            messageField.firstElementChild.classList.add('alert');
+            messageField.firstElementChild.classList += ' alert-danger'
+            messageField.firstElementChild.innerHTML += '<p>Wystąpił błąd podczas pobierania zawartości strony</p>'
         });
+    },
+
+    deleteRoomTypeById : function(id) {
+        if(confirm("Potwierdź usunięcie rodzaju pokoju o id: " + id)) {
+            const url3 = '/auth/admin/roomtypes/{id}';
+
+            fetch(url3, {
+
+                method: 'DELETE'
+
+            }).then(() => {
+
+                setTimeout(function() {
+                    window.history.go(0);
+                }, 2000);
+                let messageField = document.getElementById('messages');
+                messageField.firstElementChild.classList.add('alert');
+                messageField.firstElementChild.classList += ' alert-success'
+                messageField.firstElementChild.innerHTML += '<p>Usunięto rodzaj pokoju</p>'
+
+            }).catch(() => {
+
+                setTimeout(function() {
+                    window.history.go(0);
+                }, 2000);
+                let messageField = document.getElementById('messages');
+                messageField.firstElementChild.classList.add('alert');
+                messageField.firstElementChild.classList += ' alert-danger'
+                messageField.firstElementChild.innerHTML += '<p>Błąd przetwarzania</p>'
+
+            });
+        }
     }
 };
 
