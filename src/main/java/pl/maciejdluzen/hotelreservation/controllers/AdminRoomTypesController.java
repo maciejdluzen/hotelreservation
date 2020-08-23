@@ -7,13 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.maciejdluzen.hotelreservation.domain.entities.RoomType;
 import pl.maciejdluzen.hotelreservation.dtos.RoomTypeDto;
+import pl.maciejdluzen.hotelreservation.exceptions.ForeignKeyConstraintException;
 import pl.maciejdluzen.hotelreservation.services.ImageService;
 import pl.maciejdluzen.hotelreservation.services.RoomTypeService;
 
@@ -48,6 +46,16 @@ public class AdminRoomTypesController {
             return new ResponseEntity<>(roomsType, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteRoomType(@PathVariable("id") Long id) {
+        if(roomTypeService.deleteRoomTypeById(id)) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            //throw new ForeignKeyConstraintException("Nie można usunąć elementu ze względu na użycie");
         }
     }
 

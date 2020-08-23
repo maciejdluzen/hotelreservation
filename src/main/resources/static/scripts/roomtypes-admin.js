@@ -73,34 +73,72 @@ let RoomTypesUtils = {
         });
     },
 
+    // deleteRoomTypeById : function(id) {
+    //     if(confirm("Potwierdź usunięcie rodzaju pokoju o id: " + id)) {
+    //         const url3 = '/auth/admin/roomtypes/' + id;
+    //
+    //         fetch(url3, {
+    //
+    //             method: 'DELETE'
+    //         .then(function(response) {
+    //             return response.json();
+    //         }).then(function(responseAsJson) {
+    //             console.log(responseAsJson);
+    //             console.log("before if-statement");
+    //             if(response.status === 204) {
+    //                 // setTimeout(function() {
+    //                 //     window.history.go(0);
+    //                 // }, 2000);
+    //                 let messageField = document.getElementById('messages');
+    //                 messageField.firstElementChild.classList.add('alert');
+    //                 messageField.firstElementChild.classList += ' alert-success'
+    //                 messageField.firstElementChild.innerHTML += '<p>Usunięto rodzaj pokoju</p>'
+    //             } else if(response.status === 400) {
+    //                 let responseAsJson = response.json();
+    //                 console.log("status code 400")
+    //                 console.log(responseAsJson.message);
+    //             }
+    //         }).catch(() => {
+    //             console.log("In catch block")
+    //             setTimeout(function() {
+    //                 window.history.go(0);
+    //             }, 2000);
+    //             let messageField = document.getElementById('messages');
+    //             messageField.firstElementChild.classList.add('alert');
+    //             messageField.firstElementChild.classList += ' alert-danger'
+    //             messageField.firstElementChild.innerHTML += '<p>Błąd przetwarzania</p>'
+    //
+    //         });
+    //     }
+    // },
+
     deleteRoomTypeById : function(id) {
         if(confirm("Potwierdź usunięcie rodzaju pokoju o id: " + id)) {
-            const url3 = '/auth/admin/roomtypes/{id}';
+            const url3 = '/auth/admin/roomtypes/' + id;
 
-            fetch(url3, {
-
-                method: 'DELETE'
-
-            }).then(() => {
-
-                setTimeout(function() {
-                    window.history.go(0);
-                }, 2000);
-                let messageField = document.getElementById('messages');
-                messageField.firstElementChild.classList.add('alert');
-                messageField.firstElementChild.classList += ' alert-success'
-                messageField.firstElementChild.innerHTML += '<p>Usunięto rodzaj pokoju</p>'
-
-            }).catch(() => {
-
-                setTimeout(function() {
-                    window.history.go(0);
-                }, 2000);
-                let messageField = document.getElementById('messages');
-                messageField.firstElementChild.classList.add('alert');
-                messageField.firstElementChild.classList += ' alert-danger'
-                messageField.firstElementChild.innerHTML += '<p>Błąd przetwarzania</p>'
-
+            $.ajax({
+                url : url3,
+                type : 'DELETE',
+                success : function (result, status, xhr) {
+                    if(xhr.status === 204) {
+                        setTimeout(function () {
+                            window.history.go(0);
+                        }, 2000);
+                        let messageField = document.getElementById('messages');
+                        messageField.firstElementChild.classList.add('alert');
+                        messageField.firstElementChild.classList += ' alert-success'
+                        messageField.firstElementChild.innerHTML += '<p>Usunięto konto recepcjonisty</p>'
+                    }
+                },
+                error : function () {
+                        setTimeout(function () {
+                            window.history.go(0);
+                        }, 2000);
+                        let messageField = document.getElementById('messages');
+                        messageField.firstElementChild.classList.add('alert');
+                        messageField.firstElementChild.classList += ' alert-danger'
+                        messageField.firstElementChild.innerHTML += '<p>Operacja usunięcia nie powiodła się</p>'
+                }
             });
         }
     }

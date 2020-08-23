@@ -9,8 +9,10 @@ import pl.maciejdluzen.hotelreservation.domain.entities.RoomType;
 import pl.maciejdluzen.hotelreservation.domain.repositories.ImageRepository;
 import pl.maciejdluzen.hotelreservation.domain.repositories.RoomTypeRepository;
 import pl.maciejdluzen.hotelreservation.dtos.RoomTypeDto;
+import pl.maciejdluzen.hotelreservation.exceptions.ForeignKeyConstraintException;
 import pl.maciejdluzen.hotelreservation.services.RoomTypeService;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -79,5 +81,16 @@ public class DefaultRoomTypeService implements RoomTypeService {
             roomsTypeDto.add(roomTypeDto);
         }
         return roomsTypeDto;
+    }
+
+    @Override
+    public boolean deleteRoomTypeById(Long id) {
+        try{
+            LOG.info("In the Service class");
+            roomTypeRepository.deleteById(id);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }

@@ -15,4 +15,6 @@ public interface RoomTypeService {
     List<RoomType> findAllRoomTypes();
 
     List<RoomTypeDto> getAllRoomTypesWithoutImage();
+
+    boolean deleteRoomTypeById(Long id);
 }
