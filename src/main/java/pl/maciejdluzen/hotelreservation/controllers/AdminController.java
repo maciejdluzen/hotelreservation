@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.maciejdluzen.hotelreservation.domain.entities.Hotel;
@@ -21,6 +23,7 @@ import pl.maciejdluzen.hotelreservation.services.RoomTypeService;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -157,9 +160,18 @@ public class AdminController {
     @PutMapping("/hotels/{id}")
     public ResponseEntity<String> updateHotel(@PathVariable("id") Long id,
                                               @RequestBody @Valid GetHotelDtoJson hotelDto,
-                                              BindingResult result) {
+                                              BindingResult result) throws JsonProcessingException {
         LOG.info("Preparing to update the hotel {}", hotelDto.toString());
+
+
         if(result.hasErrors()) {
+//            List<FieldError> errors = result.getFieldErrors();
+//            List<String> messages = new ArrayList<>();
+//            for(FieldError e : errors) {
+//                messages.add("@" + e.getField().toUpperCase() + ":" + e.getDefaultMessage());
+//            }
+//            LOG.info(String.valueOf(messages));
+
             return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
         }
         if(hotelService.updateHotel(hotelDto)) {
