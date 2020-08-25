@@ -17,4 +17,8 @@ public interface RoomTypeService {
     List<RoomTypeDto> getAllRoomTypesWithoutImage();
 
     boolean deleteRoomTypeById(Long id);
+
+    RoomTypeDto findRoomTypeById(Long id);
+
+    boolean updateRoomType(Long id, RoomTypeDto roomTypeDto);
 }

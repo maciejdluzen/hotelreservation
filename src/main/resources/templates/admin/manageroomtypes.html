@@ -106,9 +106,11 @@
             </div>
             <div class="row justify-content-around mt-md-5">
                 <div class="col-sm-3">
-                    <h4>Dodaj nowy typ pokoju</h4>
+
+                    <!-- NEW ROOM TYPE FORM -->
                     <form id="newRoomTypeForm" method="post"
                           th:object="${roomType}" th:action="@{/auth/admin/roomtypes}">
+                        <h4>Dodaj nowy typ pokoju</h4>
                         <div class="form-group">
                             <label for="name">Nazwa pokoju</label>
                             <input th:field="*{name}" type="text" id="name" class="form-control" aria-describedby="nameError">
@@ -165,9 +167,74 @@
                             </select>
                             <small th:if="${#fields.hasErrors('imageId')}" th:errors="*{imageId}" class="form-text form-muted text-danger"></small>
                         </div>
-                        <button type="submit" class="btn btn-primary" id="uploadPhotoBtn">Dodaj</button>
+                        <button type="submit" class="btn btn-primary" id="newRoomSubmitBtn">Dodaj</button>
                         <button type="reset" class="btn btn-outline-primary">Wyczyść</button>
                     </form>
+                    <!-- NEW ROOM FORM - end -->
+
+                    <!-- EDIT ROOM FORM -->
+                    <form id="editRoomTypeForm">
+                        <h4>Edytuj typ pokoju</h4>
+                        <div class="form-group">
+                            <label for="nameEdit">Nazwa pokoju</label>
+                            <input type="text" id="nameEdit" class="form-control" aria-describedby="nameError">
+                            <small class="form-text form-muted text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="noPersonsEdit">Liczba gości</label>
+                            <input type="number" id="noPersonsEdit" class="form-control" aria-describedby="noPersonsError">
+                            <small class="form-text form-muted text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="rateNetEdit">Cena netto za noc</label>
+                            <input type="number" id="rateNetEdit" class="form-control" aria-describedby="rateNetError">
+                            <small class="form-text form-muted text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="taxEdit">Stawka VAT</label>
+                            <input type="number" min="0" max="0.23" step="0.01" value="0.23" id="taxEdit" class="form-control" aria-describedby="taxError">
+                            <small class="form-text form-muted text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="descriptionEdit">Opis</label>
+                            <textarea id="descriptionEdit" class="form-control" aria-describedby="descriptionError">
+                            </textarea>
+                            <small class="form-text form-muted text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="feature1Edit">Info-1</label>
+                            <input type="text" id="feature1Edit" class="form-control" aria-describedby="feature1Error">
+                            <small class="form-text form-muted text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="feature2Edit">Info-2</label>
+                            <input type="text" id="feature2Edit" class="form-control" aria-describedby="feature2Error">
+                            <small class="form-text form-muted text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="feature3Edit">Info-3</label>
+                            <input type="text" id="feature3Edit" class="form-control" aria-describedby="feature3Error">
+                            <small class="form-text form-muted text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="feature4Edit">Info-4</label>
+                            <input type="text" id="feature4Edit" class="form-control" aria-describedby="feature4Error">
+                            <small class="form-text form-muted text-danger"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="imageNameEdit">Wybierz zdjęcie</label>
+                            <select id="imageNameEdit" class="form-control">
+                                <option th:each="image : ${images}"
+                                        th:value="${image.id}"
+                                        th:text="${image.id}">
+                                </option>
+                            </select>
+                            <small class="form-text form-muted text-danger"></small>
+                        </div>
+                        <button onclick="RoomTypesUtils.editRoomType()" type="submit" class="btn btn-primary" id="editRoomSubmitBtn">Edytuj</button>
+                        <button onclick="RoomTypesUtils.cancelEditRoomType()" type="button" class="btn btn-outline-primary">Anuluj</button>
+                    </form>
+                    <!-- EDIT ROOM FORM - end -->
                 </div>
 
                 <div class="col-sm-3">

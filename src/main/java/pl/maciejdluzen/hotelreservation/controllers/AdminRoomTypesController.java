@@ -1,5 +1,7 @@
 package pl.maciejdluzen.hotelreservation.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import pl.maciejdluzen.hotelreservation.services.RoomTypeService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/auth/admin/roomtypes")
@@ -47,6 +50,16 @@ public class AdminRoomTypesController {
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<String> getRoomType(@PathVariable("id") Long id) throws JsonProcessingException {
+            RoomTypeDto roomTypeDto = roomTypeService.findRoomTypeById(id);
+            if(roomTypeDto != null) {
+                return ResponseEntity.status(HttpStatus.OK).body(toJson(roomTypeDto));
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
+            }
     }
 
     @DeleteMapping("/{id}")
@@ -86,5 +99,37 @@ public class AdminRoomTypesController {
             roomTypeService.createRoomType(roomTypeDto);
             return "redirect:/auth/admin/roomtypes";
         }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateRoomType(@PathVariable("id") Long id,
+                                            @RequestBody @Valid RoomTypeDto roomTypeDto
+                                            /* BindingResult result */) {
+        /*
+            I have used different kind of validation here - check exceptions package
+            and Custom Exception Handler for details
+
+         */
+
+        /*
+        if(result.hasErrors()) {
+            String error = Objects.requireNonNull(result.getFieldError("name")).getDefaultMessage();
+            LOG.info("Err: {}", error);
+
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+
+        }
+        */
+
+        if(roomTypeService.updateRoomType(id, roomTypeDto)) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+    private String toJson(Object object) throws JsonProcessingException
+    {
+        return new ObjectMapper().writeValueAsString(object);
     }
 }

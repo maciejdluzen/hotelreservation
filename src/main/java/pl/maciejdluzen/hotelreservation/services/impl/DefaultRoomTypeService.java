@@ -93,4 +93,34 @@ public class DefaultRoomTypeService implements RoomTypeService {
         }
         return true;
     }
+
+    @Override
+    public RoomTypeDto findRoomTypeById(Long id) {
+        RoomType roomType = roomTypeRepository.getOne(id);
+        RoomTypeDto roomTypeDto = mapper.map(roomType, RoomTypeDto.class);
+        return roomTypeDto;
+    }
+
+    @Override
+    public boolean updateRoomType(Long id, RoomTypeDto roomTypeDto) {
+        try {
+            RoomType roomType = roomTypeRepository.getOne(id);
+            roomType.setName(roomTypeDto.getName());
+            roomType.setNoPersons(roomTypeDto.getNoPersons());
+            roomType.setRateNet(roomTypeDto.getRateNet());
+            roomType.setTax(roomTypeDto.getTax());
+            roomType.setDescription(roomTypeDto.getDescription());
+            roomType.setFeature1(roomTypeDto.getFeature1());
+            roomType.setFeature2(roomTypeDto.getFeature2());
+            roomType.setFeature3(roomTypeDto.getFeature3());
+            roomType.setFeature4(roomTypeDto.getFeature4());
+            Image image = imageRepository.getOne(roomTypeDto.getImageId());
+            roomType.setImage(image);
+            roomTypeRepository.save(roomType);
+
+        } catch (Exception exc) {
+            return false;
+        }
+        return true;
+    }
 }
