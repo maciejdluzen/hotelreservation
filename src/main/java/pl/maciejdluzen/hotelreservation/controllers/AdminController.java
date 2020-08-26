@@ -43,6 +43,12 @@ public class AdminController {
         this.roomTypeService = roomTypeService;
     }
 
+    @GetMapping("/main")
+    public String getAdminMainPage() {
+        return "admin/mainpage";
+    }
+
+
     /*-----------------------------------
      --------- HOTEL MANAGEMENT ---------
      ----------------------------------*/

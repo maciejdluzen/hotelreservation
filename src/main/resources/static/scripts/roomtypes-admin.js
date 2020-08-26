@@ -82,7 +82,6 @@ let RoomTypesUtils = {
                     },
                     error : function(result, status, xhr) {
 
-
                             setTimeout(function() {
                                 location.reload();
                             }, 5000);
