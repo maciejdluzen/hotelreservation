@@ -17,13 +17,24 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
-                        <img class="card-img-top" th:src="@{/static/images/hotel-room2.jpg}" alt="Card image cap">
+                        <img src="" id="image0" class="card-img-top" alt="Card image cap"/>
                         <div class="card-body">
-                            <h6>Pokój dwuosobowy z podwójnym łóżkiem</h6>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <h3 id="roomName0"></h3>
+
+                            <p id="description0"></p>
+                            <ul>
+                                <li id="feature10"></li>
+                                <li id="feature20"></li>
+                                <li id="feature30"></li>
+                                <li id="feature40"></li>
+                            </ul>
+                            <h5 id="noGuests0"></h5>
+                            <h5 id="rateNet0"></h5>
+                            <p id="tax0"></p>
+                            <h4 id="rateGross0"></h4>
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Sprawdź</button>
+                                <div class="btn-group" id="buttonsDiv0">
+
                                 </div>
                             </div>
                         </div>
@@ -31,34 +42,50 @@
                 </div>
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
-                        <img class="card-img-top" th:src="@{/static/images/hotel-breakfast.jpg}" alt="Card image cap">
+                        <img src="" id="image1" class="card-img-top" alt="Card image cap"/>
                         <div class="card-body">
-                            <h6>Pokój dwuosobowy z pojedynczymi łóżkami </h6>
-                            <p class="card-text">
-                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                            </p>
+                            <h3 id="roomName1"></h3>
+
+                            <p id="description1"></p>
+                            <ul>
+                                <li id="feature11"></li>
+                                <li id="feature21"></li>
+                                <li id="feature31"></li>
+                                <li id="feature41"></li>
+                            </ul>
+                            <h5 id="noGuests1"></h5>
+                            <h5 id="rateNet1"></h5>
+                            <p id="tax1"></p>
+                            <h4 id="rateGross1"></h4>
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Sprawdź</button>
+                                <div class="btn-group" id="buttonsDiv1">
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
-                        <img class="card-img-top" th:src="@{/static/images/hotel-amenities.jpg}" alt="Card image cap">
+                        <img src="" id="image2" class="card-img-top" alt="Card image cap"/>
                         <div class="card-body">
-                            <h6>Pokój dwuosobowy LUX</h6>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <h3 id="roomName2"></h3>
+
+                            <p id="description2"></p>
+                            <ul>
+                                <li id="feature12"></li>
+                                <li id="feature22"></li>
+                                <li id="feature32"></li>
+                                <li id="feature42"></li>
+                            </ul>
+                            <h5 id="noGuests2"></h5>
+                            <h5 id="rateNet2"></h5>
+                            <p id="tax2"></p>
+                            <h4 id="rateGross2"></h4>
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Sprawdź</button>
+                                <div class="btn-group" id="buttonsDiv2">
+
                                 </div>
                             </div>
                         </div>
@@ -67,6 +94,7 @@
             </div>
         </div>
 </section>
+<script src="/static/scripts/reservation.js"></script>
 <footer th:replace="fragments/footer"></footer>
 </body>
 </html>

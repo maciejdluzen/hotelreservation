@@ -15,7 +15,7 @@
         </div>
         <div class="row">
             <div class="col-md-6 offset-md-4">
-                <form method="post"> <!--class="d-flex flex-row" -->
+                <form action="/reservation/roomselection" method="get"> <!--class="d-flex flex-row" -->
                     <div class="form-row">
                         <div class="form-group mr-4">
                             <label for="checkin">Przyjazd</label>
@@ -31,7 +31,7 @@
                                 <option>Wroclaw</option>
                             </select>
                         </div>
-                        <button class="btn btn-outline-primary btn-sm">Rezerwuj</button>
+                        <button class="btn btn-outline-primary btn-sm">Rezerwuj</button> <!-- onclick="ReservationUtils.getRoomSelectionPage()" -->
                     </div>
                 </form>
             </div>
@@ -88,8 +88,8 @@
        </div>
     </div>
 </section>
+<script src="/static/scripts/reservation.js"></script>
 <!-- HotelInfo Section -->
 <footer th:replace="fragments/footer"></footer>
-
 </body>
 </html>
