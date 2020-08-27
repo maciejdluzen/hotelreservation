@@ -1,0 +1,139 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/head"></head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12 offset-md-2">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-3 mb-5 border-bottom">
+                    <h1 class="h2">Dokończenie rezerwacji</h1>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-sm-12 offset-md-2 mb-2">
+                <div class="card">
+                    <h5 class="card-header">
+                        Podstawowe informacje
+                    </h5>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="hotelLocation">Hotel</label>
+                                    <input type="text" class="form-control" id="hotelLocation">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="selectedRoomType">Pokój</label>
+                                    <input type="text" class="form-control" id="selectedRoomType">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <label for="checkInDate">Zameldowanie</label>
+                                    <input type="date" class="form-control" id="checkInDate">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="checkOutDate">Wymeldowanie</label>
+                                    <input type="date" class="form-control" id="checkOutDate">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-sm-12 offset-md-2 mb-2 mt-2">
+                <div class="card">
+                    <h5 class="card-header">
+                        Dodaj dane pozostałych gości
+                    </h5>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="guestOneDetails">Gość 1</label>
+                                <input type="text" class="form-control" id="guestOneDetails" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="guestTwoDetails">Gość 2</label>
+                                <input type="text" class="form-control" id="guestTwoDetails" placeholder="Podaj imię i nazwisko">
+                            </div>
+                            <div class="form-group">
+                                <label for="guestThreeDetails">Gość 3</label>
+                                <input type="text" class="form-control" id="guestThreeDetails" placeholder="Podaj imię i nazwisko">
+                            </div>
+                            <div class="form-group">
+                                <label for="guestFourDetails">Gość 4</label>
+                                <input type="text" class="form-control" id="guestFourDetails" placeholder="Podaj imię i nazwisko">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-sm-12 offset-md-2 mb-2 mt-2">
+                <div class="card">
+                    <h5 class="card-header">
+                        Dodaj dane karty płatniczej
+                    </h5>
+                    <div class="card-body">
+                        <div class="alert alert-warning">
+                            <strong>W tym momencie nie pobierzemy żadnych opłat</strong> Płatności dokonasz dopiero przy zamedlowaniu.
+                        </div>
+                        <form>
+                            <div class="form-group">
+                                <label for="nameOnCard">Imię i nazwisko na karcie</label>
+                                <input type="text" class="form-control" id="nameOnCard" placeholder="Imię i nazwisko">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="cardNumber">Numer karty płatniczej</label>
+                                    <input type="text" class="form-control" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="acceptedCards">Akceptujemy następujące rodzaje kart</label>
+                                    <img id="acceptedCards" src="/static/images/cards.png" width="30%">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-2">
+                                    <label for="expiryDate">Data ważności</label>
+                                    <input type="text" class="form-control" id="expiryDate" placeholder="MM/RR">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="cvv">Kod CVV</label>
+                                    <input type="password" class="form-control" id="cvv" placeholder="CVV">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-sm-12 offset-md-2 mb-2 mt-2">
+                <div class="card">
+                    <h5 class="card-header">
+                       Potwierdź rezerwację lub anuluj
+                    </h5>
+                    <div class="card-body">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-outline-secondary mr-4">Anuluj</button>
+                            <button type="button" class="btn btn-secondary">Rezerwuj</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <footer th:replace="fragments/footer"></footer>
+</body>
+</html>

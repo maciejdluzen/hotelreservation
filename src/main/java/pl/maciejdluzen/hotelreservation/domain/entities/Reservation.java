@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -23,15 +24,25 @@ public class Reservation {
     @Column(name = "reservation_number", nullable = false, unique = true)
     private String reservationNumber;
     @Column(name = "check_in_date", nullable = false)
-    private LocalDateTime checkInDate;
+    private LocalDate checkInDate;
     @Column(name = "check_out_date", nullable = false)
-    private LocalDateTime checkOutDate;
+    private LocalDate checkOutDate;
     @Column(nullable = false)
     private Boolean status = Boolean.FALSE;
     @Column(name = "second_guest_name")
     private String secondGuestName;
     @Column(name = "third_guest_name")
     private String thirdGuestName;
+    @Column(name = "fourth_guest_name")
+    private String fourthGuestName;
+    @Column(name = "total_net_cost")
+    private Double totalNetCost;
+    @Column
+    private Double tax;
+    @Column(name = "total_gross_cost")
+    private Double totalGrossCost;
+    @Column
+    private String message;
 
     @ManyToOne
     private Guest guest; // Bi-directional relationship

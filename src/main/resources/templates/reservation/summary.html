@@ -1,0 +1,43 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head"></head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-12 offset-md-2">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-3 mb-5 border-bottom">
+                        <h1 class="h2">Podsumowanie rezerwacji</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 col-sm-12 offset-md-2 mb-2">
+                    <div class="card">
+                        <h5 class="card-header">
+                            Szczegóły dokonanej rezerwacji
+                        </h5>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                <h5 class="mb-1"><strong>Twój numer rezerwacji to: XXXXXXX</strong></h5> <br/>
+                                Rezerwacja zostanie potwierdzona przez hotel w ciągu 24h
+                            </div>
+                            <h5 class="card-title">Hotel Name</h5>
+                            <p class="card-text"><strong>Adres:</strong></p>
+                            <p class="card-text"><strong>Telefon:</strong></p>
+                            <p class="card-text"><strong>Adres email:</strong></p>
+                            <p class="card-text"><strong>Data zameldowania</strong></p>
+                            <p class="card-text"><strong>Data wymeldowania</strong></p>
+                            <p class="card-text"><strong>Pokój</strong></p>
+                            <p class="card-text"><strong>Liczba nocy</strong></p>
+                            <p class="card-text"><strong>Liczba gości</strong></p>
+                            <p class="card-text"><strong>Całkowity koszt brutto:</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="fragments/footer"></footer>
+</body>
+</html>
