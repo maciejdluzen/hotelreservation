@@ -10,28 +10,33 @@
     <div class="jumbotron align-items-center">
         <div class="row mb-4">
             <div class="col-md-6 offset-md-4">
-                <h3>Zarazerwuj swój pobyt już dzisiaj!</h3>
+                <h3>Zarezerwuj swój pobyt już dzisiaj!</h3>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 offset-md-4">
-                <form action="/reservation/roomselection" method="get"> <!--class="d-flex flex-row" -->
+            <div class="col-md-8 offset-md-4">
+                <form th:object="${reservationDto}"
+                      th:action="@{/reservation/roomselection}" method="post"> <!--class="d-flex flex-row" -->
                     <div class="form-row">
                         <div class="form-group mr-4">
                             <label for="checkin">Przyjazd</label>
-                            <input type="date" id="checkin" name="checkin" class="form-control">
+                            <input type="date" th:value="*{checkInDate}" th:field="*{checkInDate}" id="checkin" name="checkin" class="form-control">
                         </div>
                         <div class="form-group mr-4">
                             <label for="checkout">Wyjazd</label>
-                            <input type="date" id="checkout" name="checkout" class="form-control">
+                            <input type="date" th:value="*{checkOutDate}" th:field="*{checkOutDate}" id="checkout" name="checkout" class="form-control">
                         </div>
+
                         <div class="form-group mr-4">
                             <label for="location">Lokalizacja</label>
-                            <select id="location" name="location" class="form-control">
-                                <option>Wroclaw</option>
+                            <select th:field="*{hotelName}" id="location" class="form-control form-control-sm" name="location">
+                                <option th:each="hotelName : ${hotelsNames}"
+                                        th:value="${hotelName}"
+                                        th:text="${hotelName}">
+                                </option>
                             </select>
                         </div>
-                        <button class="btn btn-outline-primary btn-sm">Rezerwuj</button> <!-- onclick="ReservationUtils.getRoomSelectionPage()" -->
+                        <button type="submit" class="btn btn-outline-primary btn-sm">Rezerwuj</button> <!-- onclick="ReservationUtils.getRoomSelectionPage()" -->
                     </div>
                 </form>
             </div>

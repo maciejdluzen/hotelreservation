@@ -1,5 +1,13 @@
 let ReservationUtils = {
 
+
+    redirectToReservationDetailsPage : function(roomType) {
+        $.ajax({
+            url : '/auth//guest/reservation/details?roomType=' + roomType,
+            type : 'GET'
+        });
+    },
+
     getAllRoomTypesWithoutImage : function() {
         const url = '/auth/admin/roomtypes/getall';
 
@@ -23,6 +31,7 @@ let ReservationUtils = {
             .then(function(responseAsJson) {
                 for(let i in responseAsJson) {
                     if(i === 3) {break; }
+                    let roomType = responseAsJson[i].name;
                     $(roomName + i).html(responseAsJson[i].name)
                     $(description + i).html(responseAsJson[i].description)
                     $(feature1 + i).html(responseAsJson[i].feature1)
@@ -38,7 +47,7 @@ let ReservationUtils = {
                     let elId = 'image' + i; // search for the element id to be passed to the function
                     let rmId = responseAsJson[i].id;
                     $(buttonsDiv + i).append(
-                        `<button onclick="console.log('Button clicked')" type="button" class="btn btn-sm btn-outline-secondary">Wybierz</button>`
+                        `<button onclick="ReservationUtils.redirectToReservationDetailsPage(${responseAsJson[i].name})" type="button" class="btn btn-sm btn-outline-secondary">Wybierz</button>`
                     );
                     ReservationUtils.getAllRoomsImages(imgId, elId);
                 }

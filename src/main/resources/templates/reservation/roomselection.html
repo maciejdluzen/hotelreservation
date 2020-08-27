@@ -10,7 +10,7 @@
                 <div class="col-sm-12">
                     <div class="alert alert-dark">
                         <h3 class="text-center">Czas wybrać Twój pokój...</h3>
-                        <h5 class="font-weight-lighter text-center">Przyjazd: 13.03.2020 Wyjazd: 15.03.2020 Lokalizacja: Wrocław</h5>
+                        <h5 class="font-weight-lighter text-center" th:text="'Przyjazd: ' + ${reservationDto.checkInDate} + ', Wyjazd: ' + ${reservationDto.checkOutDate} + ', Lokalizacja: ' + ${reservationDto.hotelName}"></h5>
                     </div>
                 </div>
             </div>
