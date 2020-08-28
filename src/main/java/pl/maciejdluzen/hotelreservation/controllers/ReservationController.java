@@ -61,6 +61,7 @@ public class ReservationController {
         String param = request.getParameter("roomType");
         ReservationDto reservation = (ReservationDto) session.getAttribute("reservationDto");
         reservation.setRoomTypeName(param);
+        model.addAttribute("reservationDto", reservation);
         LOG.info("Hotel Name form the session: {}, roomType {} and session id {} and creation time: {}, checkin {} ", reservation.getHotelName(), reservation.getRoomTypeName(), session.getId(), session.getCreationTime(), reservation.getCheckInDate());
         return "reservation/details";
     }

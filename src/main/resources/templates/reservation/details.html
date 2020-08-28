@@ -18,25 +18,25 @@
                         Podstawowe informacje
                     </h5>
                     <div class="card-body">
-                        <form>
+                        <form th:object="${reservationDto}">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="hotelLocation">Hotel</label>
-                                    <input type="text" class="form-control" id="hotelLocation">
+                                    <input th:value="${reservationDto.hotelName}" type="text" class="form-control" id="hotelLocation" readonly>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="selectedRoomType">Pokój</label>
-                                    <input type="text" class="form-control" id="selectedRoomType">
+                                    <input th:value="${reservationDto.roomTypeName}" type="text" class="form-control" id="selectedRoomType" readonly>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-3">
                                     <label for="checkInDate">Zameldowanie</label>
-                                    <input type="date" class="form-control" id="checkInDate">
+                                    <input th:value="${reservationDto.checkInDate}" type="date" class="form-control" id="checkInDate" readonly>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="checkOutDate">Wymeldowanie</label>
-                                    <input type="date" class="form-control" id="checkOutDate">
+                                    <input th:value="${reservationDto.checkOutDate}" type="date" class="form-control" id="checkOutDate" readonly>
                                 </div>
                             </div>
 
