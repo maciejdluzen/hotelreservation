@@ -7,6 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Getter
@@ -23,11 +25,13 @@ public class ReservationDto {
     private String username;
 
     private String reservationNumber;
+    //@Future
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkInDate;
+    //@Future
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkOutDate;
-
+    //@NotBlank(message = "Pole nie może być puste")
     private String guestName;
 
     private String secondGuestName;
@@ -37,9 +41,9 @@ public class ReservationDto {
     private String fourthGuestName;
 
     private String message;
-
+    //@NotBlank(message = "Pole nie może być puste")
     private String hotelName;
-
+    //@NotBlank(message = "Pole nie może być puste")
     private String roomTypeName;
 
 }

@@ -18,25 +18,29 @@
                         Podstawowe informacje
                     </h5>
                     <div class="card-body">
-                        <form th:object="${reservationDto}">
+                        <form id="basicInfoForm" th:object="${reservationDto}" th:action="@{/auth/guest/reservation/details}" method="post">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="hotelLocation">Hotel</label>
-                                    <input th:value="${reservationDto.hotelName}" type="text" class="form-control" id="hotelLocation" readonly>
+                                    <input th:value="${reservationDto.hotelName}" th:field="*{hotelName}" type="text" class="form-control" id="hotelLocation" readonly>
+                                    <small th:errors="*{hotelName}" class="form-text form-muted text-danger"></small>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="selectedRoomType">Pokój</label>
-                                    <input th:value="${reservationDto.roomTypeName}" type="text" class="form-control" id="selectedRoomType" readonly>
+                                    <input th:value="${reservationDto.roomTypeName}" th:field="*{roomTypeName}" type="text" class="form-control" id="selectedRoomType" readonly>
+                                    <small th:errors="*{roomTypeName}" class="form-text form-muted text-danger"></small>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-3">
                                     <label for="checkInDate">Zameldowanie</label>
-                                    <input th:value="${reservationDto.checkInDate}" type="date" class="form-control" id="checkInDate" readonly>
+                                    <input th:value="${reservationDto.checkInDate}" th:field="*{checkInDate}" type="date" class="form-control" id="checkInDate" readonly>
+                                    <small th:errors="*{checkInDate}" class="form-text form-muted text-danger"></small>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="checkOutDate">Wymeldowanie</label>
-                                    <input th:value="${reservationDto.checkOutDate}" type="date" class="form-control" id="checkOutDate" readonly>
+                                    <input th:value="${reservationDto.checkOutDate}" th:field="*{checkOutDate}" type="date" class="form-control" id="checkOutDate" readonly>
+                                    <small th:errors="*{checkOutDate}" class="form-text form-muted text-danger"></small>
                                 </div>
                             </div>
 
@@ -53,22 +57,43 @@
                         Dodaj dane pozostałych gości
                     </h5>
                     <div class="card-body">
-                        <form>
+                        <form id="guestsForm" th:object="${reservationDto}" th:action="@{/auth/guest/reservation/details}" method="post">
                             <div class="form-group">
                                 <label for="guestOneDetails">Gość 1</label>
-                                <input th:value="${reservationDto.guestName}" type="text" class="form-control" id="guestOneDetails" readonly>
+                                <input th:value="${reservationDto.guestName}" th:field="*{guestName}" type="text" class="form-control" id="guestOneDetails" readonly>
+                                <small th:errors="*{guestName}" class="form-text form-muted text-danger"></small>
                             </div>
                             <div class="form-group">
                                 <label for="guestTwoDetails">Gość 2</label>
-                                <input type="text" class="form-control" id="guestTwoDetails" placeholder="Podaj imię i nazwisko">
+                                <input th:field="*{secondGuestName}" type="text" class="form-control" id="guestTwoDetails" placeholder="Podaj imię i nazwisko">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="guestThreeField">
                                 <label for="guestThreeDetails">Gość 3</label>
-                                <input type="text" class="form-control" id="guestThreeDetails" placeholder="Podaj imię i nazwisko">
+                                <input th:field="*{thirdGuestName}" type="text" class="form-control" id="guestThreeDetails" placeholder="Podaj imię i nazwisko">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="guestFourField">
                                 <label for="guestFourDetails">Gość 4</label>
-                                <input type="text" class="form-control" id="guestFourDetails" placeholder="Podaj imię i nazwisko">
+                                <input th:field="*{fourthGuestName}" type="text" class="form-control" id="guestFourDetails" placeholder="Podaj imię i nazwisko">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-sm-12 offset-md-2 mb-2 mt-2">
+                <div class="card">
+                    <h5 class="card-header">
+                        Dodaj wiadomość dla recepcji
+                    </h5>
+                    <div class="card-body">
+                        <form id="messageForm" th:object="${reservationDto}" th:action="@{/auth/guest/reservation/details}" method="post">
+                            <div class="form-group">
+                                <label for="messageForReception">Tutaj wpisz swoje prośby odnośnie pobytu np. późniejsze wymeldowanie itp.</label>
+                                <textarea th:field="*{message}" class="form-control" rows="4" id="messageForReception">
+
+                                </textarea>
                             </div>
                         </form>
                     </div>
@@ -86,15 +111,17 @@
                         <div class="alert alert-warning">
                             <strong>W tym momencie nie pobierzemy żadnych opłat</strong> Płatności dokonasz dopiero przy zamedlowaniu.
                         </div>
-                        <form>
+                        <form id="cardDetailsForm" th:object="${cardDetails}" th:action="@{/auth/guest/reservation/details}" method="post">
                             <div class="form-group">
                                 <label for="nameOnCard">Imię i nazwisko na karcie</label>
-                                <input type="text" class="form-control" id="nameOnCard" placeholder="Imię i nazwisko">
+                                <input th:field="*{nameOnTheCard}" type="text" class="form-control" id="nameOnCard" placeholder="Imię i nazwisko">
+                                <small th:errors="*{nameOnTheCard}" class="form-text form-muted text-danger"></small>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="cardNumber">Numer karty płatniczej</label>
-                                    <input type="text" class="form-control" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX">
+                                    <input th:field="*{cardNumber}" type="text" class="form-control" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX">
+                                    <small th:errors="*{cardNumber}" class="form-text form-muted text-danger"></small>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="acceptedCards">Akceptujemy następujące rodzaje kart</label>
@@ -104,11 +131,13 @@
                             <div class="form-row">
                                 <div class="form-group col-md-2">
                                     <label for="expiryDate">Data ważności</label>
-                                    <input type="text" class="form-control" id="expiryDate" placeholder="MM/RR">
+                                    <input th:field="*{expiryDate}" type="text" class="form-control" id="expiryDate" placeholder="MM/RR">
+                                    <small th:errors="*{expiryDate}" class="form-text form-muted text-danger"></small>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="cvv">Kod CVV</label>
-                                    <input type="password" class="form-control" id="cvv" placeholder="CVV">
+                                    <input th:field="*{securityCode}" type="password" class="form-control" id="cvv" placeholder="CVV">
+                                    <small th:errors="*{securityCode}" class="form-text form-muted text-danger"></small>
                                 </div>
                             </div>
                         </form>
@@ -126,7 +155,7 @@
                     <div class="card-body">
                         <div class="btn-group">
                             <button type="button" class="btn btn-outline-secondary mr-4">Anuluj</button>
-                            <button type="button" class="btn btn-secondary">Rezerwuj</button>
+                            <button th:onclick="'DetailsUtils.submitReservationForm()'" type="submit" class="btn btn-secondary">Rezerwuj</button>
                         </div>
                     </div>
                 </div>
@@ -134,6 +163,8 @@
         </div>
 
     </div>
+
+    <script src="/static/scripts/details.js"></script>
     <footer th:replace="fragments/footer"></footer>
 </body>
 </html>

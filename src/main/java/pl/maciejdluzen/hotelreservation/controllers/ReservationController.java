@@ -4,13 +4,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.maciejdluzen.hotelreservation.dtos.CardDetailsDto;
 import pl.maciejdluzen.hotelreservation.dtos.ReservationDto;
 import pl.maciejdluzen.hotelreservation.services.GuestService;
 import pl.maciejdluzen.hotelreservation.services.HotelService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
@@ -46,20 +49,38 @@ public class ReservationController {
     }
 
     @GetMapping("auth/guest/reservation/details")
-    public String getReservationDetailsPage(@ModelAttribute("reservationDto") ReservationDto reservationDto,
+    public String getReservationDetailsPage(//@ModelAttribute("reservationDto") ReservationDto reservationDto,
+                                            @SessionAttribute("reservationDto") ReservationDto reservation,
                                             HttpSession session,
                                             HttpServletRequest request,
                                             Principal principal,
                                             Model model) {
         String param = request.getParameter("roomType");
-        ReservationDto reservation = (ReservationDto) session.getAttribute("reservationDto");
+        //ReservationDto reservation = (ReservationDto) session.getAttribute("reservationDto");
+
+
         reservation.setRoomTypeName(param);
         reservation.setUsername(principal.getName());
         LOG.info("Username: {}", reservation.getUsername());
         reservation.setGuestName(guestService.findGuestNameByUsername(reservation.getUsername()));
         model.addAttribute("reservationDto", reservation);
+        model.addAttribute("cardDetails", new CardDetailsDto());
         LOG.info("Hotel Name form the session: {}, roomType {} and session id {} and creation time: {}, checkin {} and username {}", reservation.getHotelName(), reservation.getRoomTypeName(), session.getId(), session.getCreationTime(), reservation.getCheckInDate(), principal.getName());
         return "reservation/details";
+    }
+
+    @PostMapping("auth/guest/reservation/details")
+    public String createReservation(@SessionAttribute("reservationDto") ReservationDto reservation,
+                                    //BindingResult result,
+                                    @ModelAttribute("cardDetails") @Valid CardDetailsDto cardDetails,
+                                    BindingResult result2,
+                                    Model model) {
+        if(result2.hasErrors()) {
+            return "reservation/details";
+        }
+        LOG.info("Reservation: {}", reservation.getGuestName());
+        LOG.info("CardDetails: {}", cardDetails.getCardNumber());
+        return "redirect:/auth/guest/reservation/summary";
     }
 
     @GetMapping("/auth/guest/reservation/summary")
