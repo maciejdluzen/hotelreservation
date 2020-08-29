@@ -13,6 +13,7 @@ import pl.maciejdluzen.hotelreservation.services.HotelService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
@@ -29,12 +30,6 @@ public class ReservationController {
         this.hotelService = hotelService;
     }
 
-//    @InitBinder
-//    public void initBinder(WebDataBinder binder) {
-//        binder.registerCustomEditor(LocalDate.class, new CustomDateEditor(new SimpleDateFormat("dd.MM.yyyy"), true));
-//    }
-
-
     @GetMapping
     public String home(Model model) {
         model.addAttribute("hotelsNames", hotelService.findAllHotelsNames());
@@ -42,7 +37,6 @@ public class ReservationController {
         return "index";
     }
 
-    //@GetMapping("reservation/roomselection")
     @PostMapping("reservation/roomselection")
     public String getRoomSelectionPage(@ModelAttribute("reservationDto") ReservationDto reservationDto,
                                        HttpSession session,
@@ -57,12 +51,13 @@ public class ReservationController {
     public String getReservationDetailsPage(@ModelAttribute("reservationDto") ReservationDto reservationDto,
                                             HttpSession session,
                                             HttpServletRequest request,
+                                            Principal principal,
                                             Model model) {
         String param = request.getParameter("roomType");
         ReservationDto reservation = (ReservationDto) session.getAttribute("reservationDto");
         reservation.setRoomTypeName(param);
         model.addAttribute("reservationDto", reservation);
-        LOG.info("Hotel Name form the session: {}, roomType {} and session id {} and creation time: {}, checkin {} ", reservation.getHotelName(), reservation.getRoomTypeName(), session.getId(), session.getCreationTime(), reservation.getCheckInDate());
+        LOG.info("Hotel Name form the session: {}, roomType {} and session id {} and creation time: {}, checkin {} and username {}", reservation.getHotelName(), reservation.getRoomTypeName(), session.getId(), session.getCreationTime(), reservation.getCheckInDate(), principal.getName());
         return "reservation/details";
     }
 
@@ -70,8 +65,5 @@ public class ReservationController {
     public String getReservationSummary() {
         return "reservation/summary";
     }
-
-
-
 
 }

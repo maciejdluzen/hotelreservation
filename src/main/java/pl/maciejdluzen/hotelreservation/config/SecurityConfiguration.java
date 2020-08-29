@@ -49,9 +49,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/hello").permitAll()
                 .antMatchers("/register/**").permitAll()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/auth/guest", "/auth/guest/**").permitAll()
-                .antMatchers("/auth/admin", "/auth/admin/**").permitAll()
-                .antMatchers("/auth/reception", "/auth/reception/**").permitAll()
+                .antMatchers("/auth/guest", "/auth/guest/**").hasRole("GUEST")
+                .antMatchers("/auth/admin", "/auth/admin/**").permitAll() // it will be hasRole("ADMIN")
+                .antMatchers("/auth/reception", "/auth/reception/**").permitAll() // it will be hasRole("Receptionist")
                 .anyRequest().permitAll()
                 .and()
             .formLogin()
@@ -72,9 +72,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/static/**")
                 .antMatchers("/h2-console", "/h2-console/**");
     }
-
-
-
 
 }
 

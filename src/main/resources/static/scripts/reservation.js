@@ -44,7 +44,7 @@ let ReservationUtils = {
                     $(tax + i).html('+ ' + vatFormatted + ' VAT');
                     $(rateGross + i).html('Cena brutto: ' + responseAsJson[i].rateGross + ' PLN');
                     $(buttonsDiv + i).append(
-                        `<a class='btn btn-outline-secondary' href='/auth/guest/reservation/details?roomType=${roomType}'>Wybierz</a>`
+                        `<a class='btn btn-outline-secondary btn-sm mt-3' href='/auth/guest/reservation/details?roomType=${roomType}'>Wybierz</a><br/>`
                     );
                     console.log(roomType);
 
