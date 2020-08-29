@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import pl.maciejdluzen.hotelreservation.domain.entities.Guest;
 import pl.maciejdluzen.hotelreservation.domain.entities.VerificationToken;
+import pl.maciejdluzen.hotelreservation.domain.projections.FullName;
 import pl.maciejdluzen.hotelreservation.domain.repositories.GuestRepository;
 import pl.maciejdluzen.hotelreservation.domain.repositories.VerificationTokenRepository;
 import pl.maciejdluzen.hotelreservation.dtos.GetGuestsDto;
@@ -71,5 +72,16 @@ public class DefaultGuestService implements GuestService {
         } catch (Exception exc) {
             return false;
         }
+    }
+
+    @Override
+    public String findGuestNameByUsername(String username) {
+        Guest guest = guestRepository.findByUsername(username);
+        LOG.info("Retrieved guest name: {}", guest);
+        StringBuilder sb = new StringBuilder();
+        sb.append(guest.getFirstName()).append(" ").append(guest.getLastName());
+        String fullName = sb.toString();
+        LOG.info("Full name: {}", fullName);
+        return fullName;
     }
 }

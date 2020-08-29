@@ -2,20 +2,16 @@ package pl.maciejdluzen.hotelreservation.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import pl.maciejdluzen.hotelreservation.dtos.ReservationDto;
+import pl.maciejdluzen.hotelreservation.services.GuestService;
 import pl.maciejdluzen.hotelreservation.services.HotelService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/")
@@ -25,9 +21,11 @@ public class ReservationController {
     private Logger LOG = LoggerFactory.getLogger(getClass());
 
     private final HotelService hotelService;
+    private final GuestService guestService;
 
-    public ReservationController(HotelService hotelService) {
+    public ReservationController(HotelService hotelService, GuestService guestService) {
         this.hotelService = hotelService;
+        this.guestService = guestService;
     }
 
     @GetMapping
@@ -56,6 +54,9 @@ public class ReservationController {
         String param = request.getParameter("roomType");
         ReservationDto reservation = (ReservationDto) session.getAttribute("reservationDto");
         reservation.setRoomTypeName(param);
+        reservation.setUsername(principal.getName());
+        LOG.info("Username: {}", reservation.getUsername());
+        reservation.setGuestName(guestService.findGuestNameByUsername(reservation.getUsername()));
         model.addAttribute("reservationDto", reservation);
         LOG.info("Hotel Name form the session: {}, roomType {} and session id {} and creation time: {}, checkin {} and username {}", reservation.getHotelName(), reservation.getRoomTypeName(), session.getId(), session.getCreationTime(), reservation.getCheckInDate(), principal.getName());
         return "reservation/details";

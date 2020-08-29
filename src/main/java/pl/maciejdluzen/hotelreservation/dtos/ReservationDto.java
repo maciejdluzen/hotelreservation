@@ -28,6 +28,8 @@ public class ReservationDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkOutDate;
 
+    private String guestName;
+
     private String secondGuestName;
 
     private String thirdGuestName;

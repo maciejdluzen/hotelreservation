@@ -56,7 +56,7 @@
                         <form>
                             <div class="form-group">
                                 <label for="guestOneDetails">Gość 1</label>
-                                <input type="text" class="form-control" id="guestOneDetails" readonly>
+                                <input th:value="${reservationDto.guestName}" type="text" class="form-control" id="guestOneDetails" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="guestTwoDetails">Gość 2</label>

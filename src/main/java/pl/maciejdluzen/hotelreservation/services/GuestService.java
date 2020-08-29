@@ -12,4 +12,6 @@ public interface GuestService {
     boolean deleteGuest(Long id);
 
     boolean deactivateGuestAccount(Long id);
+
+    String findGuestNameByUsername(String username);
 }
