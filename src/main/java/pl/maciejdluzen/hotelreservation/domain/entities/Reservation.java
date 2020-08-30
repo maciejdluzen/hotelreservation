@@ -41,6 +41,8 @@ public class Reservation {
     private Double tax;
     @Column(name = "total_gross_cost")
     private Double totalGrossCost;
+    @Column(name = "room_type_name")
+    private String roomTypeName;
     @Column
     private String message;
 

@@ -8,8 +8,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.maciejdluzen.hotelreservation.dtos.CardDetailsDto;
 import pl.maciejdluzen.hotelreservation.dtos.ReservationDto;
+import pl.maciejdluzen.hotelreservation.services.CardDetailsService;
 import pl.maciejdluzen.hotelreservation.services.GuestService;
 import pl.maciejdluzen.hotelreservation.services.HotelService;
+import pl.maciejdluzen.hotelreservation.services.ReservationService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,10 +27,14 @@ public class ReservationController {
 
     private final HotelService hotelService;
     private final GuestService guestService;
+    private final ReservationService reservationService;
+    private final CardDetailsService cardDetailsService;
 
-    public ReservationController(HotelService hotelService, GuestService guestService) {
+    public ReservationController(HotelService hotelService, GuestService guestService, ReservationService reservationService, CardDetailsService cardDetailsService) {
         this.hotelService = hotelService;
         this.guestService = guestService;
+        this.reservationService = reservationService;
+        this.cardDetailsService = cardDetailsService;
     }
 
     @GetMapping
@@ -82,6 +88,9 @@ public class ReservationController {
 
         LOG.info("Reservation: {}", reservation.getGuestName());
         LOG.info("CardDetails: {}", cardDetails.getCardNumber());
+
+        cardDetailsService.saveCardDetails(cardDetails);
+        reservationService.createReservation(reservation, cardDetails);
 
         return "redirect:/auth/guest/reservation/summary";
     }

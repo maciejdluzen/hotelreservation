@@ -25,7 +25,7 @@ public class CardDetails {
     @Column(name = "name_on_the_card")
     private String nameOnTheCard;
     @Column(name = "card_number")
-    private Integer cardNumber;
+    private String cardNumber;
     @Column(name = "expiry_date")
     private String expiryDate;
     @Column(name = "security_code")
