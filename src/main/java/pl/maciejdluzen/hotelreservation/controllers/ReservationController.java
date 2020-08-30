@@ -57,15 +57,15 @@ public class ReservationController {
                                             Model model) {
         String param = request.getParameter("roomType");
         //ReservationDto reservation = (ReservationDto) session.getAttribute("reservationDto");
-
-
         reservation.setRoomTypeName(param);
         reservation.setUsername(principal.getName());
         LOG.info("Username: {}", reservation.getUsername());
         reservation.setGuestName(guestService.findGuestNameByUsername(reservation.getUsername()));
         model.addAttribute("reservationDto", reservation);
         model.addAttribute("cardDetails", new CardDetailsDto());
+
         LOG.info("Hotel Name form the session: {}, roomType {} and session id {} and creation time: {}, checkin {} and username {}", reservation.getHotelName(), reservation.getRoomTypeName(), session.getId(), session.getCreationTime(), reservation.getCheckInDate(), principal.getName());
+
         return "reservation/details";
     }
 
@@ -75,11 +75,14 @@ public class ReservationController {
                                     @ModelAttribute("cardDetails") @Valid CardDetailsDto cardDetails,
                                     BindingResult result2,
                                     Model model) {
+
         if(result2.hasErrors()) {
             return "reservation/details";
         }
+
         LOG.info("Reservation: {}", reservation.getGuestName());
         LOG.info("CardDetails: {}", cardDetails.getCardNumber());
+
         return "redirect:/auth/guest/reservation/summary";
     }
 

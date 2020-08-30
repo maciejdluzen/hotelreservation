@@ -25,13 +25,13 @@ public class ReservationDto {
     private String username;
 
     private String reservationNumber;
-    //@Future
+    @Future
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkInDate;
-    //@Future
+    @Future
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkOutDate;
-    //@NotBlank(message = "Pole nie może być puste")
+    @NotBlank(message = "Pole nie może być puste")
     private String guestName;
 
     private String secondGuestName;
@@ -41,9 +41,9 @@ public class ReservationDto {
     private String fourthGuestName;
 
     private String message;
-    //@NotBlank(message = "Pole nie może być puste")
+    @NotBlank(message = "Pole nie może być puste")
     private String hotelName;
-    //@NotBlank(message = "Pole nie może być puste")
+    @NotBlank(message = "Pole nie może być puste")
     private String roomTypeName;
 
 }

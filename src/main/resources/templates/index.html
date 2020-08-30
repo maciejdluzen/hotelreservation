@@ -18,7 +18,7 @@
                 <form th:object="${reservationDto}"
                       th:action="@{/reservation/roomselection}" method="post"> <!--class="d-flex flex-row" -->
                     <div class="form-row">
-                        <div class="form-group mr-4">
+                        <div class="form-group mr-4" id="checkInGroup">
                             <label for="checkin">Przyjazd</label>
                             <input type="date" th:value="*{checkInDate}" th:field="*{checkInDate}" id="checkin" name="checkin" class="form-control">
                         </div>
@@ -36,7 +36,7 @@
                                 </option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-outline-primary btn-sm">Rezerwuj</button> <!-- onclick="ReservationUtils.getRoomSelectionPage()" -->
+                        <button id="reservationSubmit" type="submit" class="btn btn-outline-primary btn-sm">Rezerwuj</button> <!-- onclick="ReservationUtils.getRoomSelectionPage()" -->
                     </div>
                 </form>
             </div>
@@ -95,6 +95,7 @@
 </section>
 <!-- <script src="/static/scripts/reservation.js"></script> -->
 <!-- HotelInfo Section -->
+<script src="/static/scripts/index.js"></script>
 <footer th:replace="fragments/footer"></footer>
 </body>
 </html>
