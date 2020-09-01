@@ -20,19 +20,17 @@
                         </h5>
                         <div class="card-body">
                             <div class="alert alert-info">
-                                <h5 class="mb-1"><strong>Twój numer rezerwacji to: XXXXXXX</strong></h5> <br/>
+                                <h5 class="mb-1"><strong th:text="'Numer Twojej rezerwacji: ' + ${reservationSummary.reservationNumber}"></strong></h5> <br/>
                                 Rezerwacja zostanie potwierdzona przez hotel w ciągu 24h
                             </div>
-                            <h5 class="card-title">Hotel Name</h5>
-                            <p class="card-text"><strong>Adres:</strong></p>
-                            <p class="card-text"><strong>Telefon:</strong></p>
-                            <p class="card-text"><strong>Adres email:</strong></p>
-                            <p class="card-text"><strong>Data zameldowania</strong></p>
-                            <p class="card-text"><strong>Data wymeldowania</strong></p>
-                            <p class="card-text"><strong>Pokój</strong></p>
-                            <p class="card-text"><strong>Liczba nocy</strong></p>
-                            <p class="card-text"><strong>Liczba gości</strong></p>
-                            <p class="card-text"><strong>Całkowity koszt brutto:</strong></p>
+                            <h5 class="card-title" th:text="${reservationSummary.hotel.name}"></h5>
+                            <p class="text-left"><strong>Adres:</strong><p th:text="${reservationSummary.hotel.street} + ' ' +  ${reservationSummary.hotel.number} + ', ' + ${reservationSummary.hotel.postCode} + ' ' + ${reservationSummary.hotel.city}"></p></p>
+                            <p class="card-text"><strong>Telefon:</strong><p th:text="${reservationSummary.hotel.phoneNumber}"></p></p>
+                            <p class="card-text"><strong>Adres email:</strong><p th:text="${reservationSummary.hotel.emailAddress}"></p></p>
+                            <p class="card-text"><strong>Data zameldowania:</strong><p th:text="${reservationSummary.checkInDate}"></p></p>
+                            <p class="card-text"><strong>Data wymeldowania:</strong><p th:text="${reservationSummary.checkOutDate}"></p></p>
+                            <p class="card-text"><strong>Pokój:</strong><p th:text="${reservationSummary.roomTypeName}"></p></p>
+                            <<p class="card-text"><strong>Całkowity koszt brutto:</strong><p th:text="${reservationSummary.totalGrossCost}"></p></p>
                         </div>
                     </div>
                 </div>

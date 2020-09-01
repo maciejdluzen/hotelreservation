@@ -1,11 +1,15 @@
 package pl.maciejdluzen.hotelreservation.controllers;
 
+import com.sun.mail.iap.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.maciejdluzen.hotelreservation.domain.entities.Reservation;
 import pl.maciejdluzen.hotelreservation.dtos.CardDetailsDto;
 import pl.maciejdluzen.hotelreservation.dtos.ReservationDto;
 import pl.maciejdluzen.hotelreservation.services.CardDetailsService;
@@ -90,13 +94,29 @@ public class ReservationController {
         LOG.info("CardDetails: {}", cardDetails.getCardNumber());
 
         cardDetailsService.saveCardDetails(cardDetails);
-        reservationService.createReservation(reservation, cardDetails);
+        Reservation reservationSummary = reservationService.createReservation(reservation, cardDetails);
+        if(reservationSummary != null) {
+            model.addAttribute("reservationSummary", reservationSummary);
+            return "reservation/summary";
+        }
 
         return "redirect:/auth/guest/reservation/summary";
     }
 
-    @GetMapping("/auth/guest/reservation/summary")
-    public String getReservationSummary() {
+    @GetMapping("reservationsummary")
+    public ResponseEntity<Reservation> getReservationSummary(Reservation reservationSummary) {
+
+        if(reservationSummary != null) {
+            return new ResponseEntity<>(reservationSummary, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+
+
+    @GetMapping("auth/guest/reservation/summary")
+    public String getReservationSummaryPage() {
         return "reservation/summary";
     }
 

@@ -1,5 +1,6 @@
 package pl.maciejdluzen.hotelreservation.services;
 
+import pl.maciejdluzen.hotelreservation.domain.entities.Reservation;
 import pl.maciejdluzen.hotelreservation.dtos.CardDetailsDto;
 import pl.maciejdluzen.hotelreservation.dtos.ReservationDto;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 public interface ReservationService {
 
-    void createReservation(ReservationDto reservationDto, CardDetailsDto cardDetailsDto);
+    Reservation createReservation(ReservationDto reservationDto, CardDetailsDto cardDetailsDto);
 
     String reservationNumberBuilder(ReservationDto reservationDto);
 

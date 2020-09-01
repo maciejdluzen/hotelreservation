@@ -40,7 +40,7 @@ public class DefaultReservationService implements ReservationService {
     }
 
     @Override
-    public void createReservation(ReservationDto reservationDto, CardDetailsDto cardDetailsDto) {
+    public Reservation createReservation(ReservationDto reservationDto, CardDetailsDto cardDetailsDto) {
         // move these two lines to anotehr class
 
         Reservation reservation = new Reservation();
@@ -61,8 +61,9 @@ public class DefaultReservationService implements ReservationService {
         reservation.setCardDetails(cardDetailsRepository.findCardDetailsByCardNumber(cardDetailsDto.getCardNumber())); // find card details by number
         reservation.setHotel(hotelRepository.findHotelByName(reservationDto.getHotelName()));
 
-        reservationRepository.save(reservation);
+        return reservationRepository.save(reservation);
     }
+
 
     @Override
     public String reservationNumberBuilder(ReservationDto reservationDto) {
@@ -75,7 +76,7 @@ public class DefaultReservationService implements ReservationService {
         String guestName = reservationDto.getGuestName().toUpperCase();
         String[] guestNameSplit = guestName.split(" ");
         char firstNameBegin = guestNameSplit[0].charAt(0);
-        char lastNameBegin = guestNameSplit[1].charAt(1);
+        char lastNameBegin = guestNameSplit[1].charAt(0);
 
         String idString = Long.toString(id);
 
