@@ -30,7 +30,7 @@
                             <p class="card-text"><strong>Data zameldowania:</strong><p th:text="${reservationSummary.checkInDate}"></p></p>
                             <p class="card-text"><strong>Data wymeldowania:</strong><p th:text="${reservationSummary.checkOutDate}"></p></p>
                             <p class="card-text"><strong>Pokój:</strong><p th:text="${reservationSummary.roomTypeName}"></p></p>
-                            <<p class="card-text"><strong>Całkowity koszt brutto:</strong><p th:text="${reservationSummary.totalGrossCost}"></p></p>
+                            <p class="card-text"><strong>Całkowity koszt brutto:</strong><p th:text="${reservationSummary.totalGrossCost} + ' PLN'"></p></p>
                         </div>
                     </div>
                 </div>

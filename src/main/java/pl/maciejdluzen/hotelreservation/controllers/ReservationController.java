@@ -85,39 +85,16 @@ public class ReservationController {
                                     @ModelAttribute("cardDetails") @Valid CardDetailsDto cardDetails,
                                     BindingResult result2,
                                     Model model) {
-
         if(result2.hasErrors()) {
             return "reservation/details";
         }
-
-        LOG.info("Reservation: {}", reservation.getGuestName());
-        LOG.info("CardDetails: {}", cardDetails.getCardNumber());
-
         cardDetailsService.saveCardDetails(cardDetails);
         Reservation reservationSummary = reservationService.createReservation(reservation, cardDetails);
         if(reservationSummary != null) {
             model.addAttribute("reservationSummary", reservationSummary);
             return "reservation/summary";
-        }
-
-        return "redirect:/auth/guest/reservation/summary";
-    }
-
-    @GetMapping("reservationsummary")
-    public ResponseEntity<Reservation> getReservationSummary(Reservation reservationSummary) {
-
-        if(reservationSummary != null) {
-            return new ResponseEntity<>(reservationSummary, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return "redirect:/";
         }
     }
-
-
-
-    @GetMapping("auth/guest/reservation/summary")
-    public String getReservationSummaryPage() {
-        return "reservation/summary";
-    }
-
 }

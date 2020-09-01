@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
-//@SessionAttributes("reservationDto")
 public class HomeController {
 
     private Logger LOG = LoggerFactory.getLogger(getClass());
@@ -36,26 +35,20 @@ public class HomeController {
     @GetMapping("/login")
     public String login(Model model,
                         HttpServletRequest request) {
-
         HttpSession session = request.getSession(false);
-        ReservationDto reservation = (ReservationDto) session.getAttribute("reservationDto");
-        LOG.info("Session parameters: {}, {}", reservation.getHotelName(), reservation.getCheckInDate());
-        if(reservation.getCheckInDate() == null &&
-                reservation.getCheckOutDate() == null &&
+        if(session != null) {
+            ReservationDto reservation = (ReservationDto) session.getAttribute("reservationDto");
+            LOG.info("Session parameters: {}, {}", reservation.getHotelName(), reservation.getCheckInDate());
+            if(reservation.getCheckInDate() == null &&
+                    reservation.getCheckOutDate() == null &&
                     reservation.getHotelName() == null ) {
-            session.invalidate();
-            LOG.info("Session invalidated");
-        } else {
-            model.addAttribute("reservationDto", reservation);
-            LOG.info("Session still valid");
+                session.invalidate();
+                LOG.info("Session invalidated");
+            } else {
+                model.addAttribute("reservationDto", reservation);
+                LOG.info("Session still valid");
+            }
         }
-//        if(session != null) {
-//            ReservationDto reservation = (ReservationDto) session.getAttribute("reservationDto");
-//            if(reservation != null) {
-//
-//            }
-//        }
         return "login";
     }
 }
-// xatelik826@qqmimpi.com
