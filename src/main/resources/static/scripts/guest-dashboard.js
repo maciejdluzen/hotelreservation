@@ -33,6 +33,7 @@ let GuestUtils = {
                         <th>Hotel</th>
                         <th>Zameldowanie</th>
                         <th>Wymeldowanie</th>
+                        <th>Status</th>
                         <th>Akcje</th>
                         <th></th>
                     </tr>
@@ -44,13 +45,15 @@ let GuestUtils = {
     },
 
     getAllGuestReservations : function () {
+        //$('#reservationsFilters').html(GuestUtils.renderReservationFilters());
+        GuestUtils.showReservationFilters();
         $.ajax({
             url : "/auth/guest/reservations",
             type : 'GET',
             success : function (result, status, xhr) {
 
                 $('#pageTitle').html('Moje rezerwacje');
-                $('#reservationsFilters').html(GuestUtils.renderReservationFilters());
+
                 $('#reservationsTable').html(GuestUtils.renderReservationTable());
 
                 let reservations = result;
@@ -58,9 +61,15 @@ let GuestUtils = {
 
                 if (xhr.status === 200) {
                     let output = '';
+                    let resStatus = '';
                     for(let i in reservations) {
+                        if(reservations[i].status === true) {
+                            resStatus = 'Potwierdzona'
+                        } else {
+                            resStatus = 'Nie-potwierdzona'
+                        };
                         console.log("Inside for-loop and dates: " + reservations[i].checkInDate);
-                        console.log($('#checkboxFuture').checked);
+
                         console.log(GuestUtils.futureReservationCheck(reservations[i].checkInDate));
                         if($('#checkboxPast').is(':checked') && GuestUtils.pastReservationCheck(reservations[i].checkOutDate)) {
                             console.log("inside first if");
@@ -70,6 +79,7 @@ let GuestUtils = {
                                     <td>${reservations[i].hotelName}</td>
                                     <td>${reservations[i].checkInDate}</td>
                                     <td>${reservations[i].checkOutDate}</td>
+                                    <td>${resStatus}</td>
                                     <td><button type="button" class="btn btn-outline-primary btn-sm">Szczegóły</button></td>
                                     <td></td>
                                 </tr>`;
@@ -81,6 +91,7 @@ let GuestUtils = {
                                     <td>${reservations[i].hotelName}</td>
                                     <td>${reservations[i].checkInDate}</td>
                                     <td>${reservations[i].checkOutDate}</td>
+                                    <td>${resStatus}</td>
                                     <td><button type="button" class="btn btn-outline-primary btn-sm">Szczegóły</button></td>
                                     <td></td>
                                 </tr>`;
@@ -92,6 +103,7 @@ let GuestUtils = {
                                     <td>${reservations[i].hotelName}</td>
                                     <td>${reservations[i].checkInDate}</td>
                                     <td>${reservations[i].checkOutDate}</td>
+                                    <td>${resStatus}</td>
                                     <td><button type="button" class="btn btn-outline-primary btn-sm">Szczegóły</button></td>
                                     <td><button type="button" class="btn btn-outline-dark btn-sm">Odwołaj</button></td>
                                 </tr>`;
@@ -168,5 +180,15 @@ let GuestUtils = {
         let mm = arr[1] - 1;
         let yyyy = arr[0] - 0;
         return new Date(yyyy, mm, dd);
+    },
+
+    showReservationFilters : function () {
+        $('#reservationsFilters').show();
+    },
+
+    hideReservationFilters : function () {
+        $('#reservationsFilters').hide();
     }
 }
+
+GuestUtils.hideReservationFilters();

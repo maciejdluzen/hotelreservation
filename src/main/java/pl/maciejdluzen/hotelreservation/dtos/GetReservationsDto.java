@@ -21,4 +21,6 @@ public class GetReservationsDto {
 
     public LocalDate checkOutDate;
 
+    private Boolean status;
+
 }
