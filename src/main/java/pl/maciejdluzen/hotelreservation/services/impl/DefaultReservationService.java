@@ -4,12 +4,10 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import pl.maciejdluzen.hotelreservation.domain.entities.CardDetails;
-import pl.maciejdluzen.hotelreservation.domain.entities.Hotel;
-import pl.maciejdluzen.hotelreservation.domain.entities.Reservation;
-import pl.maciejdluzen.hotelreservation.domain.entities.RoomType;
+import pl.maciejdluzen.hotelreservation.domain.entities.*;
 import pl.maciejdluzen.hotelreservation.domain.repositories.*;
 import pl.maciejdluzen.hotelreservation.dtos.CardDetailsDto;
+import pl.maciejdluzen.hotelreservation.dtos.GetReservationsDto;
 import pl.maciejdluzen.hotelreservation.dtos.ReservationDto;
 import pl.maciejdluzen.hotelreservation.services.ReservationService;
 
@@ -117,4 +115,16 @@ public class DefaultReservationService implements ReservationService {
         return costs;
     }
 
+    @Override
+    public List<GetReservationsDto> getAllReservationsByUsername(String username) {
+        Guest guest = guestRepository.findByUsername(username);
+        List<Reservation> reservations = reservationRepository.findAllReservationsByGuest(guest);
+        List<GetReservationsDto> reservationsDto = new ArrayList<>();
+
+        for(Reservation reservation : reservations) {
+            GetReservationsDto reservationDto = mapper.map(reservation, GetReservationsDto.class);
+            reservationsDto.add(reservationDto);
+        }
+        return reservationsDto;
+    }
 }

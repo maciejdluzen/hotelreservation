@@ -34,11 +34,13 @@ public class DefaultGuestService implements GuestService {
     @Override
     public List<GetGuestsDto> getAllGuestsWithoutDetails() {
         List<Guest> guests = guestRepository.findAllByOrderByLastName();
+        LOG.info("DefaultGuestService - guests: {} ", guests);
         List<GetGuestsDto> guestsDto = new ArrayList<>();
         for(Guest guest : guests) {
             GetGuestsDto guestDto = mapper.map(guest, GetGuestsDto.class);
             guestsDto.add(guestDto);
         }
+        LOG.info("DefaultGuestService - guestsDto: {} ", guestsDto);
         return guestsDto;
     }
 
