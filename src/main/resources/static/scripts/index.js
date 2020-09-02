@@ -8,7 +8,7 @@ submitBtn.click(function(event) {
     let today = todayDate();
 
     if(!checkDates(checkIn, checkOut, today)) {
-        event.preventDefault();
+        //event.preventDefault();
         if($('#checkInGroup').children().length === 2) {
             $('#checkInGroup').append(
                 `<small class="form-text form-muted text-danger">Wybierz poprawne daty przyjazdu/wyjazdu</small>`
