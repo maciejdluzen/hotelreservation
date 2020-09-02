@@ -1,29 +1,4 @@
-console.log('Script attached!');
-console.log($('#checkboxPast'));
-console.log($('#checkboxCurrent'));
-console.log($('#checkboxFuture'));
-
 let GuestUtils = {
-
-    renderReservationFilters : function () {
-        return  `<div class="col-md-4 mb-4 bg-secondary text-white">
-                     <div class="form-check form-check-inline">
-                         <input class="form-check-input" type="checkbox" id="checkboxPast" value="option1">
-                         <label class="form-check-label font-italic" for="checkbox1">Przeszłe</label>
-                     </div>
-                     <div class="form-check form-check-inline">
-                         <input class="form-check-input" type="checkbox" id="checkboxCurrent" value="option2">
-                         <label class="form-check-label font-italic" for="checkbox2">Trwające</label>
-                     </div>
-                     <div class="form-check form-check-inline">
-                         <input class="form-check-input" type="checkbox" id="checkboxFuture" value="option1" checked="true">
-                         <label class="form-check-label font-italic" for="checkbox3">Przyszłe</label>
-                     </div>
-                     <div class="form-check form-check-inline">
-                          <button class="btn btn-outline-primary btn-sm" onclick="GuestUtils.getAllGuestReservations()">Odśwież</button>
-                     </div>
-                </div>`;
-    },
 
     renderReservationTable : function () {
         return `<table class="table table-striped table-sm">
@@ -45,7 +20,6 @@ let GuestUtils = {
     },
 
     getAllGuestReservations : function () {
-        //$('#reservationsFilters').html(GuestUtils.renderReservationFilters());
         GuestUtils.showReservationFilters();
         $.ajax({
             url : "/auth/guest/reservations",
@@ -53,11 +27,8 @@ let GuestUtils = {
             success : function (result, status, xhr) {
 
                 $('#pageTitle').html('Moje rezerwacje');
-
                 $('#reservationsTable').html(GuestUtils.renderReservationTable());
-
                 let reservations = result;
-                console.log('Success method: ' + reservations);
 
                 if (xhr.status === 200) {
                     let output = '';
@@ -68,11 +39,8 @@ let GuestUtils = {
                         } else {
                             resStatus = 'Nie-potwierdzona'
                         };
-                        console.log("Inside for-loop and dates: " + reservations[i].checkInDate);
 
-                        console.log(GuestUtils.futureReservationCheck(reservations[i].checkInDate));
                         if($('#checkboxPast').is(':checked') && GuestUtils.pastReservationCheck(reservations[i].checkOutDate)) {
-                            console.log("inside first if");
                             output +=
                                 `<tr>
                                     <td>${reservations[i].reservationNumber}</td>
@@ -84,7 +52,6 @@ let GuestUtils = {
                                     <td></td>
                                 </tr>`;
                         } else if ($('#checkboxCurrent').is(':checked') && GuestUtils.currentReservationCheck(reservations[i].checkInDate, reservations[i].checkOutDate)) {
-                            console.log("inside second if");
                             output +=
                                 `<tr>
                                     <td>${reservations[i].reservationNumber}</td>
@@ -96,7 +63,6 @@ let GuestUtils = {
                                     <td></td>
                                 </tr>`;
                         } else if ($('#checkboxFuture').is(':checked') && GuestUtils.futureReservationCheck(reservations[i].checkInDate)) {
-                            console.log("inside third if");
                             output +=
                                 `<tr>
                                     <td>${reservations[i].reservationNumber}</td>
@@ -128,9 +94,7 @@ let GuestUtils = {
     pastReservationCheck : function (checkOut) {
         let today = GuestUtils.todayDate();
         let checkOutDate = GuestUtils.stringToDate(checkOut);
-
         if(checkOutDate.getTime() < today.getTime()) {
-
             return true;
         } else {
             return false;
@@ -140,16 +104,9 @@ let GuestUtils = {
     futureReservationCheck : function (checkIn) {
         let today = GuestUtils.todayDate();
         let checkInDate = GuestUtils.stringToDate(checkIn);
-        console.log(today);
-        console.log(checkIn)
-        console.log(checkInDate);
-        console.log(checkInDate.getTime);
-        console.log(today.getTime);
         if(checkInDate.getTime() > today.getTime()) {
-            console.log("true");
             return true;
         } else {
-            console.log("false");
             return false;
         }
     },
@@ -158,7 +115,6 @@ let GuestUtils = {
         let today = GuestUtils.todayDate();
         let checkInDate = GuestUtils.stringToDate(checkIn);
         let checkOutDate = GuestUtils.stringToDate(checkOut);
-
         if(checkInDate.getTime() <= today.getTime() && checkOutDate.getTime() >= today.getTime()) {
             return true;
         } else {
