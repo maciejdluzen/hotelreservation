@@ -8,6 +8,7 @@ import pl.maciejdluzen.hotelreservation.domain.entities.*;
 import pl.maciejdluzen.hotelreservation.domain.repositories.*;
 import pl.maciejdluzen.hotelreservation.dtos.CardDetailsDto;
 import pl.maciejdluzen.hotelreservation.dtos.GetReservationsDto;
+import pl.maciejdluzen.hotelreservation.dtos.ReservationDetailsDto;
 import pl.maciejdluzen.hotelreservation.dtos.ReservationDto;
 import pl.maciejdluzen.hotelreservation.services.ReservationService;
 
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DefaultReservationService implements ReservationService {
@@ -126,5 +128,13 @@ public class DefaultReservationService implements ReservationService {
             reservationsDto.add(reservationDto);
         }
         return reservationsDto;
+    }
+
+    @Override
+    public ReservationDetailsDto getReservationDetails(Long id) {
+        Reservation reservation = reservationRepository.getOne(id);
+        ReservationDetailsDto reservationDetails = mapper.map(reservation, ReservationDetailsDto.class);
+
+        return reservationDetails;
     }
 }

@@ -1,5 +1,6 @@
 package pl.maciejdluzen.hotelreservation.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

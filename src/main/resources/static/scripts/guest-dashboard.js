@@ -19,6 +19,23 @@ let GuestUtils = {
                 </table>`;
     },
 
+    getReservationDetails : function (id) {
+        $.ajax({
+            url : "/auth/guest/reservations/" + id,
+            type : 'GET',
+            success : function (result, status, xhr) {
+                console.log("Sending request to id: " + id);
+                console.log("Status: " + xhr.status);
+                console.log("Result: " + result);
+                let details = JSON.parse(result);
+
+                if(xhr.status === 200) {
+                    console.log(details);
+                };
+            }
+        });
+    },
+
     getAllGuestReservations : function () {
         GuestUtils.showReservationFilters();
         $.ajax({
@@ -48,7 +65,7 @@ let GuestUtils = {
                                     <td>${reservations[i].checkInDate}</td>
                                     <td>${reservations[i].checkOutDate}</td>
                                     <td>${resStatus}</td>
-                                    <td><button type="button" class="btn btn-outline-primary btn-sm">Szczegóły</button></td>
+                                    <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="GuestUtils.getReservationDetails(${reservations[i].id})">Szczegóły</button></td>
                                     <td></td>
                                 </tr>`;
                         } else if ($('#checkboxCurrent').is(':checked') && GuestUtils.currentReservationCheck(reservations[i].checkInDate, reservations[i].checkOutDate)) {
@@ -59,7 +76,7 @@ let GuestUtils = {
                                     <td>${reservations[i].checkInDate}</td>
                                     <td>${reservations[i].checkOutDate}</td>
                                     <td>${resStatus}</td>
-                                    <td><button type="button" class="btn btn-outline-primary btn-sm">Szczegóły</button></td>
+                                    <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="GuestUtils.getReservationDetails(${reservations[i].id})">Szczegóły</button></td>
                                     <td></td>
                                 </tr>`;
                         } else if ($('#checkboxFuture').is(':checked') && GuestUtils.futureReservationCheck(reservations[i].checkInDate)) {
@@ -70,7 +87,7 @@ let GuestUtils = {
                                     <td>${reservations[i].checkInDate}</td>
                                     <td>${reservations[i].checkOutDate}</td>
                                     <td>${resStatus}</td>
-                                    <td><button type="button" class="btn btn-outline-primary btn-sm">Szczegóły</button></td>
+                                    <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="GuestUtils.getReservationDetails(${reservations[i].id})">Szczegóły</button></td>
                                     <td><button type="button" class="btn btn-outline-dark btn-sm">Odwołaj</button></td>
                                 </tr>`;
                         }
