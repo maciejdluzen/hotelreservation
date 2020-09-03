@@ -28,9 +28,54 @@ let GuestUtils = {
                 console.log("Status: " + xhr.status);
                 console.log("Result: " + result);
                 let details = JSON.parse(result);
-
                 if(xhr.status === 200) {
-                    console.log(details);
+                    let vat = details.tax;
+                    let vatFormatted = vat*100  + '%';
+                    let message = details.message;
+                    let guestsNames = '-';
+                    if(message === null) {
+                        message = "Nie dodałeś wiadomości";
+                    };
+                    if(details.secondGuestName !== null) {
+                        guestsNames += details.secondGuestName;
+                        if(details.thirdGuestName !== null) {
+                            guestsNames += ' ,' + details.thirdGuestName;
+                            if(details.fourthGuestName !== null) {
+                                guestsNames += ' ,' + details.fourthGuestName;
+                            };
+                        };
+                    };
+                    $(function () {
+                        $('#messages').html(
+                            `<div id="dialog" title="Basic dialog">
+                                <p>Numer: ${details.reservationNumber}</p>
+                                <p>Nazwa hotelu: ${details.hotelName}</p>
+                                <p>Adres: ${details.hotelStreet} ${details.hotelNumber}, ${details.hotelPostCode} ${details.hotelCity}</p>
+                                <p>E-mail: ${details.hotelEmailAddress}</p>
+                                <p>Telefon: ${details.hotelPhoneNumber}</p>
+                                <p>Pozostali goście: ${guestsNames}</p>
+                                <p class="font-weight-bold">Koszt netto: ${details.totalNetCost} PLN + ${vatFormatted} VAT</p>
+                                <p class="font-weight-bold">Koszt brutto: ${details.totalGrossCost} PLN</p>
+                                <p>Twoja wiadomość do recepcji:</p>
+                                <p class="font-italic">${message}</p>
+                        </div>`
+                        );
+                        $("#dialog").dialog({
+                            title: "Szczegóły rezerwacji",
+                            autoOpen: true,
+                            modal: true,
+                            dialogClass: "no-close",
+                            width: 500,
+                            buttons: [
+                                {
+                                    text: "OK",
+                                    click: function () {
+                                        $(this).dialog('close');
+                                    }
+                                }
+                            ]
+                        });
+                    });
                 };
             }
         });
