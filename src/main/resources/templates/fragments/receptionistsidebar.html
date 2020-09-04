@@ -1,0 +1,34 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+    <div class="sidebar-sticky pt-3">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="/auth/guest">
+                    <span data-feather="bar-chart-2"></span>
+                    Strona główna
+                </a>
+            </li>
+            <li class="nav-item">
+                <button type="button" class="btn btn-link" onclick="ReceptionistUtils.getAllFutureReservations()">
+                    <span data-feather="home"></span>
+                    Przyszłe rezerwacje
+                </button>
+            </li>
+            <li class="nav-item">
+                <button type="button" class="btn btn-link" onclick="">
+                    <span data-feather="home"></span>
+                    Obecne rezerwacje
+                </button>
+            </li>
+            <li class="nav-item">
+                <button type="button" class="btn btn-link" onclick="">
+                    <span data-feather="home"></span>
+                    Przeszłe rezerwacje
+                </button>
+            </li>
+        </ul>
+    </div>
+</nav>
+</html>

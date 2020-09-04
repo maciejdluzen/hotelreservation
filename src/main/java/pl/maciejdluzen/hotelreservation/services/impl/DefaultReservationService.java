@@ -6,17 +6,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import pl.maciejdluzen.hotelreservation.domain.entities.*;
 import pl.maciejdluzen.hotelreservation.domain.repositories.*;
-import pl.maciejdluzen.hotelreservation.dtos.CardDetailsDto;
-import pl.maciejdluzen.hotelreservation.dtos.GetReservationsDto;
-import pl.maciejdluzen.hotelreservation.dtos.ReservationDetailsDto;
-import pl.maciejdluzen.hotelreservation.dtos.ReservationDto;
+import pl.maciejdluzen.hotelreservation.dtos.*;
 import pl.maciejdluzen.hotelreservation.services.ReservationService;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DefaultReservationService implements ReservationService {
@@ -29,14 +25,16 @@ public class DefaultReservationService implements ReservationService {
     private final HotelRepository hotelRepository;
     private final RoomTypeRepository roomTypeRepository;
     private final GuestRepository guestRepository;
+    private final ReceptionistRepository receptionistRepository;
 
-    public DefaultReservationService(ModelMapper mapper, CardDetailsRepository cardDetailsRepository, ReservationRepository reservationRepository, HotelRepository hotelRepository, RoomTypeRepository roomTypeRepository, GuestRepository guestRepository) {
+    public DefaultReservationService(ModelMapper mapper, CardDetailsRepository cardDetailsRepository, ReservationRepository reservationRepository, HotelRepository hotelRepository, RoomTypeRepository roomTypeRepository, GuestRepository guestRepository, ReceptionistRepository receptionistRepository) {
         this.mapper = mapper;
         this.cardDetailsRepository = cardDetailsRepository;
         this.reservationRepository = reservationRepository;
         this.hotelRepository = hotelRepository;
         this.roomTypeRepository = roomTypeRepository;
         this.guestRepository = guestRepository;
+        this.receptionistRepository = receptionistRepository;
     }
 
     @Override
@@ -136,5 +134,18 @@ public class DefaultReservationService implements ReservationService {
         ReservationDetailsDto reservationDetails = mapper.map(reservation, ReservationDetailsDto.class);
 
         return reservationDetails;
+    }
+
+    @Override
+    public List<GetReservationsDto2> getAllFutureReservationsByHotel(String username) {
+        Receptionist receptionist = receptionistRepository.findByUsername(username);
+        List<Reservation> reservations = reservationRepository.findAllByHotelAndCheckInDateAfter(receptionist.getHotel(), LocalDate.now());
+        List<GetReservationsDto2> reservationsDto = new ArrayList<>();
+
+        for(Reservation reservation : reservations) {
+            GetReservationsDto2 reservationDto = mapper.map(reservation, GetReservationsDto2.class);
+            reservationsDto.add(reservationDto);
+        }
+        return reservationsDto;
     }
 }

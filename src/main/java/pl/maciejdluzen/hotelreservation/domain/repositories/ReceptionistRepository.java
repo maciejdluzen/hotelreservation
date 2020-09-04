@@ -11,4 +11,6 @@ public interface ReceptionistRepository extends JpaRepository<Receptionist, Long
 
     List<Receptionist> findAllByOrderByLastName();
 
+    Receptionist findByUsername(String username);
+
 }
