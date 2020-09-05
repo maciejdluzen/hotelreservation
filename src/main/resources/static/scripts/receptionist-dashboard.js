@@ -1,5 +1,23 @@
 let ReceptionistUtils = {
 
+    filterReservations : function () {
+        $("#filterField").on("keyup", function() {
+            let value = $(this).val().toLowerCase();
+            $("#reservationsTableBody tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    },
+
+    showReservationFilters : function () {
+        $('#reservationsFilters').show();
+        ReceptionistUtils.filterReservations();
+    },
+
+    hideReservationFilters : function () {
+        $('#reservationsFilters').hide();
+    },
+
     renderReservationTable : function () {
         return `<table class="table table-striped table-sm">
                     <thead>
@@ -21,6 +39,7 @@ let ReceptionistUtils = {
 
 
     getAllFutureReservations : function () {
+        ReceptionistUtils.showReservationFilters();
         $.ajax({
             url : "/auth/receptionist/reservations-future",
             type : 'GET',
@@ -56,3 +75,4 @@ let ReceptionistUtils = {
             });
         }
 }
+ReceptionistUtils.hideReservationFilters();
