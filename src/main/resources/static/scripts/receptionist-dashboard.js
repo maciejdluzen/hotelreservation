@@ -37,6 +37,63 @@ let ReceptionistUtils = {
                 </table>`;
         },
 
+    getReservationDetails : function (id) {
+        $.ajax({
+            url : "/auth/receptionist/reservations/" + id,
+            type : 'GET',
+            success : function (result, status, xhr) {
+                console.log("Sending request to id: " + id);
+                console.log("Status: " + xhr.status);
+                console.log("Result: " + result);
+                let details = JSON.parse(result);
+                if(xhr.status === 200) {
+                    let vat = details.tax;
+                    let vatFormatted = vat*100  + '%';
+                    let message = details.message;
+                    let guestsNames = '-';
+                    if(message === null) {
+                        message = "Brak wiadomości";
+                    };
+                    if(details.secondGuestName !== null) {
+                        guestsNames += details.secondGuestName;
+                        if(details.thirdGuestName !== null) {
+                            guestsNames += ' ,' + details.thirdGuestName;
+                            if(details.fourthGuestName !== null) {
+                                guestsNames += ' ,' + details.fourthGuestName;
+                            };
+                        };
+                    };
+                    $(function () {
+                        $('#messages').html(
+                            `<div id="dialog" title="Basic dialog">
+                               
+                                <p>Pozostali goście: ${guestsNames}</p>
+                                <p class="font-weight-bold">Koszt netto: ${details.totalNetCost} PLN + ${vatFormatted} VAT</p>
+                                <p class="font-weight-bold">Koszt brutto: ${details.totalGrossCost} PLN</p>
+                                <p>Wiadomość do recepcji:</p>
+                                <p class="font-italic">${message}</p>
+                        </div>`
+                        );
+                        $("#dialog").dialog({
+                            title: "Szczegóły rezerwacji",
+                            autoOpen: true,
+                            modal: true,
+                            dialogClass: "no-close",
+                            width: 500,
+                            buttons: [
+                                {
+                                    text: "OK",
+                                    click: function () {
+                                        $(this).dialog('close');
+                                    }
+                                }
+                            ]
+                        });
+                    });
+                };
+            }
+        });
+    },
 
     getAllFutureReservations : function () {
         ReceptionistUtils.showReservationFilters();
@@ -65,8 +122,8 @@ let ReceptionistUtils = {
                              <td>${reservations[i].checkInDate}</td>
                              <td>${reservations[i].checkOutDate}</td>
                              <td>${resStatus}</td>
-                             <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="">Szczegóły</button></td>
-                             <td><button type="button" class="btn btn-outline-dark btn-sm">Odwołaj</button></td>
+                             <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="ReceptionistUtils.getReservationDetails(${reservations[i].id})">Szczegóły</button></td>
+                             <td><button type="button" class="btn btn-outline-dark btn-sm">Potwierdź</button></td>
                          </tr>`;
                     };
                     $('#reservationsTableBody').html(output);
