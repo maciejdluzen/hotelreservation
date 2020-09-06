@@ -66,7 +66,9 @@ let ReceptionistUtils = {
                     $(function () {
                         $('#messages').html(
                             `<div id="dialog" title="Basic dialog">
-                               
+                                <p>Nazwa użytkownika (adres email): ${details.guestUsername}</p>
+                                <p>Adres: ${details.guestStreet} ${details.guestHomeNumber}, ${details.guestPostCode} ${details.guestCity}</p>
+                                <p>Numer telefonu: ${details.guestPhoneNumber}</p>
                                 <p>Pozostali goście: ${guestsNames}</p>
                                 <p class="font-weight-bold">Koszt netto: ${details.totalNetCost} PLN + ${vatFormatted} VAT</p>
                                 <p class="font-weight-bold">Koszt brutto: ${details.totalGrossCost} PLN</p>
@@ -75,7 +77,7 @@ let ReceptionistUtils = {
                         </div>`
                         );
                         $("#dialog").dialog({
-                            title: "Szczegóły rezerwacji",
+                            title: "Szczegóły rezerwacji" + details.reservationNumber,
                             autoOpen: true,
                             modal: true,
                             dialogClass: "no-close",

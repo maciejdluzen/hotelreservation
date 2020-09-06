@@ -19,4 +19,6 @@ public interface ReservationService {
 
     List<GetReservationsDto2> getAllFutureReservationsByHotel(String receptionistName);
 
+    ReservationDetailsDto2 getReservationDetailsForReceptionist(Long id);
+
 }

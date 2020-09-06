@@ -137,6 +137,14 @@ public class DefaultReservationService implements ReservationService {
     }
 
     @Override
+    public ReservationDetailsDto2 getReservationDetailsForReceptionist(Long id) {
+        Reservation reservation = reservationRepository.getOne(id);
+        ReservationDetailsDto2 reservationDetails = mapper.map(reservation, ReservationDetailsDto2.class);
+
+        return reservationDetails;
+    }
+
+    @Override
     public List<GetReservationsDto2> getAllFutureReservationsByHotel(String username) {
         Receptionist receptionist = receptionistRepository.findByUsername(username);
         List<Reservation> reservations = reservationRepository.findAllByHotelAndCheckInDateAfter(receptionist.getHotel(), LocalDate.now());

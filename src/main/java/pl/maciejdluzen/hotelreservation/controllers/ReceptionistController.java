@@ -53,18 +53,15 @@ public class ReceptionistController {
 
     @GetMapping("/reservations/{id}")
     public ResponseEntity<String> getReservationDetails(@PathVariable("id") Long id) throws JsonProcessingException{
-        //ReservationDetailsDto2 reservationDetails = reservationService.getReservationDetails(id);
-//        LOG.info("ReservationDetails: {}", reservationDetails.toString());
-//        if(reservationDetails != null) {
-//            LOG.info("ReservationDetails - HttpStatus.OK");
-//            //return new ResponseEntity<>(reservationDetails, HttpStatus.OK);
-//            return ResponseEntity.status(HttpStatus.OK).body(toJson(reservationDetails));
-//        } else {
-//            LOG.info("ReservationDetails - HttpStatus.NOTFOUND");
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//        }
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        ReservationDetailsDto2 reservationDetails = reservationService.getReservationDetailsForReceptionist(id);
+        LOG.info("ReservationDetails: {}", reservationDetails.toString());
+        if(reservationDetails != null) {
+            LOG.info("ReservationDetails - HttpStatus.OK");
+            return ResponseEntity.status(HttpStatus.OK).body(toJson(reservationDetails));
+        } else {
+            LOG.info("ReservationDetails - HttpStatus.NOTFOUND");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     private String toJson(Object object) throws JsonProcessingException
