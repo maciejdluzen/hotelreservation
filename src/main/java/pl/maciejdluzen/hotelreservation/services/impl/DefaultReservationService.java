@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class DefaultReservationService implements ReservationService {
@@ -26,8 +27,9 @@ public class DefaultReservationService implements ReservationService {
     private final RoomTypeRepository roomTypeRepository;
     private final GuestRepository guestRepository;
     private final ReceptionistRepository receptionistRepository;
+    private final RoomRepository roomRepository;
 
-    public DefaultReservationService(ModelMapper mapper, CardDetailsRepository cardDetailsRepository, ReservationRepository reservationRepository, HotelRepository hotelRepository, RoomTypeRepository roomTypeRepository, GuestRepository guestRepository, ReceptionistRepository receptionistRepository) {
+    public DefaultReservationService(ModelMapper mapper, CardDetailsRepository cardDetailsRepository, ReservationRepository reservationRepository, HotelRepository hotelRepository, RoomTypeRepository roomTypeRepository, GuestRepository guestRepository, ReceptionistRepository receptionistRepository, RoomRepository roomRepository) {
         this.mapper = mapper;
         this.cardDetailsRepository = cardDetailsRepository;
         this.reservationRepository = reservationRepository;
@@ -35,6 +37,7 @@ public class DefaultReservationService implements ReservationService {
         this.roomTypeRepository = roomTypeRepository;
         this.guestRepository = guestRepository;
         this.receptionistRepository = receptionistRepository;
+        this.roomRepository = roomRepository;
     }
 
     @Override
@@ -156,4 +159,39 @@ public class DefaultReservationService implements ReservationService {
         }
         return reservationsDto;
     }
+
+    @Override
+    public Boolean confirmReservation(Long id) {
+        Reservation reservation = reservationRepository.getOne(id);
+        LocalDate checkIn = reservation.getCheckInDate();
+        LocalDate checkOut = reservation.getCheckOutDate();
+        RoomType roomType = roomTypeRepository.findRoomTypeByName(reservation.getRoomTypeName());
+        List<Room> rooms = roomRepository.findAllByRoomType(roomType);
+
+        //List<Reservation> reservations = reservationRepository.findAllByHotelAndCheckInDateAfter(hotel, LocalDate.now());
+
+        for (Room room : rooms) {
+            if(reservationDatesCheck(room, checkIn, checkOut)) {
+                reservation.setRoom(room);
+                reservation.setStatus(true);
+                reservationRepository.save(reservation);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Boolean reservationDatesCheck(Room room , LocalDate checkIn, LocalDate checkOut) {
+        List<Reservation> reservationsByRoom = reservationRepository.findAllByRoom(room);
+        LOG.info("ReservationsByRoom: {}", reservationsByRoom);
+        for (Reservation res : reservationsByRoom) {
+            if(!(res.getCheckInDate().isBefore(checkIn) && res.getCheckOutDate().isBefore(checkIn)) ||
+                    !(res.getCheckInDate().isAfter(checkOut) && res.getCheckOutDate().isAfter(checkOut))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }

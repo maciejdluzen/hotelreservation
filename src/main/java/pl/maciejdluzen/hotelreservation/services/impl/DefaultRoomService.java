@@ -4,9 +4,11 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import pl.maciejdluzen.hotelreservation.domain.entities.Reservation;
 import pl.maciejdluzen.hotelreservation.domain.entities.Room;
 import pl.maciejdluzen.hotelreservation.domain.entities.RoomType;
 import pl.maciejdluzen.hotelreservation.domain.repositories.HotelRepository;
+import pl.maciejdluzen.hotelreservation.domain.repositories.ReservationRepository;
 import pl.maciejdluzen.hotelreservation.domain.repositories.RoomRepository;
 import pl.maciejdluzen.hotelreservation.domain.repositories.RoomTypeRepository;
 import pl.maciejdluzen.hotelreservation.dtos.GetRoomDto;
@@ -25,12 +27,14 @@ public class DefaultRoomService implements RoomService {
     private final ModelMapper mapper;
     private final HotelRepository hotelRepository;
     private final RoomTypeRepository roomTypeRepository;
+    private final ReservationRepository reservationRepository;
 
-    public DefaultRoomService(RoomRepository roomRepository, ModelMapper mapper, HotelRepository hotelRepository, RoomTypeRepository roomTypeRepository) {
+    public DefaultRoomService(RoomRepository roomRepository, ModelMapper mapper, HotelRepository hotelRepository, RoomTypeRepository roomTypeRepository, ReservationRepository reservationRepository) {
         this.roomRepository = roomRepository;
         this.mapper = mapper;
         this.hotelRepository = hotelRepository;
         this.roomTypeRepository = roomTypeRepository;
+        this.reservationRepository = reservationRepository;
     }
 
     @Override
@@ -67,6 +71,10 @@ public class DefaultRoomService implements RoomService {
     @Override
     public Boolean deleteRoom(Long id) {
         try {
+            List<Reservation> reservations = reservationRepository.findAllByRoom(roomRepository.getOne(id));
+            for(Reservation reservation : reservations) {
+                reservation.setRoom(null);
+            }
             roomRepository.deleteById(id);
             return true;
         } catch (Exception exc) {

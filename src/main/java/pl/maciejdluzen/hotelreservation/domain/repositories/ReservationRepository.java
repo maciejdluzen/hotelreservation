@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import pl.maciejdluzen.hotelreservation.domain.entities.Guest;
 import pl.maciejdluzen.hotelreservation.domain.entities.Hotel;
 import pl.maciejdluzen.hotelreservation.domain.entities.Reservation;
+import pl.maciejdluzen.hotelreservation.domain.entities.Room;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,5 +25,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     List<Reservation> findAllByHotelAndCheckInDateAfter(Hotel hotel, LocalDate localDate);
 
+    List<Reservation> findAllByRoom(Room room);
 
 }

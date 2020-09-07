@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.maciejdluzen.hotelreservation.dtos.GetReservationsDto2;
 import pl.maciejdluzen.hotelreservation.dtos.ReservationDetailsDto;
@@ -61,6 +62,15 @@ public class ReceptionistController {
         } else {
             LOG.info("ReservationDetails - HttpStatus.NOTFOUND");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @PutMapping("/reservations/{id}")
+    public ResponseEntity<?> confirmReservation(@PathVariable("id") Long id) {
+        if(reservationService.confirmReservation(id)) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
         }
     }
 

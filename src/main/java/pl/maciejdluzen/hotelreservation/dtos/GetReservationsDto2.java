@@ -25,4 +25,6 @@ public class GetReservationsDto2 {
 
     private String guestLastName;
 
+    private Integer roomRoomNumber;
+
 }

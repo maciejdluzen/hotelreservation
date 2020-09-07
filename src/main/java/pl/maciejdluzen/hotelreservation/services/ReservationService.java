@@ -21,4 +21,6 @@ public interface ReservationService {
 
     ReservationDetailsDto2 getReservationDetailsForReceptionist(Long id);
 
+    Boolean confirmReservation(Long id);
+
 }

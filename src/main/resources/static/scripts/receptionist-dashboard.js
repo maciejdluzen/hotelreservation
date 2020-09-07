@@ -1,5 +1,27 @@
 let ReceptionistUtils = {
 
+    confirmReservation : function(id) {
+        $.ajax({
+            url : '/auth/receptionist/reservations/' + id,
+            type : 'PUT',
+            success : function(result, status, xhr) {
+                if(xhr.status === 200) {
+                    let messageField = document.getElementById('messages');
+                    messageField.firstElementChild.classList.add('alert');
+                    messageField.firstElementChild.classList += ' alert-success'
+                    messageField.firstElementChild.innerHTML += '<p>Potwierdzono rezerwację oraz przypisano wolny pokój</p>'
+                } else if (xhr.status === 304) {
+                    let messageField = document.getElementById('messages');
+                    messageField.firstElementChild.classList.add('alert');
+                    messageField.firstElementChild.classList += ' alert-warning'
+                    messageField.firstElementChild.innerHTML += '<p>Brak wolnego pokoju - odwołaj rezerwację</p>'
+                    ReceptionistUtils.getAllFutureReservations();
+                }
+                ReceptionistUtils.getAllFutureReservations();
+            }
+        });
+    },
+
     filterReservations : function () {
         $("#filterField").on("keyup", function() {
             let value = $(this).val().toLowerCase();
@@ -26,6 +48,7 @@ let ReceptionistUtils = {
                         <th>Imię i nazwisko</th>
                         <th>Zameldowanie</th>
                         <th>Wymeldowanie</th>
+                        <th>Nr pokoju</th>
                         <th>Status</th>
                         <th>Akcje</th>
                         <th></th>
@@ -69,6 +92,7 @@ let ReceptionistUtils = {
                                 <p>Nazwa użytkownika (adres email): ${details.guestUsername}</p>
                                 <p>Adres: ${details.guestStreet} ${details.guestHomeNumber}, ${details.guestPostCode} ${details.guestCity}</p>
                                 <p>Numer telefonu: ${details.guestPhoneNumber}</p>
+                                <p>Rodzaj pokoju: ${details.roomTypeName}</p>
                                 <p>Pozostali goście: ${guestsNames}</p>
                                 <p class="font-weight-bold">Koszt netto: ${details.totalNetCost} PLN + ${vatFormatted} VAT</p>
                                 <p class="font-weight-bold">Koszt brutto: ${details.totalGrossCost} PLN</p>
@@ -123,9 +147,10 @@ let ReceptionistUtils = {
                              <td>${reservations[i].guestFirstName} ${reservations[i].guestLastName}</td>
                              <td>${reservations[i].checkInDate}</td>
                              <td>${reservations[i].checkOutDate}</td>
+                             <td>${reservations[i].roomRoomNumber}</td>
                              <td>${resStatus}</td>
                              <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="ReceptionistUtils.getReservationDetails(${reservations[i].id})">Szczegóły</button></td>
-                             <td><button type="button" class="btn btn-outline-dark btn-sm">Potwierdź</button></td>
+                             <td><button type="button" class="btn btn-outline-dark btn-sm" onclick="ReceptionistUtils.confirmReservation(${reservations[i].id})">Potwierdź</button></td>
                          </tr>`;
                     };
                     $('#reservationsTableBody').html(output);
