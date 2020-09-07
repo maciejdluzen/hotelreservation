@@ -6,10 +6,13 @@
     <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/">Plaza Inn Hotels</a>
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap d-flex flex-row-reverse">
-            <a class="nav-link ml-3" href="#">Wyloguj</a>
+            <a href="javascript: document.logoutForm.submit()" class="nav-link ml-3" href="#">Wyloguj</a>
             <a class="nav-link text-white ml-3" th:text="'Witaj, ' + '!'"></a>
             <a class="nav-link text-white ml-3" th:text="'Mój hotel, '"></a>
         </li>
+        <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+            <input hidden type="submit" value="Sign Out"/>
+        </form>
     </ul>
 </nav>
 

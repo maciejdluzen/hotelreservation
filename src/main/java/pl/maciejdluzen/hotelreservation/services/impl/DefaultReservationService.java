@@ -185,8 +185,8 @@ public class DefaultReservationService implements ReservationService {
         List<Reservation> reservationsByRoom = reservationRepository.findAllByRoom(room);
         LOG.info("ReservationsByRoom: {}", reservationsByRoom);
         for (Reservation res : reservationsByRoom) {
-            if(!(res.getCheckInDate().isBefore(checkIn) && res.getCheckOutDate().isBefore(checkIn)) ||
-                    !(res.getCheckInDate().isAfter(checkOut) && res.getCheckOutDate().isAfter(checkOut))) {
+            if(!(res.getCheckInDate().isBefore(checkIn) && (res.getCheckOutDate().isBefore(checkIn) || res.getCheckOutDate().isEqual(checkIn))) ||
+                    !((res.getCheckInDate().isAfter(checkOut) || res.getCheckInDate().isEqual(checkOut)) && res.getCheckOutDate().isAfter(checkOut))) {
                 return false;
             }
         }

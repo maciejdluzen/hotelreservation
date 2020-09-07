@@ -50,7 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register/**").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/auth/guest", "/auth/guest/**").hasRole("GUEST")
-                .antMatchers("/auth/admin", "/auth/admin/**").permitAll() // it will be hasRole("ADMIN")
+                .antMatchers("/auth/admin", "/auth/admin/**").hasRole("ADMIN") // it will be hasRole("ADMIN")
                 .antMatchers("/auth/receptionist", "/auth/receptionist/**").hasRole("RECEPTIONIST") // it will be hasRole("Receptionist")
                 .anyRequest().permitAll()
                 .and()
@@ -61,6 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/")
                 .and()
             .logout()
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/");
 
     }
