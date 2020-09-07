@@ -79,4 +79,9 @@ public class DefaultReceptionistService implements ReceptionistService {
         }
         return true;
     }
+
+    @Override
+    public Receptionist findReceptionistByUsername(String username) {
+        return receptionistRepository.findByUsername(username);
+    }
 }

@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <!-- Navigation -->
 <nav class="navbar navbar-expand-sm navbar-light" style="background-color: #b366ff">
     <a class="navbar-brand lead" href="/">
@@ -6,8 +6,7 @@
         Plaza Inn Hotels
     </a>
 
-    <div class="collapse navbar-collapse d-flex flex-row-reverse" id="navbarSupportedContent">
-
+    <div class="collapse navbar-collapse d-flex flex-row-reverse" sec:authorize="!isAuthenticated()" id="navbarSupportedContent">
         <form class="form-inline mr-2 mt-sm-2 mb-sm-2" action="/login">
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Zaloguj</button>
         </form>
@@ -15,5 +14,31 @@
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Rejestracja</button>
         </form>
     </div>
+
+    <div class="collapse navbar-collapse d-flex flex-row-reverse" sec:authorize="isAuthenticated()" id="navbarSupportedContent2">
+
+        <form class="form-inline mr-2 mt-sm-2 mb-sm-2" th:action="@{/logout}" method="post">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Wyloguj</button>
+        </form>
+
+        <div sec:authorize="hasRole('RECEPTIONIST')">
+            <form class="form-inline mr-2 mt-sm-2 mb-sm-2" th:action="@{/auth/receptionist}">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Moje konto</button>
+            </form>
+        </div>
+
+        <div sec:authorize="hasRole('ADMIN')">
+            <form class="form-inline mr-2 mt-sm-2 mb-sm-2" th:action="@{/auth/admin/main}">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Moje konto</button>
+            </form>
+        </div>
+
+        <div sec:authorize="hasRole('GUEST')">
+            <form class="form-inline mr-2 mt-sm-2 mb-sm-2" th:action="@{/auth/guest}">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Moje konto</button>
+            </form>
+        </div>
+    </div>
+
 </nav>
 <!-- Navigation - End -->

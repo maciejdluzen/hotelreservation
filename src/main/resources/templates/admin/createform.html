@@ -2,40 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/dashboardhead"></head>
 <body>
-<!-- NEW ADMIN FORM -->
-<form method="post" th:object="${admin}" th:action="@{/createadmin}">
+<div class="container-fluid">
+    <div class="row align-middle">
+        <div class="col-md-4 offset-md-4">
+            <!-- NEW ADMIN FORM -->
+            <form method="post" th:object="${admin}" th:action="@{/createadmin}">
+                <h4>Tworzenie nowego konta dla administratora</h4>
+                <div class="form-group">
+                    <label for="adminFirstName">Imię</label>
+                    <input th:field="*{firstName}" type="text" class="form-control" id="adminFirstName" aria-describedby="nameError">
+                    <small th:errors="*{firstName}" class="form-text form-muted text-danger"></small>
+                </div>
 
-    <h4>Tworzenie nowego konta dla administratora</h4>
+                <div class="form-group">
+                    <label for="adminLastName">Nazwisko</label>
+                    <input th:field="*{lastName}" type="text" class="form-control" id="adminLastName">
+                    <small th:errors="*{lastName}" class="form-text form-muted text-danger"></small>
+                </div>
 
-    <div class="form-group">
-        <label for="adminFirstName">Imię</label>
-        <input th:field="*{firstName}" type="text" class="form-control" id="adminFirstName" aria-describedby="nameError">
-        <small th:errors="*{firstName}" class="form-text form-muted text-danger"></small>
+                <div class="form-group">
+                    <label for="recepEmailAddress">Adres e-mail</label>
+                    <input th:field="*{emailAddress}" type="text" class="form-control" id="recepEmailAddress">
+                    <small th:errors="*{emailAddress}" class="form-text form-muted text-danger"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="recepPass">Hasło</label>
+                    <input th:field="*{password}" type="password" class="form-control" id="recepPass">
+                    <small id="passErr" th:errors="*{password}" class="form-text form-muted text-danger"></small>
+                </div>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary" id="addHotelBtn">Dodaj</button>
+                    <button type="reset" class="btn btn-outline-primary">Wyczyść</button>
+                </div>
+            </form>
+            <!-- NEW ADMIN FORM - end -->
+        </div>
     </div>
-
-    <div class="form-group">
-        <label for="adminLastName">Nazwisko</label>
-        <input th:field="*{lastName}" type="text" class="form-control" id="adminLastName">
-        <small th:errors="*{lastName}" class="form-text form-muted text-danger"></small>
-    </div>
-
-    <div class="form-group">
-        <label for="recepEmailAddress">Adres e-mail</label>
-        <input th:field="*{emailAddress}" type="text" class="form-control" id="recepEmailAddress">
-        <small th:errors="*{emailAddress}" class="form-text form-muted text-danger"></small>
-    </div>
-
-    <div class="form-group">
-        <label for="recepPass">Hasło</label>
-        <input th:field="*{password}" type="password" class="form-control" id="recepPass">
-        <small id="passErr" th:errors="*{password}" class="form-text form-muted text-danger"></small>
-    </div>
-
-    <div class="btn-group">
-        <button type="submit" class="btn btn-primary" id="addHotelBtn">Dodaj</button>
-        <button type="reset" class="btn btn-outline-primary">Wyczyść</button>
-    </div>
-</form>
-<!-- NEW ADMIN FORM - end -->
+</div>
 </body>
 </html>

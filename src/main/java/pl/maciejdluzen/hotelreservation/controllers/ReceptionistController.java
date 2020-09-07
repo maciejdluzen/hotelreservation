@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.maciejdluzen.hotelreservation.domain.entities.Receptionist;
 import pl.maciejdluzen.hotelreservation.dtos.GetReservationsDto2;
 import pl.maciejdluzen.hotelreservation.dtos.ReservationDetailsDto;
 import pl.maciejdluzen.hotelreservation.dtos.ReservationDetailsDto2;
@@ -37,7 +38,10 @@ public class ReceptionistController {
 
     @GetMapping
     public String getReceptionistDashboard(Model model, Principal principal) {
-
+        Receptionist receptionist = receptionistService.findReceptionistByUsername(principal.getName());
+        model.addAttribute("firstName", receptionist.getFirstName());
+        model.addAttribute("lastName", receptionist.getLastName());
+        model.addAttribute("hotelName", receptionist.getHotel().getName());
         return "receptionist/dashboard";
     }
 

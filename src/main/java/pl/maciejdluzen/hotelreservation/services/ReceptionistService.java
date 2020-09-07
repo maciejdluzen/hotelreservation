@@ -15,4 +15,6 @@ public interface ReceptionistService {
     boolean deactivateReceptionistAccount(Long id);
 
     boolean deleteReceptionist(Long id);
+
+    Receptionist findReceptionistByUsername(String username);
 }

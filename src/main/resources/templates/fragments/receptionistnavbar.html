@@ -1,0 +1,14 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/">Plaza Inn Hotels</a>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap d-flex flex-row-reverse">
+            <a href="javascript: document.logoutForm.submit()" class="nav-link ml-3">Wyloguj</a>
+            <a class="nav-link text-white ml-3" th:text="'Witaj, ' + ${firstName} + ' ' + ${lastName} + '!'"></a>
+            <a class="nav-link text-white ml-3" th:text="'Mój hotel: ' + ${hotelName}"></a>
+        </li>
+        <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+            <input hidden type="submit" value="Wyloguj"/>
+        </form>
+    </ul>
+</nav>

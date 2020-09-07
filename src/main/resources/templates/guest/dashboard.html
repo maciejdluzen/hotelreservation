@@ -2,16 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head"></head>
     <body>
-        <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/">Plaza Inn Hotels</a>
-            <ul class="navbar-nav px-3">
-                <li class="nav-item text-nowrap d-flex flex-row-reverse">
-                    <a class="nav-link ml-3" href="#">Wyloguj</a>
-                    <a class="nav-link ml-3" href="#">Strona główna</a>
-                    <a class="nav-link text-white" th:text="'Witaj, ' + ${guestFullName} + '!'"></a>
-                </li>
-            </ul>
-        </nav>
+    <nav th:replace="fragments/guestnavbar"></nav>
 
         <div class="container-fluid">
             <div class="row">
