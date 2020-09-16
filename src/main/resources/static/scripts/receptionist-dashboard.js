@@ -141,8 +141,8 @@ let ReceptionistUtils = {
                         } else {
                             resStatus = 'Nie-potwierdzona'
                         };
-                    output +=
-                         `<tr>
+                        output +=
+                            `<tr>
                              <td>${reservations[i].reservationNumber}</td>
                              <td>${reservations[i].guestFirstName} ${reservations[i].guestLastName}</td>
                              <td>${reservations[i].checkInDate}</td>
@@ -154,9 +154,10 @@ let ReceptionistUtils = {
                          </tr>`;
                     };
                     $('#reservationsTableBody').html(output);
-                    }
                 }
-            });
-        }
+            }
+        });
+    }
+
 }
 ReceptionistUtils.hideReservationFilters();

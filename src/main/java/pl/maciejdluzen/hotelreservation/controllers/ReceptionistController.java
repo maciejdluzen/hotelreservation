@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.maciejdluzen.hotelreservation.domain.entities.Receptionist;
+import pl.maciejdluzen.hotelreservation.dtos.GetReservationsDto;
 import pl.maciejdluzen.hotelreservation.dtos.GetReservationsDto2;
 import pl.maciejdluzen.hotelreservation.dtos.ReservationDetailsDto;
 import pl.maciejdluzen.hotelreservation.dtos.ReservationDetailsDto2;
@@ -48,6 +49,28 @@ public class ReceptionistController {
     @GetMapping("/reservations-future")
     public ResponseEntity<List<GetReservationsDto2>> getAllFutureReservationsByHotel(Principal principal) {
         List<GetReservationsDto2> reservations = reservationService.getAllFutureReservationsByHotel(principal.getName());
+        LOG.info("Reservations: {}", reservations.toString());
+        if(!reservations.isEmpty()) {
+            return new ResponseEntity<>(reservations, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+    @GetMapping("/reservations-current")
+    public ResponseEntity<List<GetReservationsDto2>> getAllCurrentReservationsByHotel(Principal principal) {
+        List<GetReservationsDto2> reservations = reservationService.getAllCurrentReservationsByHotel(principal.getName());
+        LOG.info("Reservations: {}", reservations.toString());
+        if(!reservations.isEmpty()) {
+            return new ResponseEntity<>(reservations, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+    @GetMapping("/reservations-past")
+    public ResponseEntity<List<GetReservationsDto2>> getAllPastReservationByHotel(Principal principal) {
+        List<GetReservationsDto2> reservations = reservationService.getAllPastReservationsByHotel(principal.getName());
         LOG.info("Reservations: {}", reservations.toString());
         if(!reservations.isEmpty()) {
             return new ResponseEntity<>(reservations, HttpStatus.OK);

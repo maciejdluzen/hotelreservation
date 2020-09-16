@@ -161,6 +161,37 @@ public class DefaultReservationService implements ReservationService {
     }
 
     @Override
+    public List<GetReservationsDto2> getAllCurrentReservationsByHotel(String username) {
+        Receptionist receptionist = receptionistRepository.findByUsername(username);
+        LOG.info("Receptionist hotel: {}", receptionist.getHotel());
+        List<Reservation> reservations = reservationRepository.findAllByHotelAndCheckInDateEqualsOrCheckInDateBeforeAndCheckOutDateAfter(receptionist.getHotel(), LocalDate.now(), LocalDate.now(), LocalDate.now());
+        List<GetReservationsDto2> reservationsDto = new ArrayList<>();
+
+        for(Reservation reservation : reservations) {
+            if(reservation.getHotel() == receptionist.getHotel()) {
+                GetReservationsDto2 reservationDto = mapper.map(reservation, GetReservationsDto2.class);
+                reservationsDto.add(reservationDto);
+            }
+        }
+        return reservationsDto;
+    }
+
+    @Override
+    public List<GetReservationsDto2> getAllPastReservationsByHotel(String username) {
+        Receptionist receptionist = receptionistRepository.findByUsername(username);
+        List<Reservation> reservations = reservationRepository.findAllByHotelAndCheckOutDateEqualsOrCheckOutDateBefore(receptionist.getHotel(), LocalDate.now(), LocalDate.now());
+        List<GetReservationsDto2> reservationsDto = new ArrayList<>();
+
+        for(Reservation reservation : reservations) {
+            if(reservation.getHotel() == receptionist.getHotel()) {
+                GetReservationsDto2 reservationDto = mapper.map(reservation, GetReservationsDto2.class);
+                reservationsDto.add(reservationDto);
+            }
+        }
+        return reservationsDto;
+    }
+
+    @Override
     public Boolean confirmReservation(Long id) {
         Reservation reservation = reservationRepository.getOne(id);
         LocalDate checkIn = reservation.getCheckInDate();
@@ -192,6 +223,4 @@ public class DefaultReservationService implements ReservationService {
         }
         return true;
     }
-
-
 }

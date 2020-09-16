@@ -5,7 +5,7 @@
     <div class="sidebar-sticky pt-3">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="/auth/guest">
+                <a class="nav-link" href="/auth/receptionist">
                     <span data-feather="bar-chart-2"></span>
                     Strona główna
                 </a>
@@ -17,13 +17,13 @@
                 </button>
             </li>
             <li class="nav-item">
-                <button type="button" class="btn btn-link" onclick="">
+                <button type="button" class="btn btn-link" onclick="ReceptionistUtils2.getAllCurrentReservations()">
                     <span data-feather="home"></span>
                     Obecne rezerwacje
                 </button>
             </li>
             <li class="nav-item">
-                <button type="button" class="btn btn-link" onclick="">
+                <button type="button" class="btn btn-link" onclick="ReceptionistUtils2.getAllPastReservations()">
                     <span data-feather="home"></span>
                     Przeszłe rezerwacje
                 </button>

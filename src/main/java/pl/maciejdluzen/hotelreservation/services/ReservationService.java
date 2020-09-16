@@ -23,4 +23,7 @@ public interface ReservationService {
 
     Boolean confirmReservation(Long id);
 
+    List<GetReservationsDto2> getAllCurrentReservationsByHotel(String username);
+
+    List<GetReservationsDto2> getAllPastReservationsByHotel(String username);
 }

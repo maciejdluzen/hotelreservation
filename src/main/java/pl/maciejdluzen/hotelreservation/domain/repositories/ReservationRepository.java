@@ -25,6 +25,10 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     List<Reservation> findAllByHotelAndCheckInDateAfter(Hotel hotel, LocalDate localDate);
 
+    List<Reservation> findAllByHotelAndCheckInDateEqualsOrCheckInDateBeforeAndCheckOutDateAfter(Hotel hotel, LocalDate checkIn, LocalDate checkin2, LocalDate checkOut);
+
+    List<Reservation> findAllByHotelAndCheckOutDateEqualsOrCheckOutDateBefore(Hotel hotel, LocalDate localDate1, LocalDate localDate2);
+
     List<Reservation> findAllByRoom(Room room);
 
 }
