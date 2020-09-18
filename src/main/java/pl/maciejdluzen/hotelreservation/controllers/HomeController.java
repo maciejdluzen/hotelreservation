@@ -13,7 +13,7 @@ import pl.maciejdluzen.hotelreservation.services.HotelService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class HomeController {
@@ -38,12 +38,12 @@ public class HomeController {
                         HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);
+        List<String> sessionNames = Collections.list(session.getAttributeNames());
+        LOG.info("Session value: {}, creation time {}, attribute size {}, attributes {}", session.getId(), session.getCreationTime(), sessionNames.size(), sessionNames);
 
-        LOG.info("Session value: {}", session);
-
-        if(session != null) {
+        if(!(sessionNames.contains("SPRING_SECURITY_LAST_EXCEPTION"))) {
             ReservationDto reservation = (ReservationDto) session.getAttribute("reservationDto");
-            //LOG.info("Session parameters: {}, {}", reservation.getHotelName(), reservation.getCheckInDate());
+            LOG.info("Session parameters: {}, {}", reservation.getHotelName(), reservation.getCheckInDate());
             if(reservation.getCheckInDate() == null &&
                     reservation.getCheckOutDate() == null &&
                     reservation.getHotelName() == null ) {
