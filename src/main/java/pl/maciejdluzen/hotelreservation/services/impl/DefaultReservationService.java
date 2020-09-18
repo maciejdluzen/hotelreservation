@@ -199,7 +199,7 @@ public class DefaultReservationService implements ReservationService {
         LocalDate checkOut = reservation.getCheckOutDate();
         RoomType roomType = roomTypeRepository.findRoomTypeByName(reservation.getRoomTypeName());
         LOG.info("Retrieved roomType: {}", roomType);
-        List<Room> rooms = roomRepository.findAllByRoomType(roomType);
+        List<Room> rooms = roomRepository.findAllByRoomTypeAndHotel(roomType, reservation.getHotel()); // Method retrieves rooms from other hotels too
         LOG.info("All rooms: {}", rooms);
 
         for (Room room : rooms) {
