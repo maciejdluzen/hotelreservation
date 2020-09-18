@@ -95,8 +95,10 @@ public class ReceptionistController {
     @PutMapping("/reservations/{id}")
     public ResponseEntity<?> confirmReservation(@PathVariable("id") Long id) {
         if(reservationService.confirmReservation(id)) {
+            LOG.info("Status OK");
             return ResponseEntity.status(HttpStatus.OK).build();
         } else {
+            LOG.info("Status NOTMODIFIED");
             return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
         }
     }

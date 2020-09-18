@@ -194,30 +194,38 @@ public class DefaultReservationService implements ReservationService {
     @Override
     public Boolean confirmReservation(Long id) {
         Reservation reservation = reservationRepository.getOne(id);
+        LOG.info("Retrieved reservation: {}", reservation);
         LocalDate checkIn = reservation.getCheckInDate();
         LocalDate checkOut = reservation.getCheckOutDate();
         RoomType roomType = roomTypeRepository.findRoomTypeByName(reservation.getRoomTypeName());
+        LOG.info("Retrieved roomType: {}", roomType);
         List<Room> rooms = roomRepository.findAllByRoomType(roomType);
-
-        //List<Reservation> reservations = reservationRepository.findAllByHotelAndCheckInDateAfter(hotel, LocalDate.now());
+        LOG.info("All rooms: {}", rooms);
 
         for (Room room : rooms) {
+            LOG.info("Room from the list: {}", room);
             if(reservationDatesCheck(room, checkIn, checkOut)) {
                 reservation.setRoom(room);
                 reservation.setStatus(true);
                 reservationRepository.save(reservation);
+                LOG.info("Room from the list: {} - TRUE", room);
                 return true;
             }
+            LOG.info("Room from the list: {} - FALSE", room);
         }
+
         return false;
     }
 
     public Boolean reservationDatesCheck(Room room , LocalDate checkIn, LocalDate checkOut) {
         List<Reservation> reservationsByRoom = reservationRepository.findAllByRoom(room);
         LOG.info("ReservationsByRoom: {}", reservationsByRoom);
+        LOG.info("New reservation - check-in: {} and check-out: {}", checkIn, checkOut);
         for (Reservation res : reservationsByRoom) {
             if(!(res.getCheckInDate().isBefore(checkIn) && (res.getCheckOutDate().isBefore(checkIn) || res.getCheckOutDate().isEqual(checkIn))) ||
                     !((res.getCheckInDate().isAfter(checkOut) || res.getCheckInDate().isEqual(checkOut)) && res.getCheckOutDate().isAfter(checkOut))) {
+                LOG.info("Reservation checkIn: {}", res.getCheckInDate());
+                LOG.info("Reservation checkIn: {}", res.getCheckOutDate());
                 return false;
             }
         }
