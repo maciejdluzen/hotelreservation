@@ -1,0 +1,1 @@
+INSERT INTO hotels values (1, 'Plaza Inn - Wroclaw', 'Rynek', '12', 'Wroclaw', '53-400', '+48 71 333-45-85', 'wroclaw@plazainn.com');
