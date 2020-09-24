@@ -12,6 +12,7 @@ if(urlParams.get('msg') === 'addedHotel') {
 }
 
 $("#showFormBtn").click(function(){
-    $("#newHotelForm").toggle();
+    $('#editHotelForm').hide();
+    $("#newHotelForm").show();
 });
 

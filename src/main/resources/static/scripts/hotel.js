@@ -72,6 +72,7 @@ var HotelUtils = {
     },
 
     showEditUtils : function() {
+        $('#newHotelForm').hide();
         $('#editHotelForm').show();
     },
 

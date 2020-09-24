@@ -159,8 +159,9 @@
                 <div class="col-sm-4">
 
                     <div class="row d-flex justify-content-between mb-2">
-                        <h4>Zestawienie pokoi dla hotelu</h4>
-                        <button th:unless=${#lists.isEmpty(roomTypes)} type="submit" id="showRoomFormBtn" class="btn btn-primary btn-sm">Nowy pokój</button>
+                        <h4 th:if="${hotelId} == null" th:text="'Zestawienie pokoi dla hotelu'"></h4>
+                        <h4 th:if="${hotelId} != null" th:text="'Zestawienie pokoi dla hotelu o id: ' + ${hotelId}"></h4>
+                        <button th:unless="${#lists.isEmpty(roomTypes)}" type="submit" id="showRoomFormBtn" class="btn btn-primary btn-sm">Nowy pokój</button>
                     </div>
                     <div class="row">
                         <div class="table-responsive">

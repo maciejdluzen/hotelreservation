@@ -94,6 +94,8 @@ public class AdminController {
         List<GetRoomDto> roomsDto = roomService.getAllRoomsByHotelId(hotelId);
         LOG.info("AdminController.class: Hotel rooms: {}", roomsDto);
         model.addAttribute("rooms", roomsDto);
+        model.addAttribute("hotelId", hotelId);
+        LOG.info("Id hotelu: {}", hotelId);
         model.addAttribute("roomTypes", roomTypeService.findAllRoomTypeNames());
         return "admin/dashboard";
     }
