@@ -3,7 +3,7 @@ let GuestAdminUtils = {
     gelAllGuestsWithoutDetails : function() {
 
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://localhost:8081/auth/admin/guests/getall', true);
+        xhr.open('GET', '/auth/admin/guests/getall', true);
 
         xhr.onload = function() {
             if(this.status === 200) {
@@ -48,7 +48,7 @@ let GuestAdminUtils = {
 
     deleteGuest : function(id) {
         let xhr2 = new XMLHttpRequest();
-        let url = 'http://localhost:8081/auth/admin/guests/' + id;
+        let url = '/auth/admin/guests/' + id;
         let method = 'DELETE';
             xhr2.open(method, url, true);
             xhr2.onload = function() {
@@ -77,7 +77,7 @@ let GuestAdminUtils = {
 
         if(confirm('Potwierdź zmianę statusu gościa')) {
             $.ajax({
-                url : 'http://localhost:8081/auth/admin/guests/' + id + '/deactivate',
+                url : '/auth/admin/guests/' + id + '/deactivate',
                 type :'PUT',
                 success : function (result, status) {
                     setTimeout(function() {
