@@ -5,7 +5,7 @@ Hotel reservation and management system.
 Click the following url to access the web application: https://hotelreservationmaciejd.herokuapp.com
 
 **You may encounter the Heroku error at the first time, when entering the web page 
-(error may occure up to 3 times) - it that case, please refresh the browser**
+(error may occur up to 3 times) - in that case, please refresh the browser**
 
 #### Overview of the functionalities
 
@@ -41,4 +41,4 @@ The application has been deployed to Heroku cloud and uses free remote MySQL dat
 #### Testing
 
 Please feel free to access the webpage and register a new guest account (valid email address is required).
-If you wish to test either admin's or receptionist's functionalities, please contact me via github for credentials.  
+If you wish to test either admin's or receptionist's functionalities, please contact me for credentials.  
